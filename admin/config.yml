@@ -1,0 +1,22 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "posts"
+    label: "Artículos"
+    folder: "content/posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    format: "json"
+    fields:
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Fecha de Publicación", name: "date", widget: "datetime" }
+      - { label: "Categoría", name: "category", widget: "select", options: ["Conservación", "Mascotas", "Derechos y Leyes", "Ciencia y Eco", "Opinión", "Reportajes"] }
+      - { label: "Autor", name: "author", widget: "string", default: "La Especie" }
+      - { label: "Imagen Destacada", name: "image", widget: "image", required: false }
+      - { label: "Resumen (Breve extracto)", name: "excerpt", widget: "text" }
+      - { label: "Cuerpo de la Noticia", name: "body", widget: "markdown" }

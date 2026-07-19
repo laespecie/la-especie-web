@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Especie | El Medio de los Animales</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Netlify Identity Widget -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- TOP UTILITY BAR -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="top-bar-left">
+                <span id="current-date"><i class="fa-regular fa-calendar"></i> Cargando fecha...</span>
+                <span class="weather-widget"><i class="fa-solid fa-cloud-sun"></i> Concepción: 12°C</span>
+            </div>
+            <div class="top-bar-right">
+                <a href="#" class="social-link"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" class="social-link"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+                <span class="divider">|</span>
+                <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+                    <i class="fa-solid fa-moon"></i> Modo Oscuro
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN BRAND HEADER -->
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="header-placeholder-left">
+                <a href="#" class="subscribe-btn-top">SUSCRÍBETE</a>
+            </div>
+            <div class="logo-wrapper">
+                <a href="/">
+                    <img src="logo.png" alt="La Especie - El Medio de los Animales" class="brand-logo">
+                </a>
+            </div>
+            <div class="header-placeholder-right">
+                <a href="/admin/" class="login-btn-top"><i class="fa-regular fa-user"></i> Iniciar Sesión</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- SPONSOR SPOTLIGHT: LEADERBOARD AD (EvocaMail) -->
+    <div class="ad-container container text-center">
+        <div class="ad-banner leaderboard-ad">
+            <span class="ad-label">Auspiciado por EvocaMail</span>
+            <div class="ad-content-wrapper">
+                <div class="ad-logo-img-container">
+                    <img src="evocamail-logo.png" alt="EvocaMail" class="ad-logo-img">
+                </div>
+                <div class="ad-text-info">
+                    <h4>EvocaMail | Legado Digital</h4>
+                    <p>Asegura tus recuerdos, mensajes y cartas importantes para el mañana. Programa envíos futuros para quienes más quieres.</p>
+                </div>
+                <a href="https://evocamail.com" target="_blank" class="ad-cta-btn">Crear Legado <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- STICKY NAVBAR -->
+    <nav class="main-nav" id="sticky-navbar">
+        <div class="container nav-container">
+            <button class="menu-toggle-btn" id="menu-toggle" aria-label="Abrir menú">
+                <i class="fa-solid fa-bars"></i> Menú
+            </button>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#" class="active" data-category="all">Inicio</a></li>
+                <li><a href="#" data-category="Conservación">Conservación</a></li>
+                <li><a href="#" data-category="Mascotas">Mascotas</a></li>
+                <li><a href="#" data-category="Derechos y Leyes">Derechos y Leyes</a></li>
+                <li><a href="#" data-category="Ciencia y Eco">Ciencia y Eco</a></li>
+                <li><a href="#" data-category="Opinión">Opinión</a></li>
+                <li><a href="#" data-category="Reportajes">Reportajes</a></li>
+            </ul>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Buscar noticia..." aria-label="Buscar">
+                <button type="submit" aria-label="Buscar" id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN NEWS GRID -->
+    <main class="container main-content-layout">
+        
+        <!-- Left & Center Content: Editorial Grid -->
+        <section class="news-editorial-grid">
+            
+            <div class="section-title-bar">
+                <span class="section-badge badge-conservation" id="feed-title">PORTADA PRINCIPAL</span>
+                <span class="section-trend"><i class="fa-solid fa-fire"></i> EN TIEMPO REAL</span>
+            </div>
+
+            <!-- DYNAMIC PORTADA CONTAINER -->
+            <div id="news-feed-container">
+                <!-- Fallback / Loader -->
+                <div class="loader-container text-center" style="padding: 50px 0;">
+                    <i class="fa-solid fa-circle-notch fa-spin fa-2x" style="color: var(--accent-color);"></i>
+                    <p style="margin-top: 10px; color: var(--text-muted);">Cargando noticias...</p>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Sidebar: Lo Último, Más Leído y Auspicios -->
+        <aside class="sidebar-layout">
+            
+            <!-- SPONSOR BOX: SQUARE AD (EvocaMail) -->
+            <div class="sidebar-ad-box">
+                <span class="sidebar-ad-label">AUSPICIADOR</span>
+                <div class="evocamail-sidebar-ad">
+                    <div class="ad-header-img-container">
+                        <img src="evocamail-logo.png" alt="EvocaMail" class="ad-sidebar-logo-img">
+                    </div>
+                    <p class="ad-slogan">¿Qué pasará con tus historias y recuerdos?</p>
+                    <p class="ad-desc">Crea cartas de legado digital que se entregarán de forma segura a tus seres queridos en el futuro. Privado, cifrado y confiable.</p>
+                    <ul class="ad-features">
+                        <li><i class="fa-solid fa-check"></i> Mensajes post-mortem programados</li>
+                        <li><i class="fa-solid fa-check"></i> Transferencia segura de documentos</li>
+                        <li><i class="fa-solid fa-check"></i> Envío automatizado garantizado</li>
+                    </ul>
+                    <a href="https://evocamail.com" target="_blank" class="ad-sidebar-cta">Crear Tu Legado Gratis <i class="fa-solid fa-chevron-right"></i></a>
+                </div>
+            </div>
+
+            <!-- LO ÚLTIMO (Dynamic List) -->
+            <div class="sidebar-widget">
+                <h3 class="widget-title">LO ÚLTIMO</h3>
+                <div class="latest-news-list" id="latest-news-container">
+                    <p class="text-muted" style="font-size: 0.8rem;">Cargando novedades...</p>
+                </div>
+            </div>
+
+            <!-- LO MÁS LEÍDO (Dynamic or Mock list) -->
+            <div class="sidebar-widget">
+                <h3 class="widget-title">LO MÁS LEÍDO</h3>
+                <div class="most-read-list" id="most-read-container">
+                    <!-- Rendered dynamically -->
+                </div>
+            </div>
+
+        </aside>
+
+    </main>
+
+    <!-- MID PAGE AD BANNER -->
+    <div class="container mid-ad-section">
+        <div class="ad-banner-horizontal">
+            <span class="ad-label">Auspiciador Destacado</span>
+            <div class="mid-ad-flex">
+                <div class="mid-ad-brand-img-container">
+                    <img src="evocamail-logo.png" alt="EvocaMail" class="ad-mid-logo-img">
+                </div>
+                <p class="mid-ad-text">Deja un mensaje para el mañana. EvocaMail asegura que tu voz permanezca en el tiempo para proteger y acompañar a tu familia cuando no estés.</p>
+                <a href="https://evocamail.com" target="_blank" class="ad-btn-link">Saber Más <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- CATEGORY SECTION: MASCOTAS -->
+    <section class="container category-section-block">
+        <div class="section-heading-editorial">
+            <h2>Mascotas & Convivencia</h2>
+            <a href="#" class="view-all-link" id="view-all-pets">Ver todo de esta sección <i class="fa-solid fa-arrow-right-long"></i></a>
+        </div>
+        <div class="category-grid-row" id="pets-category-container">
+            <p class="text-muted" style="grid-column: 1 / -1; text-align: center; padding: 20px;">Cargando artículos...</p>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER SIGNUP BOX -->
+    <section class="newsletter-subscription-box container">
+        <div class="newsletter-content">
+            <div class="newsletter-text-side">
+                <h2>Únete a la Manada 🐾</h2>
+                <p>Recibe todos los viernes nuestro boletín con las noticias más importantes sobre conservación, consejos veterinarios y la defensa de los derechos animales.</p>
+            </div>
+            <div class="newsletter-form-side">
+                <form id="newsletter-form" class="newsletter-form">
+                    <input type="email" id="subscriber-email" placeholder="Tu correo electrónico" required aria-label="Correo electrónico">
+                    <button type="submit" class="submit-newsletter-btn">Suscribirse</button>
+                </form>
+                <p class="form-feedback" id="newsletter-feedback"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="main-footer-section">
+        <div class="container footer-content-wrapper">
+            <div class="footer-brand">
+                <img src="logo.png" alt="La Especie" class="footer-logo">
+                <p>El primer diario digital dedicado exclusivamente al periodismo animal, la ecología y el bienestar de todas las especies de nuestro entorno.</p>
+                <div class="footer-socials">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-links-grid">
+                <div class="footer-col">
+                    <h4>Secciones</h4>
+                    <ul>
+                        <li><a href="#" data-category="Conservación">Conservación</a></li>
+                        <li><a href="#" data-category="Mascotas">Mascotas</a></li>
+                        <li><a href="#" data-category="Derechos y Leyes">Derechos Animales</a></li>
+                        <li><a href="#" data-category="Ciencia y Eco">Ciencia & Ecología</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Nosotros</h4>
+                    <ul>
+                        <li><a href="#">Quiénes Somos</a></li>
+                        <li><a href="#">Equipo Editorial</a></li>
+                        <li><a href="#">Contacto</a></li>
+                        <li><a href="#">Soporte Técnico</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Monetización</h4>
+                    <ul>
+                        <li><a href="#">Tarifas Publicitarias</a></li>
+                        <li><a href="#">Auspiciar Boletín</a></li>
+                        <li><a href="#">Alianzas y Donaciones</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom-bar">
+            <div class="container footer-bottom-flex">
+                <p>&copy; 2026 La Especie. Todos los derechos reservados. Diseñado con ❤️ para la conservación animal.</p>
+                <p>Impulsado por <a href="https://evocamail.com" target="_blank" class="evocamail-link">EvocaMail</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Netlify Identity Redirection Code -->
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
+    <script src="app.js"></script>
+</body>
+</html>

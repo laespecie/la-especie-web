@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artículo | La Especie</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Marked JS for Markdown Parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- TOP UTILITY BAR -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="top-bar-left">
+                <span id="current-date"><i class="fa-regular fa-calendar"></i> Cargando fecha...</span>
+                <span class="weather-widget"><i class="fa-solid fa-cloud-sun"></i> Concepción: 12°C</span>
+            </div>
+            <div class="top-bar-right">
+                <a href="#" class="social-link"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" class="social-link"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+                <span class="divider">|</span>
+                <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+                    <i class="fa-solid fa-moon"></i> Modo Oscuro
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN BRAND HEADER -->
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="header-placeholder-left">
+                <a href="#" class="subscribe-btn-top">SUSCRÍBETE</a>
+            </div>
+            <div class="logo-wrapper">
+                <a href="/">
+                    <img src="logo.png" alt="La Especie - El Medio de los Animales" class="brand-logo">
+                </a>
+            </div>
+            <div class="header-placeholder-right">
+                <a href="/admin/" class="login-btn-top"><i class="fa-regular fa-user"></i> Iniciar Sesión</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- STICKY NAVBAR -->
+    <nav class="main-nav" id="sticky-navbar">
+        <div class="container nav-container">
+            <a href="/" class="menu-toggle-btn" style="display: block; font-weight: 700; text-transform: uppercase;">
+                <i class="fa-solid fa-arrow-left"></i> Volver a Portada
+            </a>
+            <ul class="nav-links">
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/#Conservación">Conservación</a></li>
+                <li><a href="/#Mascotas">Mascotas</a></li>
+                <li><a href="/#Derechos y Leyes">Derechos y Leyes</a></li>
+                <li><a href="/#Ciencia y Eco">Ciencia y Eco</a></li>
+                <li><a href="/#Opinión">Opinión</a></li>
+                <li><a href="/#Reportajes">Reportajes</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ARTICLE LAYOUT -->
+    <main class="container main-content-layout">
+        
+        <!-- Left & Center Content: The Article Detail -->
+        <section class="news-editorial-grid" id="article-detail-container">
+            
+            <div id="article-loader" class="text-center" style="padding: 100px 0;">
+                <i class="fa-solid fa-circle-notch fa-spin fa-3x" style="color: var(--accent-color);"></i>
+                <p style="margin-top: 15px; color: var(--text-muted);">Cargando artículo...</p>
+            </div>
+
+            <article class="single-article-view" id="article-content" style="display: none;">
+                <div class="article-detail-header">
+                    <span class="section-badge" id="article-badge" style="background-color: var(--accent-color);">CATEGORÍA</span>
+                    <h1 id="article-title" class="article-detail-title">Título de la noticia</h1>
+                    <p id="article-excerpt" class="article-detail-excerpt">Resumen o copete de la noticia que contextualiza la lectura.</p>
+                    
+                    <div class="article-meta" style="margin-bottom: 25px;">
+                        <span class="author">Por <strong id="article-author">Autor</strong></span>
+                        <span class="date"><i class="fa-regular fa-calendar"></i> <span id="article-date">Fecha</span></span>
+                    </div>
+                </div>
+
+                <div class="hero-img-container" id="article-img-wrapper" style="margin-bottom: 30px;">
+                    <img src="" alt="Imagen del artículo" id="article-img" style="width: 100%; max-height: 500px; object-fit: cover;">
+                </div>
+
+                <!-- Markdown Content rendered here -->
+                <div id="article-body" class="article-body-content">
+                    <!-- Text goes here -->
+                </div>
+            </article>
+
+            <div id="article-error" class="text-center" style="display: none; padding: 80px 0;">
+                <i class="fa-solid fa-triangle-exclamation fa-4x" style="color: #dc2626; margin-bottom: 20px;"></i>
+                <h2>Noticia no encontrada</h2>
+                <p style="color: var(--text-muted); margin-bottom: 25px;">El artículo solicitado no existe o ha sido eliminado.</p>
+                <a href="/" class="subscribe-btn-top" style="display: inline-block;">Volver a Portada</a>
+            </div>
+
+        </section>
+
+        <!-- Sidebar -->
+        <aside class="sidebar-layout">
+            
+            <!-- SPONSOR BOX: SQUARE AD (EvocaMail) -->
+            <div class="sidebar-ad-box">
+                <span class="sidebar-ad-label">AUSPICIADOR</span>
+                <div class="evocamail-sidebar-ad">
+                    <div class="ad-header-img-container">
+                        <img src="evocamail-logo.png" alt="EvocaMail" class="ad-sidebar-logo-img">
+                    </div>
+                    <p class="ad-slogan">¿Qué pasará con tus historias y recuerdos?</p>
+                    <p class="ad-desc">Crea cartas de legado digital que se entregarán de forma segura a tus seres queridos en el futuro. Privado, cifrado y confiable.</p>
+                    <a href="https://evocamail.com" target="_blank" class="ad-sidebar-cta">Crear Tu Legado Gratis <i class="fa-solid fa-chevron-right"></i></a>
+                </div>
+            </div>
+
+            <!-- LO ÚLTIMO (Dynamic List) -->
+            <div class="sidebar-widget">
+                <h3 class="widget-title">LO ÚLTIMO</h3>
+                <div class="latest-news-list" id="latest-news-container">
+                    <p class="text-muted" style="font-size: 0.8rem;">Cargando novedades...</p>
+                </div>
+            </div>
+
+        </aside>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="main-footer-section">
+        <div class="container footer-content-wrapper">
+            <div class="footer-brand">
+                <img src="logo.png" alt="La Especie" class="footer-logo">
+                <p>El primer diario digital dedicado exclusivamente al periodismo animal, la ecología y el bienestar de todas las especies de nuestro entorno.</p>
+                <div class="footer-socials">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-links-grid">
+                <div class="footer-col">
+                    <h4>Secciones</h4>
+                    <ul>
+                        <li><a href="/">Conservación</a></li>
+                        <li><a href="/">Mascotas</a></li>
+                        <li><a href="/">Derechos Animales</a></li>
+                        <li><a href="/">Ciencia & Ecología</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Nosotros</h4>
+                    <ul>
+                        <li><a href="#">Quiénes Somos</a></li>
+                        <li><a href="#">Equipo Editorial</a></li>
+                        <li><a href="#">Contacto</a></li>
+                        <li><a href="#">Soporte Técnico</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom-bar">
+            <div class="container footer-bottom-flex">
+                <p>&copy; 2026 La Especie. Todos los derechos reservados. Diseñado con ❤️ para la conservación animal.</p>
+                <p>Impulsado por <a href="https://evocamail.com" target="_blank" class="evocamail-link">EvocaMail</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // DYNAMIC DATE
+            const dateSpan = document.getElementById("current-date");
+            if (dateSpan) {
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const today = new Date();
+                let dateString = today.toLocaleDateString('es-ES', options);
+                dateSpan.innerHTML = `<i class="fa-regular fa-calendar"></i> ${dateString.charAt(0).toUpperCase() + dateString.slice(1)}`;
+            }
+
+            // THEME TOGGLE
+            const themeToggleBtn = document.getElementById("theme-toggle");
+            const savedTheme = localStorage.getItem("theme");
+            if (savedTheme === "dark") {
+                document.documentElement.setAttribute("data-theme", "dark");
+                themeToggleBtn.innerHTML = `<i class="fa-solid fa-sun"></i> Modo Claro`;
+            }
+            themeToggleBtn.addEventListener("click", () => {
+                const currentTheme = document.documentElement.getAttribute("data-theme");
+                if (currentTheme === "dark") {
+                    document.documentElement.removeAttribute("data-theme");
+                    localStorage.setItem("theme", "light");
+                    themeToggleBtn.innerHTML = `<i class="fa-solid fa-moon"></i> Modo Oscuro`;
+                } else {
+                    document.documentElement.setAttribute("data-theme", "dark");
+                    localStorage.setItem("theme", "dark");
+                    themeToggleBtn.innerHTML = `<i class="fa-solid fa-sun"></i> Modo Claro`;
+                }
+            });
+
+            // FETCH LO ÚLTIMO IN SIDEBAR
+            fetch('/posts-index.json')
+                .then(res => res.json())
+                .then(posts => {
+                    const latestNewsContainer = document.getElementById("latest-news-container");
+                    if (latestNewsContainer && posts.length > 0) {
+                        latestNewsContainer.innerHTML = "";
+                        posts.slice(0, 4).forEach(post => {
+                            const dateObj = new Date(post.date);
+                            const hours = String(dateObj.getHours()).padStart(2, '0');
+                            const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+                            const timeStr = `${hours}:${minutes}`;
+
+                            const item = document.createElement("div");
+                            item.className = "latest-news-item";
+                            item.innerHTML = `
+                                <span class="time">${timeStr}</span>
+                                <h4 class="title"><a href="/articulo.html?id=${post.id}">${post.title}</a></h4>
+                            `;
+                            latestNewsContainer.appendChild(item);
+                        });
+                    }
+                })
+                .catch(err => console.error("Error loading sidebar list", err));
+
+            // LOAD ARTICLE DETAIL
+            const urlParams = new URLSearchParams(window.location.search);
+            const postId = urlParams.get('id');
+
+            const loader = document.getElementById("article-loader");
+            const content = document.getElementById("article-content");
+            const errorView = document.getElementById("article-error");
+
+            if (!postId) {
+                loader.style.display = "none";
+                errorView.style.display = "block";
+                return;
+            }
+
+            fetch(`/content/posts/${postId}.json`)
+                .then(res => {
+                    if (!res.ok) throw new Error("Post not found");
+                    return res.json();
+                })
+                .then(post => {
+                    loader.style.display = "none";
+                    content.style.display = "block";
+
+                    // Populate fields
+                    document.title = `${post.title} | La Especie`;
+                    document.getElementById("article-title").textContent = post.title;
+                    document.getElementById("article-excerpt").textContent = post.excerpt || "";
+                    document.getElementById("article-author").textContent = post.author || "La Especie";
+                    
+                    // Set category color badge
+                    const badge = document.getElementById("article-badge");
+                    badge.textContent = post.category || "General";
+                    badge.className = "section-badge";
+                    if (post.category === "Conservación") badge.style.backgroundColor = "var(--color-conservation)";
+                    if (post.category === "Mascotas") badge.style.backgroundColor = "var(--color-pets)";
+                    if (post.category === "Ciencia y Eco") badge.style.backgroundColor = "var(--color-science)";
+                    if (post.category === "Derechos y Leyes") badge.style.backgroundColor = "var(--color-legislation)";
+
+                    // Format date
+                    const postDate = new Date(post.date);
+                    const dateOptions = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+                    document.getElementById("article-date").textContent = postDate.toLocaleDateString('es-ES', dateOptions);
+
+                    // Set Image
+                    const imgWrapper = document.getElementById("article-img-wrapper");
+                    const img = document.getElementById("article-img");
+                    if (post.image) {
+                        img.src = post.image;
+                        img.alt = post.title;
+                        imgWrapper.style.display = "block";
+                    } else {
+                        imgWrapper.style.display = "none";
+                    }
+
+                    // Render Markdown body
+                    const bodyContainer = document.getElementById("article-body");
+                    bodyContainer.innerHTML = marked.parse(post.body || "");
+                })
+                .catch(err => {
+                    console.error("Error loading article", err);
+                    loader.style.display = "none";
+                    errorView.style.display = "block";
+                });
+        });
+    </script>
+</body>
+</html>
