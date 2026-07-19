@@ -199,10 +199,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const div = document.createElement("article");
         div.className = "hero-article";
         
-        let categoryColor = "var(--color-conservation)";
+        let categoryColor = "var(--accent-color)";
+        if (post.category === "Conservación") categoryColor = "var(--color-conservation)";
         if (post.category === "Mascotas") categoryColor = "var(--color-pets)";
-        if (post.category === "Ciencia y Eco") categoryColor = "var(--color-science)";
-        if (post.category === "Derechos y Leyes") categoryColor = "var(--color-legislation)";
+        if (post.category === "Ciencia") categoryColor = "var(--color-science)";
+        if (post.category === "Legislación") categoryColor = "var(--color-legislation)";
 
         const imageHtml = post.image 
             ? `<div class="hero-img-container"><img src="${post.image}" alt="${post.title}" class="article-img"></div>`
@@ -232,10 +233,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const card = document.createElement("article");
         card.className = "news-card";
 
-        let categoryColorClass = "category-conservation";
+        let categoryColorClass = "category-default";
+        if (post.category === "Conservación") categoryColorClass = "category-conservation";
         if (post.category === "Mascotas") categoryColorClass = "category-pets";
-        if (post.category === "Ciencia y Eco") categoryColorClass = "category-science";
-        if (post.category === "Derechos y Leyes") categoryColorClass = "category-legislation";
+        if (post.category === "Ciencia") categoryColorClass = "category-science";
+        if (post.category === "Legislación") categoryColorClass = "category-legislation";
 
         const imageSrc = post.image || 'https://images.unsplash.com/photo-1444212477490-ca407925329e?auto=format&fit=crop&q=80&w=400';
         const dateStr = formatDate(post.date);

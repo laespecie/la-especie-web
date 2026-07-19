@@ -264,6 +264,12 @@ a:hover {
     max-height: 38px;
     width: auto;
     object-fit: contain;
+    filter: brightness(0.15);
+    transition: filter var(--transition-speed);
+}
+
+[data-theme="dark"] .ad-logo-img {
+    filter: none;
 }
 
 .ad-text-info {
@@ -547,6 +553,18 @@ a:hover {
     background-color: var(--color-science);
 }
 
+.category-conservation {
+    background-color: var(--color-conservation);
+}
+
+.category-legislation {
+    background-color: var(--color-legislation);
+}
+
+.category-default {
+    background-color: var(--accent-color);
+}
+
 .card-title {
     font-family: var(--font-serif);
     font-size: 1.25rem;
@@ -607,6 +625,12 @@ a:hover {
     max-height: 35px;
     width: auto;
     object-fit: contain;
+    filter: brightness(0.15);
+    transition: filter var(--transition-speed);
+}
+
+[data-theme="dark"] .ad-sidebar-logo-img {
+    filter: none;
 }
 
 .evocamail-sidebar-ad .ad-slogan {
