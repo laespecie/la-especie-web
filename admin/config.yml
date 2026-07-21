@@ -20,3 +20,16 @@ collections:
       - { label: "Imagen Destacada", name: "image", widget: "image", required: false }
       - { label: "Resumen (Breve extracto)", name: "excerpt", widget: "text" }
       - { label: "Cuerpo de la Noticia", name: "body", widget: "markdown" }
+
+  - name: "obituarios"
+    label: "Obituarios (En Memoria)"
+    folder: "content/obituarios"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    format: "json"
+    fields:
+      - { label: "Nombre de la Mascota", name: "pet_name", widget: "string" }
+      - { label: "Años (Ej: 2012 - 2026)", name: "years", widget: "string" }
+      - { label: "Familia / Remitentes", name: "family", widget: "string" }
+      - { label: "Fotografía de la Mascota", name: "image", widget: "image" }
+      - { label: "Epitafio / Mensaje", name: "message", widget: "text" }

@@ -452,4 +452,46 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    // 11. MODAL LOGIC (Reporteros & Obituarios)
+    const modalReporteros = document.getElementById("modal-reporteros");
+    const modalObituario = document.getElementById("modal-obituario");
+    
+    const btnReporteros = document.getElementById("trigger-reporteros-btn");
+    const btnObituario = document.getElementById("trigger-obituario-btn");
+    const btnObituarioCard = document.getElementById("card-obituario-btn");
+
+    const closeReporteros = document.getElementById("close-reporteros");
+    const closeObituario = document.getElementById("close-obituario");
+
+    if (btnReporteros && modalReporteros) {
+        btnReporteros.addEventListener("click", () => {
+            modalReporteros.style.display = "flex";
+        });
+    }
+
+    if (closeReporteros && modalReporteros) {
+        closeReporteros.addEventListener("click", () => {
+            modalReporteros.style.display = "none";
+        });
+    }
+
+    const openObituario = () => {
+        if (modalObituario) modalObituario.style.display = "flex";
+    };
+
+    if (btnObituario) btnObituario.addEventListener("click", openObituario);
+    if (btnObituarioCard) btnObituarioCard.addEventListener("click", openObituario);
+
+    if (closeObituario && modalObituario) {
+        closeObituario.addEventListener("click", () => {
+            modalObituario.style.display = "none";
+        });
+    }
+
+    // Close modals when clicking outside modal content
+    window.addEventListener("click", (e) => {
+        if (e.target === modalReporteros) modalReporteros.style.display = "none";
+        if (e.target === modalObituario) modalObituario.style.display = "none";
+    });
 });
