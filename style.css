@@ -1120,6 +1120,14 @@ a:hover {
     text-decoration: underline;
 }
 
+.creator-signature {
+    font-family: 'Times New Roman', Times, Georgia, serif;
+    font-weight: bold;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    margin-left: 3px;
+}
+
 /* --- RESPONSIVE DESIGN (Adaptive breakpoints) --- */
 @media (max-width: 1024px) {
     .main-content-layout {
