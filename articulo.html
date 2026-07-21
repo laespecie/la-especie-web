@@ -268,12 +268,21 @@
                     
                     // Set category color badge
                     const badge = document.getElementById("article-badge");
-                    badge.textContent = post.category || "General";
+                    const categoryValue = post.category || "General";
+                    
+                    if (Array.isArray(categoryValue)) {
+                        badge.textContent = categoryValue.join(" / ").toUpperCase();
+                    } else {
+                        badge.textContent = String(categoryValue).toUpperCase();
+                    }
+                    
                     badge.className = "section-badge";
-                    if (post.category === "Conservación") badge.style.backgroundColor = "var(--color-conservation)";
-                    if (post.category === "Mascotas") badge.style.backgroundColor = "var(--color-pets)";
-                    if (post.category === "Ciencia y Eco") badge.style.backgroundColor = "var(--color-science)";
-                    if (post.category === "Derechos y Leyes") badge.style.backgroundColor = "var(--color-legislation)";
+                    const mainCategory = Array.isArray(categoryValue) ? categoryValue[0] : categoryValue;
+                    if (mainCategory === "Conservación") badge.style.backgroundColor = "var(--color-conservation)";
+                    else if (mainCategory === "Mascotas") badge.style.backgroundColor = "var(--color-pets)";
+                    else if (mainCategory === "Ciencia") badge.style.backgroundColor = "var(--color-science)";
+                    else if (mainCategory === "Legislación") badge.style.backgroundColor = "var(--color-legislation)";
+                    else badge.style.backgroundColor = "var(--accent-color)";
 
                     // Format date
                     const postDate = new Date(post.date);

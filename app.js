@@ -104,7 +104,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Filter by category
         if (filterCategory !== "all") {
-            filtered = filtered.filter(p => p.category === filterCategory);
+            filtered = filtered.filter(p => {
+                if (!p.category) return false;
+                if (Array.isArray(p.category)) {
+                    return p.category.includes(filterCategory);
+                }
+                return p.category === filterCategory;
+            });
         }
 
         // Filter by search query
@@ -200,16 +206,42 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
     }
 
+    // Helper: Get category display text
+    function getCategoryText(category) {
+        if (!category) return "";
+        if (Array.isArray(category)) {
+            return category.join(" / ").toUpperCase();
+        }
+        return String(category).toUpperCase();
+    }
+
+    // Helper: Get category background color
+    function getCategoryColor(category) {
+        const mainCat = Array.isArray(category) ? category[0] : category;
+        if (mainCat === "Conservación") return "var(--color-conservation)";
+        if (mainCat === "Mascotas") return "var(--color-pets)";
+        if (mainCat === "Ciencia") return "var(--color-science)";
+        if (mainCat === "Legislación") return "var(--color-legislation)";
+        return "var(--accent-color)";
+    }
+
+    // Helper: Get category CSS class
+    function getCategoryClass(category) {
+        const mainCat = Array.isArray(category) ? category[0] : category;
+        if (mainCat === "Conservación") return "category-conservation";
+        if (mainCat === "Mascotas") return "category-pets";
+        if (mainCat === "Ciencia") return "category-science";
+        if (mainCat === "Legislación") return "category-legislation";
+        return "category-default";
+    }
+
     // Helper: Create Hero HTML Card
     function createHeroHtml(post) {
         const div = document.createElement("article");
         div.className = "hero-article";
         
-        let categoryColor = "var(--accent-color)";
-        if (post.category === "Conservación") categoryColor = "var(--color-conservation)";
-        if (post.category === "Mascotas") categoryColor = "var(--color-pets)";
-        if (post.category === "Ciencia") categoryColor = "var(--color-science)";
-        if (post.category === "Legislación") categoryColor = "var(--color-legislation)";
+        const categoryColor = getCategoryColor(post.category);
+        const categoryText = getCategoryText(post.category);
 
         const imageHtml = post.image 
             ? `<div class="hero-img-container"><img src="${post.image}" alt="${post.title}" class="article-img"></div>`
@@ -221,7 +253,7 @@ document.addEventListener("DOMContentLoaded", () => {
             ${imageHtml}
             <div class="hero-body">
                 <div style="margin-bottom: 10px;">
-                    <span class="section-badge" style="background-color: ${categoryColor}; font-size: 0.65rem;">${post.category.toUpperCase()}</span>
+                    <span class="section-badge" style="background-color: ${categoryColor}; font-size: 0.65rem;">${categoryText}</span>
                 </div>
                 <h1 class="hero-title"><a href="/articulo.html?id=${post.id}">${post.title}</a></h1>
                 <p class="hero-excerpt">${post.excerpt || ''}</p>
@@ -239,11 +271,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const card = document.createElement("article");
         card.className = "news-card";
 
-        let categoryColorClass = "category-default";
-        if (post.category === "Conservación") categoryColorClass = "category-conservation";
-        if (post.category === "Mascotas") categoryColorClass = "category-pets";
-        if (post.category === "Ciencia") categoryColorClass = "category-science";
-        if (post.category === "Legislación") categoryColorClass = "category-legislation";
+        const categoryColorClass = getCategoryClass(post.category);
+        const categoryText = getCategoryText(post.category);
 
         const imageSrc = post.image || 'https://images.unsplash.com/photo-1444212477490-ca407925329e?auto=format&fit=crop&q=80&w=400';
         const dateStr = formatDate(post.date);
@@ -251,7 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
         card.innerHTML = `
             <div class="card-img-container">
                 <img src="${imageSrc}" alt="${post.title}" class="article-img">
-                <span class="card-category ${categoryColorClass}">${post.category.toUpperCase()}</span>
+                <span class="card-category ${categoryColorClass}">${categoryText}</span>
             </div>
             <div class="card-body">
                 <h2 class="card-title"><a href="/articulo.html?id=${post.id}">${post.title}</a></h2>
