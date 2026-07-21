@@ -160,43 +160,76 @@ a:hover {
 }
 
 .header-placeholder-left, .header-placeholder-right {
-    width: 200px;
+    min-width: 260px;
     display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .header-placeholder-right {
     justify-content: flex-end;
 }
 
-.subscribe-btn-top {
-    background-color: var(--yellow-accent);
-    color: #1a1a1a;
+.header-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 16px;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
     font-weight: 800;
-    font-size: 0.8rem;
-    padding: 8px 18px;
-    border-radius: 2px;
-    letter-spacing: 1px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 4px;
+    height: 38px;
+    box-sizing: border-box;
     transition: transform 0.2s, background-color var(--transition-speed);
 }
 
-.subscribe-btn-top:hover {
+.header-btn:hover {
     transform: translateY(-1px);
-    background-color: #e5b600;
-    color: #1a1a1a;
 }
 
-.login-btn-top {
-    font-weight: 600;
+.btn-subscribe {
+    background-color: var(--yellow-accent);
+    color: #1a1a1a !important;
+}
+.btn-subscribe:hover {
+    background-color: #e5b600;
+}
+
+.btn-reporter {
+    background-color: #059669;
+    color: #ffffff !important;
+}
+.btn-reporter:hover {
+    background-color: #047857;
+}
+
+.btn-memorial {
+    background-color: #7c3aed;
+    color: #ffffff !important;
+}
+.btn-memorial:hover {
+    background-color: #6d28d9;
+}
+
+.login-link-top {
+    font-weight: 700;
     font-size: 0.85rem;
-    color: var(--text-muted);
-    display: flex;
+    color: var(--text-color);
+    display: inline-flex;
     align-items: center;
     gap: 6px;
+    height: 38px;
+    text-decoration: none;
+    padding: 0 5px;
+    transition: color var(--transition-speed);
 }
 
-.login-btn-top:hover {
-    color: var(--text-color);
+.login-link-top:hover {
+    color: var(--accent-color);
 }
 
 .logo-wrapper {
