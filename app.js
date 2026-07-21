@@ -130,17 +130,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // If we are on Home (Inicio) and not searching: Render standard editorial structure (Hero + Grid)
         if (filterCategory === "all" && !searchQuery) {
-            // HERO ARTICLE (First post)
-            const hero = filtered[0];
+            // Find a post marked as featured, or default to the most recent one
+            let hero = filtered.find(p => p.featured === true || p.featured === "true");
+            if (!hero) {
+                hero = filtered[0];
+            }
+            
+            const otherPosts = filtered.filter(p => p.id !== hero.id);
+            
             const heroHtml = createHeroHtml(hero);
             feedContainer.appendChild(heroHtml);
 
             // SECONDARY GRID (Next two posts)
-            if (filtered.length > 1) {
+            if (otherPosts.length > 0) {
                 const secondaryGrid = document.createElement("div");
                 secondaryGrid.className = "secondary-grid";
                 
-                const cardsToRender = filtered.slice(1, 3);
+                const cardsToRender = otherPosts.slice(0, 2);
                 cardsToRender.forEach(post => {
                     const card = createCardHtml(post);
                     secondaryGrid.appendChild(card);
@@ -149,8 +155,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 feedContainer.appendChild(secondaryGrid);
             }
             
-            // ADDITIONAL NEWS FEED (Posts from index 3 onwards)
-            if (filtered.length > 3) {
+            // ADDITIONAL NEWS FEED (Remaining posts)
+            if (otherPosts.length > 2) {
                 const divider = document.createElement("div");
                 divider.className = "section-title-bar";
                 divider.style.marginTop = "30px";
@@ -161,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 listGrid.className = "secondary-grid";
                 listGrid.style.marginTop = "20px";
 
-                filtered.slice(3).forEach(post => {
+                otherPosts.slice(2).forEach(post => {
                     const card = createCardHtml(post);
                     listGrid.appendChild(card);
                 });

@@ -18,6 +18,7 @@ collections:
       - { label: "Categoría", name: "category", widget: "select", options: ["Reportajes", "Legislación", "Conservación", "Mascotas", "Ciencia", "Internacional", "Opinión"] }
       - { label: "Autor", name: "author", widget: "string", default: "La Especie" }
       - { label: "Imagen Destacada", name: "image", widget: "image", required: false }
+      - { label: "Destacado en Portada Principal", name: "featured", widget: "boolean", default: false, required: false }
       - { label: "Resumen (Breve extracto)", name: "excerpt", widget: "text" }
       - { label: "Cuerpo de la Noticia", name: "body", widget: "markdown" }
 
