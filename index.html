@@ -296,59 +296,20 @@
     <div id="modal-reporteros" class="modal-overlay" style="display: none;">
         <div class="modal-content">
             <button class="modal-close" id="close-reporteros">&times;</button>
-            <div class="modal-header">
+            <div class="modal-header" style="margin-bottom: 0;">
                 <h2><i class="fa-solid fa-bullhorn" style="color: var(--accent-color);"></i> Corresponsales de La Especie</h2>
-                <p>¿Tienes un rescate animal, una denuncia ciudadana o una noticia sobre fauna que el mundo deba conocer? Envíanos los detalles. Nuestro equipo editorial la revisará y publicará dando los créditos correspondientes.</p>
+                <p>¿Tienes una noticia, rescate o denuncia sobre animales? ¡Queremos difundirla! Envíanos un correo directo con los datos.</p>
             </div>
-            <form name="noticias-ciudadanas" class="modal-form">
-                <input type="hidden" name="form-name" value="noticias-ciudadanas">
-                
-                <div class="form-group">
-                    <label for="rep-nombre">Tu Nombre y Apellido *</label>
-                    <input type="text" id="rep-nombre" name="nombre" required placeholder="Ej: Marcela Paz">
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="rep-email">Correo Electrónico *</label>
-                        <input type="email" id="rep-email" name="email" required placeholder="Ej: marcelapaz@gmail.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="rep-telefono">Teléfono de Contacto</label>
-                        <input type="tel" id="rep-telefono" name="telefono" placeholder="Ej: +56 9 1234 5678">
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="rep-titulo">Título de la Noticia *</label>
-                    <input type="text" id="rep-titulo" name="titulo" required placeholder="Ej: Rescate de pudú herido en Chiloé">
-                </div>
-                
-                <div class="form-group">
-                    <label for="rep-categoria">Categoría</label>
-                    <select id="rep-categoria" name="categoria">
-                        <option value="Mascotas">Mascotas</option>
-                        <option value="Conservación">Conservación</option>
-                        <option value="Legislación">Legislación</option>
-                        <option value="Ciencia">Ciencia</option>
-                        <option value="Internacional">Internacional</option>
-                        <option value="Denuncia">Denuncia / Maltrato</option>
-                        <option value="Otro">Otro</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="rep-mensaje">Detalle de la Noticia / Historia *</label>
-                    <textarea id="rep-mensaje" name="mensaje" rows="4" required placeholder="Describe detalladamente qué ocurrió, dónde y cuándo..."></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="rep-foto">Fotografía o Evidencia (Opcional)</label>
-                    <input type="file" id="rep-foto" name="foto" accept="image/*">
-                </div>
-                
-                <button type="submit" class="submit-btn-modal">Enviar Reporte al Equipo Editorial <i class="fa-solid fa-paper-plane"></i></button>
-            </form>
+            <div class="modal-instructions" style="background-color: var(--ad-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; margin: 15px 0; font-size: 0.95rem; line-height: 1.5;">
+                <p style="font-weight: 700; margin-bottom: 10px; color: var(--text-color);">Escríbenos a <span style="color: var(--accent-color); text-decoration: underline;">contacto@laespecie.cl</span> adjuntando:</p>
+                <ul style="padding-left: 20px; color: var(--text-muted); display: flex; flex-direction: column; gap: 8px;">
+                    <li><strong>Tu Nombre y Teléfono</strong> de contacto.</li>
+                    <li><strong>Título sugerido</strong> para la noticia o denuncia.</li>
+                    <li><strong>Detalles de lo ocurrido</strong> (qué pasó, dónde y cuándo).</li>
+                    <li><strong>Fotografías o videos</strong> que respalden tu reporte.</li>
+                </ul>
+            </div>
+            <a href="mailto:contacto@laespecie.cl?subject=%5BNOTICIA%5D%20Corresponsales%20de%20La%20Especie&body=Hola%20Equipo%20de%20La%20Especie%2C%0A%0AQuiero%20reportar%20una%20noticia%3A%0A-%20Mi%20Nombre%3A%0A-%20Mi%20Tel%C3%A9fono%3A%0A-%20T%C3%ADtulo%20de%20la%20noticia%3A%0A-%20Detalle%20de%20los%20hechos%3A%0A%0A(No%20olvides%20adjuntar%20las%20fotograf%C3%ADas%20o%20videos%20de%20respaldo%20a%20este%20correo)%0A%0ASaludos!" class="submit-btn-modal" style="display: block; text-align: center; text-decoration: none; font-weight: 700;">Enviar Correo de Noticia <i class="fa-solid fa-envelope"></i></a>
         </div>
     </div>
 
@@ -356,47 +317,21 @@
     <div id="modal-obituario" class="modal-overlay" style="display: none;">
         <div class="modal-content">
             <button class="modal-close" id="close-obituario">&times;</button>
-            <div class="modal-header">
+            <div class="modal-header" style="margin-bottom: 0;">
                 <h2><i class="fa-solid fa-rainbow" style="color: #7c3aed;"></i> El Cielo de las Mascotas</h2>
-                <p>Dedícale un espacio en nuestro diario a ese compañero inolvidable que ya cruzó el arcoíris. Envíanos sus datos, foto y una breve despedida para publicarlo en la sección de obituarios de La Especie.</p>
+                <p>Publica un memorial para recordar con amor a tu compañero que ya partió.</p>
             </div>
-            <form name="obituario-mascotas" class="modal-form">
-                <input type="hidden" name="form-name" value="obituario-mascotas">
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="obi-mascota">Nombre de tu Mascota *</label>
-                        <input type="text" id="obi-mascota" name="nombre_mascota" required placeholder="Ej: Lucas">
-                    </div>
-                    <div class="form-group">
-                        <label for="obi-anos">Años de Vida (Nacimiento - Partida) *</label>
-                        <input type="text" id="obi-anos" name="anos_vida" required placeholder="Ej: 2012 - 2026">
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="obi-familia">Familia que lo despide *</label>
-                        <input type="text" id="obi-familia" name="familia" required placeholder="Ej: Familia González Silva">
-                    </div>
-                    <div class="form-group">
-                        <label for="obi-email">Tu Correo Electrónico *</label>
-                        <input type="email" id="obi-email" name="email" required placeholder="Ej: contacto@tudominio.com">
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="obi-epitafio">Epitafio / Mensaje de Despedida *</label>
-                    <textarea id="obi-epitafio" name="epitafio" rows="3" required placeholder="Ej: Gracias por 14 años de alegría incondicional. Corriste libre y feliz. Te amaremos por siempre..."></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="obi-foto">Fotografía de tu Mascota *</label>
-                    <input type="file" id="obi-foto" name="foto_mascota" accept="image/*" required>
-                </div>
-                
-                <button type="submit" class="submit-btn-modal submit-btn-heart" style="background-color: #7c3aed;">Enviar al Memorial <i class="fa-solid fa-heart"></i></button>
-            </form>
+            <div class="modal-instructions" style="background-color: var(--ad-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; margin: 15px 0; font-size: 0.95rem; line-height: 1.5;">
+                <p style="font-weight: 700; margin-bottom: 10px; color: var(--text-color);">Escríbenos a <span style="color: #7c3aed; text-decoration: underline;">contacto@laespecie.cl</span> adjuntando:</p>
+                <ul style="padding-left: 20px; color: var(--text-muted); display: flex; flex-direction: column; gap: 8px;">
+                    <li><strong>Nombre de la Mascota</strong> (ej: Lucas).</li>
+                    <li><strong>Años de Vida</strong> (ej: 2012 - 2026).</li>
+                    <li><strong>Familia que lo despide</strong> (ej: Familia González Silva).</li>
+                    <li><strong>Mensaje corto o Epitafio</strong> (dedicatoria de cariño).</li>
+                    <li><strong>Su fotografía más bonita</strong> adjunta al correo.</li>
+                </ul>
+            </div>
+            <a href="mailto:contacto@laespecie.cl?subject=%5BOBITUARIO%5D%20El%20Cielo%20de%20las%20Mascotas&body=Hola%20Equipo%20de%20La%20Especie%2C%0A%0AQuiero%20publicar%20un%20memorial%20en%20El%20Cielo%20de%20las%20Mascotas%3A%0A-%20Nombre%20de%20mi%20mascota%3A%0A-%20A%C3%B1os%20de%20vida%3A%0A-%20Familia%20que%20lo%20despide%3A%0A-%20Epitafio%20o%20mensaje%20de%20despedida%3A%0A%0A(No%20olvides%20adjuntar%20la%20fotograf%C3%ADa%20de%20tu%20mascota%20a%20este%20correo)%0A%0ASaludos!" class="submit-btn-modal" style="display: block; text-align: center; text-decoration: none; font-weight: 700; background-color: #7c3aed;">Enviar Memorial por Correo <i class="fa-solid fa-envelope"></i></a>
         </div>
     </div>
 
