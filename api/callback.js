@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
   const code = req.query.code;
-  const client_id = process.env.OAUTH_CLIENT_ID;
-  const client_secret = process.env.OAUTH_CLIENT_SECRET;
+  const client_id = process.env.OAUTH_CLIENT_ID || process.env.GITHUB_CLIENT_ID;
+  const client_secret = process.env.OAUTH_CLIENT_SECRET || process.env.GITHUB_CLIENT_SECRET;
   const redirect_uri = process.env.REDIRECT_URI || `https://${req.headers.host}/api/callback`;
 
   try {
