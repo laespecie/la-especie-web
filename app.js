@@ -390,9 +390,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const navAnchors = document.querySelectorAll(".nav-links a, .footer-links-grid a");
     navAnchors.forEach(anchor => {
         anchor.addEventListener("click", (e) => {
-            e.preventDefault();
             const cat = e.target.getAttribute("data-category");
             if (!cat) return;
+
+            e.preventDefault();
 
             // Update active states
             document.querySelectorAll(".nav-links a").forEach(a => a.classList.remove("active"));
