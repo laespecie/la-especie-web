@@ -36,16 +36,20 @@ export default async function handler(req, res) {
         <title>Autorizando...</title>
       </head>
       <body>
+        <p style="text-align: center; font-family: sans-serif; margin-top: 50px; color: #666;">
+          Autorización completada. Conectando con el panel...
+        </p>
         <script>
           (function() {
-            function recieveMessage(e) {
-              window.opener.postMessage(
-                'authorization:github:success:${JSON.stringify({ token: token, provider: 'github' })}',
-                e.origin
-              );
+            const token = ${JSON.stringify(token)};
+            const message = 'authorization:github:success:' + JSON.stringify({ token: token, provider: 'github' });
+            
+            if (window.opener) {
+              window.opener.postMessage(message, '*');
+              window.close();
+            } else {
+              document.body.innerHTML = '<p style="text-align: center; font-family: sans-serif; margin-top: 50px; color: #cc0000;">Error: No se pudo comunicar con la ventana principal. Por favor, cierra esta pestaña e intenta de nuevo.</p>';
             }
-            window.addEventListener("message", recieveMessage, false);
-            window.opener.postMessage("authorizing:github", "*");
           })();
         </script>
       </body>
