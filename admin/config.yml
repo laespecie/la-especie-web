@@ -2,6 +2,7 @@ backend:
   name: github
   repo: laespecie/la-especie-web
   branch: main
+  base_url: https://laespecie.cl
   auth_endpoint: api/auth
 
 media_folder: "images/uploads"
