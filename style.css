@@ -15,6 +15,7 @@
     /* Category Colors */
     --color-conservation: #15803d; /* Green */
     --color-pets: #b45309; /* Amber/Orange */
+    --color-tenencia: #0d9488; /* Teal */
     --color-science: #0369a1; /* Light Blue */
     --color-legislation: #7c3aed; /* Purple */
     
@@ -592,6 +593,10 @@ a:hover {
 
 .category-legislation {
     background-color: var(--color-legislation);
+}
+
+.category-tenencia {
+    background-color: var(--color-tenencia);
 }
 
 .category-default {

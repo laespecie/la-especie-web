@@ -220,6 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const mainCat = Array.isArray(category) ? category[0] : category;
         if (mainCat === "Conservación") return "var(--color-conservation)";
         if (mainCat === "Mascotas") return "var(--color-pets)";
+        if (mainCat === "Tenencia") return "var(--color-tenencia)";
         if (mainCat === "Ciencia") return "var(--color-science)";
         if (mainCat === "Legislación") return "var(--color-legislation)";
         return "var(--accent-color)";
@@ -230,6 +231,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const mainCat = Array.isArray(category) ? category[0] : category;
         if (mainCat === "Conservación") return "category-conservation";
         if (mainCat === "Mascotas") return "category-pets";
+        if (mainCat === "Tenencia") return "category-tenencia";
         if (mainCat === "Ciencia") return "category-science";
         if (mainCat === "Legislación") return "category-legislation";
         return "category-default";
