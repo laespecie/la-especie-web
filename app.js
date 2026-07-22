@@ -496,7 +496,6 @@ document.addEventListener("DOMContentLoaded", () => {
     
     const btnReporteros = document.getElementById("trigger-reporteros-btn");
     const btnObituario = document.getElementById("trigger-obituario-btn");
-    const btnObituarioCard = document.getElementById("card-obituario-btn");
 
     const closeReporteros = document.getElementById("close-reporteros");
     const closeObituario = document.getElementById("close-obituario");
@@ -518,7 +517,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     if (btnObituario) btnObituario.addEventListener("click", openObituario);
-    if (btnObituarioCard) btnObituarioCard.addEventListener("click", openObituario);
 
     if (closeObituario && modalObituario) {
         closeObituario.addEventListener("click", () => {
@@ -531,4 +529,82 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.target === modalReporteros) modalReporteros.style.display = "none";
         if (e.target === modalObituario) modalObituario.style.display = "none";
     });
+
+    // 12. DYNAMIC OBITUARIOS LOADING
+    const obituariesContainer = document.getElementById("obituaries-container");
+    if (obituariesContainer) {
+        fetch('/obituarios-index.json')
+            .then(res => res.json())
+            .then(obits => {
+                renderObituarios(obits);
+            })
+            .catch(err => {
+                console.error("Error loading obituarios index", err);
+                obituariesContainer.innerHTML = `<p class="text-muted" style="grid-column: 1 / -1; text-align: center; padding: 20px;">No se pudieron cargar los obituarios.</p>`;
+            });
+    }
+
+    function renderObituarios(obits) {
+        if (!obituariesContainer) return;
+        
+        const createCardHtml = `
+            <div class="obituary-card create-obituary-card" id="trigger-obituario-card" style="cursor: pointer;">
+                <div class="create-obituary-content">
+                    <i class="fa-solid fa-plus-circle fa-2x" style="color: #7c3aed; margin-bottom: 10px;"></i>
+                    <h4>Publicar un Memorial</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin: 8px 0 15px;">Envíanos la foto y dedicatoria de tu compañero para recordarlo aquí.</p>
+                    <button class="create-obituary-btn" id="card-obituario-btn">Enviar Memorial <i class="fa-solid fa-heart"></i></button>
+                </div>
+            </div>
+        `;
+
+        let cardsHtml = '';
+        obits.forEach(obit => {
+            const align = obit.image_align || 'center';
+            cardsHtml += `
+                <div class="obituary-card">
+                    <div class="obituary-img-container">
+                        <img src="${obit.image}" alt="${obit.pet_name}" class="obituary-img" style="object-position: ${align};">
+                    </div>
+                    <div class="obituary-body">
+                        <h3>${obit.pet_name}</h3>
+                        <span class="obituary-dates">${obit.years}</span>
+                        <p class="obituary-epitaph">"${obit.message}"</p>
+                        <span class="obituary-family">Su familia: ${obit.family}</span>
+                    </div>
+                </div>
+            `;
+        });
+
+        obituariesContainer.innerHTML = cardsHtml + createCardHtml;
+
+        // Attach listeners to dynamic elements
+        const triggerObituarioCard = document.getElementById("trigger-obituario-card");
+        const btnObituarioCard = document.getElementById("card-obituario-btn");
+
+        if (triggerObituarioCard) triggerObituarioCard.addEventListener("click", openObituario);
+        if (btnObituarioCard) btnObituarioCard.addEventListener("click", (e) => {
+            e.stopPropagation(); // Avoid triggering card click
+            openObituario();
+        });
+    }
+
+    // 13. VISITS COUNTER API FETCH
+    const visitsCountSpan = document.getElementById("visits-count");
+    const visitsCounterWrapper = document.getElementById("visits-counter-wrapper");
+    if (visitsCountSpan) {
+        fetch('/api/visits')
+            .then(res => res.json())
+            .then(data => {
+                if (data && typeof data.count !== 'undefined') {
+                    visitsCountSpan.textContent = data.count.toLocaleString('es-ES');
+                    if (visitsCounterWrapper) {
+                        visitsCounterWrapper.style.display = "inline-flex";
+                    }
+                }
+            })
+            .catch(err => {
+                console.error("Error fetching visits count:", err);
+            });
+    }
 });

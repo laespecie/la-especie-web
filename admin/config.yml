@@ -74,6 +74,17 @@ collections:
       - label: "Fotografía de la Mascota"
         name: "image"
         widget: "image"
+      - label: "Alineación de la foto (Foco / Cara)"
+        name: "image_align"
+        widget: "select"
+        options:
+          - { label: "Centro (Por defecto)", value: "center" }
+          - { label: "Arriba (Si la cara está arriba)", value: "center top" }
+          - { label: "Abajo (Si la cara está abajo)", value: "center bottom" }
+          - { label: "Izquierda", value: "left center" }
+          - { label: "Derecha", value: "right center" }
+        default: "center"
+        required: false
       - label: "Epitafio / Mensaje"
         name: "message"
         widget: "text"
