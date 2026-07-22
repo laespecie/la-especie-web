@@ -26,6 +26,9 @@ export default async function handler(req, res) {
     }
 
     const token = data.access_token;
+    if (!token) {
+      return res.status(400).send(`Error: No se recibió token de acceso de GitHub. Detalles: ${JSON.stringify(data)}`);
+    }
     
     // HTML callback message to Decap CMS
     const content = `
@@ -42,10 +45,16 @@ export default async function handler(req, res) {
         <script>
           (function() {
             const token = ${JSON.stringify(token)};
-            const message = 'authorization:github:success:' + JSON.stringify({ token: token, provider: 'github' });
+            const stringMessage = 'authorization:github:success:' + JSON.stringify({ token: token, provider: 'github' });
+            const objectMessage = {
+              provider: "github",
+              data: { token: token },
+              status: "success"
+            };
             
             if (window.opener) {
-              window.opener.postMessage(message, '*');
+              window.opener.postMessage(stringMessage, '*');
+              window.opener.postMessage(objectMessage, '*');
               window.close();
             } else {
               document.body.innerHTML = '<p style="text-align: center; font-family: sans-serif; margin-top: 50px; color: #cc0000;">Error: No se pudo comunicar con la ventana principal. Por favor, cierra esta pestaña e intenta de nuevo.</p>';
