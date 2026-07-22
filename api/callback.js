@@ -54,9 +54,12 @@ export default async function handler(req, res) {
             };
             
             if (window.opener) {
+              window.opener.postMessage("authorizing:github", "*");
               window.opener.postMessage(stringMessage, '*');
               window.opener.postMessage(objectMessage, '*');
-              window.close();
+              setTimeout(function() {
+                window.close();
+              }, 200);
             } else {
               document.body.innerHTML = '<p style="text-align: center; font-family: sans-serif; margin-top: 50px; color: #cc0000;">Error: No se pudo comunicar con la ventana principal. Por favor, cierra esta pestaña e intenta de nuevo.</p>';
             }
