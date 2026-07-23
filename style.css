@@ -396,11 +396,11 @@ a:hover {
 
 .nav-links a {
     display: block;
-    padding: 14px 18px;
-    font-size: 0.85rem;
+    padding: 14px 9px;
+    font-size: 0.73rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
     color: var(--text-color);
     border-bottom: 3px solid transparent;
 }
@@ -968,12 +968,13 @@ a:hover {
 
 /* --- NEWSLETTER SIGNUP --- */
 .newsletter-subscription-box {
-    background-color: #0c2340;
-    color: #ffffff;
+    background-color: var(--ad-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 35px;
     margin-bottom: 50px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
 }
 
 .newsletter-content {
@@ -995,7 +996,7 @@ a:hover {
 
 .newsletter-text-side p {
     font-size: 0.9rem;
-    color: #cbd5e1;
+    color: var(--text-muted);
 }
 
 .newsletter-form-side {
@@ -1010,23 +1011,23 @@ a:hover {
 
 .newsletter-form input {
     flex-grow: 1;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
     border-radius: 4px;
     padding: 12px 16px;
-    color: #ffffff;
+    color: var(--text-color);
     font-family: var(--font-sans);
     font-size: 0.9rem;
     outline: none;
 }
 
 .newsletter-form input::placeholder {
-    color: #94a3b8;
+    color: var(--text-muted);
 }
 
 .newsletter-form input:focus {
-    border-color: var(--yellow-accent);
-    background-color: rgba(255, 255, 255, 0.15);
+    border-color: var(--accent-color);
+    background-color: var(--bg-color);
 }
 
 .submit-newsletter-btn {
@@ -1058,8 +1059,8 @@ a:hover {
 
 /* --- FOOTER --- */
 .main-footer-section {
-    background-color: #081628;
-    color: #cbd5e1;
+    background-color: var(--card-bg);
+    color: var(--text-color);
     border-top: 3px solid var(--yellow-accent);
     padding: 50px 0 20px 0;
     font-size: 0.85rem;
@@ -1082,11 +1083,16 @@ a:hover {
     max-height: 55px;
     width: auto;
     align-self: flex-start;
+    filter: none;
+    transition: filter var(--transition-speed);
+}
+
+[data-theme="dark"] .footer-logo {
     filter: invert(0.9) hue-rotate(180deg);
 }
 
 .footer-brand p {
-    color: #94a3b8;
+    color: var(--text-muted);
     line-height: 1.5;
 }
 
@@ -1096,7 +1102,7 @@ a:hover {
 }
 
 .footer-socials a {
-    color: #94a3b8;
+    color: var(--text-muted);
     font-size: 1.2rem;
 }
 
@@ -1111,7 +1117,7 @@ a:hover {
 }
 
 .footer-col h4 {
-    color: #ffffff;
+    color: var(--text-color);
     font-size: 0.9rem;
     font-weight: 700;
     margin-bottom: 18px;
@@ -1127,7 +1133,7 @@ a:hover {
 }
 
 .footer-col a {
-    color: #94a3b8;
+    color: var(--text-muted);
 }
 
 .footer-col a:hover {
@@ -1136,10 +1142,10 @@ a:hover {
 }
 
 .footer-bottom-bar {
-    border-top: 1px solid #1e293b;
+    border-top: 1px solid var(--border-color);
     padding-top: 20px;
     margin-top: 20px;
-    color: #94a3b8;
+    color: var(--text-muted);
     font-size: 0.8rem;
 }
 
@@ -1638,5 +1644,68 @@ a:hover {
     width: 100%;
     display: block;
     outline: none;
+}
+
+/* AD AND SEARCH LAYOUT IN HEADER */
+.ad-search-section {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.ad-search-section .ad-banner {
+    flex: 1;
+    margin: 0;
+}
+
+.header-search-bar {
+    display: flex;
+    align-items: center;
+    background-color: var(--ad-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px 15px;
+    width: 280px;
+    align-self: stretch;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.header-search-bar input {
+    border: none;
+    background: transparent;
+    padding: 8px 0;
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    color: var(--text-color);
+    outline: none;
+    width: 100%;
+}
+
+.header-search-bar button {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 8px;
+    font-size: 1rem;
+}
+
+.header-search-bar button:hover {
+    color: var(--accent-color);
+}
+
+@media (max-width: 992px) {
+    .ad-search-section {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+    
+    .header-search-bar {
+        width: 100%;
+        box-sizing: border-box;
+    }
 }
 

@@ -109,7 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             renderSidebar();
-            renderMascotasBlock();
         })
         .catch(err => {
             console.error("Error loading posts index", err);
@@ -375,39 +374,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // 7. RENDER MASCOTAS SECTION BLOCK
-    function renderMascotasBlock() {
-        const petsContainer = document.getElementById("pets-category-container");
-        if (!petsContainer) return;
 
-        const petPosts = allPosts.filter(p => p.category === "Mascotas");
-        petsContainer.innerHTML = "";
-
-        if (petPosts.length === 0) {
-            petsContainer.innerHTML = `
-                <p class="text-muted" style="grid-column: 1 / -1; text-align: center; padding: 20px;">
-                    Aún no hay artículos en la sección de Mascotas.
-                </p>
-            `;
-            return;
-        }
-
-        petPosts.slice(0, 3).forEach(post => {
-            const card = document.createElement("div");
-            card.className = "editorial-card-small";
-            
-            const imageSrc = post.image || 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=400';
-
-            card.innerHTML = `
-                <img src="${imageSrc}" alt="${post.title}" class="card-small-img">
-                <div class="card-small-content">
-                    <span class="card-tag">MASCOTAS</span>
-                    <h3><a href="/articulo.html?id=${post.id}">${post.title}</a></h3>
-                </div>
-            `;
-            petsContainer.appendChild(card);
-        });
-    }
 
     // 8. CATEGORY NAVIGATION CLICKS
     const navAnchors = document.querySelectorAll(".nav-links a, .footer-links-grid a");
@@ -450,15 +417,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Handle view all pets link
-    const viewAllPets = document.getElementById("view-all-pets");
-    if (viewAllPets) {
-        viewAllPets.addEventListener("click", (e) => {
-            e.preventDefault();
-            const matchingNavLink = document.querySelector(`.nav-links a[data-category="Mascotas"]`);
-            if (matchingNavLink) matchingNavLink.click();
-        });
-    }
+
 
     // 9. SEARCH BAR LOGIC
     const searchInput = document.getElementById("search-input");

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Netlify Identity Widget -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
 
@@ -52,8 +52,8 @@
         </div>
     </header>
 
-    <!-- SPONSOR SPOTLIGHT: LEADERBOARD AD (EvocaMail) -->
-    <div class="ad-container container text-center">
+    <!-- SPONSOR SPOTLIGHT: LEADERBOARD AD (EvocaMail) & SEARCH -->
+    <div class="ad-search-section container">
         <div class="ad-banner leaderboard-ad">
             <span class="ad-label">Auspiciado por EvocaMail</span>
             <div class="ad-content-wrapper">
@@ -66,6 +66,10 @@
                 </div>
                 <a href="https://evocamail.com" target="_blank" class="ad-cta-btn">Crear Legado <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
             </div>
+        </div>
+        <div class="header-search-bar">
+            <input type="text" id="search-input" placeholder="Buscar noticia..." aria-label="Buscar">
+            <button type="submit" aria-label="Buscar" id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
     </div>
 
@@ -88,10 +92,6 @@
                 <li><a href="#" data-category="Internacional">Internacional</a></li>
                 <li><a href="#" data-category="Opinión">Opinión</a></li>
             </ul>
-            <div class="search-bar">
-                <input type="text" id="search-input" placeholder="Buscar noticia..." aria-label="Buscar">
-                <button type="submit" aria-label="Buscar" id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </div>
         </div>
     </nav>
 
@@ -172,16 +172,6 @@
         </div>
     </div>
 
-    <!-- CATEGORY SECTION: MASCOTAS -->
-    <section class="container category-section-block">
-        <div class="section-heading-editorial">
-            <h2>Mascotas & Convivencia</h2>
-            <a href="#" class="view-all-link" id="view-all-pets">Ver todo de esta sección <i class="fa-solid fa-arrow-right-long"></i></a>
-        </div>
-        <div class="category-grid-row" id="pets-category-container">
-            <p class="text-muted" style="grid-column: 1 / -1; text-align: center; padding: 20px;">Cargando artículos...</p>
-        </div>
-    </section>
 
     <!-- NEWSLETTER SIGNUP BOX -->
     <section class="newsletter-subscription-box container">
