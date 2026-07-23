@@ -27,6 +27,8 @@ collections:
         widget: "select"
         multiple: true
         options:
+          - "Nacional"
+          - "Regional"
           - "Reportajes"
           - "Legislación"
           - "Conservación"

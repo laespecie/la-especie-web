@@ -84,7 +84,30 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(res => res.json())
         .then(posts => {
             allPosts = posts;
-            renderPage();
+            
+            // Check hash for initial filtering
+            let initialCat = "all";
+            const hash = decodeURIComponent(window.location.hash);
+            if (hash && hash.startsWith("#")) {
+                initialCat = hash.slice(1);
+            }
+
+            // Update active state in nav links if there is a category requested
+            if (initialCat !== "all") {
+                document.querySelectorAll(".nav-links a").forEach(a => a.classList.remove("active"));
+                const matchingNavLink = document.querySelector(`.nav-links a[data-category="${initialCat}"]`);
+                if (matchingNavLink) {
+                    matchingNavLink.classList.add("active");
+                }
+                const feedTitle = document.getElementById("feed-title");
+                if (feedTitle) {
+                    feedTitle.textContent = initialCat.toUpperCase();
+                }
+                renderPage(initialCat);
+            } else {
+                renderPage("all");
+            }
+
             renderSidebar();
             renderMascotasBlock();
         })
@@ -606,6 +629,28 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .catch(err => {
                 console.error("Error fetching visits count:", err);
-            });
     }
+
+    // 14. HASHCHANGE EVENT LISTENER FOR DYNAMIC ROUTING
+    window.addEventListener("hashchange", () => {
+        let cat = "all";
+        const hash = decodeURIComponent(window.location.hash);
+        if (hash && hash.startsWith("#")) {
+            cat = hash.slice(1);
+        }
+        
+        // Highlight active category in nav
+        document.querySelectorAll(".nav-links a").forEach(a => a.classList.remove("active"));
+        const matchingNavLink = document.querySelector(`.nav-links a[data-category="${cat}"]`);
+        if (matchingNavLink) {
+            matchingNavLink.classList.add("active");
+        }
+        
+        const feedTitle = document.getElementById("feed-title");
+        if (feedTitle) {
+            feedTitle.textContent = cat === "all" ? "PORTADA PRINCIPAL" : cat.toUpperCase();
+        }
+        
+        renderPage(cat);
+    });
 });

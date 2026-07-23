@@ -60,6 +60,8 @@
             </a>
             <ul class="nav-links">
                 <li><a href="/">Inicio</a></li>
+                <li><a href="/#Nacional">Nacional</a></li>
+                <li><a href="/#Regional">Regional</a></li>
                 <li><a href="/#Reportajes">Reportajes</a></li>
                 <li><a href="/#Legislación">Legislación</a></li>
                 <li><a href="/#Conservación">Conservación</a></li>
@@ -324,6 +326,29 @@
 
                     // Render Markdown body
                     const bodyContainer = document.getElementById("article-body");
+                    const renderer = {
+                        image(href, title, text) {
+                            return `
+                                <figure class="article-body-figure">
+                                    <img src="${href}" alt="${text || ''}" title="${title || ''}" class="article-body-img">
+                                    ${text ? `<figcaption class="article-body-figcaption">${text}</figcaption>` : ''}
+                                </figure>
+                            `;
+                        },
+                        link(href, title, text) {
+                            if (href && (href.endsWith(".mp3") || href.endsWith(".wav") || href.endsWith(".ogg") || href.includes("/uploads/audio") || href.includes("audio"))) {
+                                return `
+                                    <div class="article-body-audio-wrapper">
+                                        <p class="audio-label"><i class="fa-solid fa-volume-high"></i> ${text || 'Reproducir Audio'}</p>
+                                        <audio controls src="${href}" class="article-body-audio"></audio>
+                                    </div>
+                                `;
+                            }
+                            // Default link rendering
+                            return `<a href="${href}" title="${title || ''}" target="_blank" rel="noopener">${text}</a>`;
+                        }
+                    };
+                    marked.use({ renderer });
                     bodyContainer.innerHTML = marked.parse(post.body || "");
                 })
                 .catch(err => {
