@@ -1709,3 +1709,16 @@ a:hover {
     }
 }
 
+/* PARALLEL FEATURED IMAGES FOR ARTICLE COVER */
+.parallel-featured-images {
+    display: flex;
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .parallel-featured-images {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+

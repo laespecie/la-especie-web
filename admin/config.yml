@@ -49,6 +49,14 @@ collections:
         name: "image_caption"
         widget: "string"
         required: false
+      - label: "Segunda Imagen Destacada (Opcional, para portada paralela)"
+        name: "image2"
+        widget: "image"
+        required: false
+      - label: "Pie de Foto / Crédito de la Segunda Imagen (Opcional)"
+        name: "image2_caption"
+        widget: "string"
+        required: false
       - label: "Destacado en Portada Principal"
         name: "featured"
         widget: "boolean"
