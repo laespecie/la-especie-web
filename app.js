@@ -629,6 +629,7 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .catch(err => {
                 console.error("Error fetching visits count:", err);
+            });
     }
 
     // 14. HASHCHANGE EVENT LISTENER FOR DYNAMIC ROUTING
