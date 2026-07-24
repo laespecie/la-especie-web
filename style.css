@@ -454,6 +454,11 @@ a:hover {
     margin-bottom: 40px;
 }
 
+.news-editorial-grid,
+.main-article-section {
+    min-width: 0;
+}
+
 .news-editorial-grid {
     border-right: 1px solid var(--border-color);
     padding-right: 30px;
@@ -1199,6 +1204,23 @@ a:hover {
 }
 
 @media (max-width: 768px) {
+    .top-bar-content {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+    
+    .top-bar-left {
+        flex-direction: column;
+        gap: 5px;
+        align-items: center;
+    }
+    
+    .top-bar-right {
+        justify-content: center;
+        width: 100%;
+    }
+
     .header-container {
         flex-direction: column;
         gap: 15px;
@@ -1208,6 +1230,8 @@ a:hover {
     .header-placeholder-left, .header-placeholder-right {
         justify-content: center;
         width: 100%;
+        flex-wrap: wrap;
+        gap: 10px;
     }
     
     .menu-toggle-btn {
