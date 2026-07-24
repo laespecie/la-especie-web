@@ -364,6 +364,42 @@
                     };
                     marked.use({ renderer });
                     bodyContainer.innerHTML = marked.parse(post.body || "");
+
+                    // Hydrate external embeds (Instagram, TikTok, Twitter/X) since scripts inside innerHTML are not executed by default
+                    // 1. Instagram
+                    if (bodyContainer.querySelector('.instagram-media') || (post.body && post.body.includes('instagram-media'))) {
+                        if (window.instgrm) {
+                            window.instgrm.Embeds.process();
+                        } else if (!document.getElementById('instagram-embed-script')) {
+                            const script = document.createElement('script');
+                            script.id = 'instagram-embed-script';
+                            script.async = true;
+                            script.src = "https://www.instagram.com/embed.js";
+                            document.body.appendChild(script);
+                        }
+                    }
+                    // 2. TikTok
+                    if (bodyContainer.querySelector('.tiktok-embed') || (post.body && post.body.includes('tiktok-embed'))) {
+                        if (!document.getElementById('tiktok-embed-script')) {
+                            const script = document.createElement('script');
+                            script.id = 'tiktok-embed-script';
+                            script.async = true;
+                            script.src = "https://www.tiktok.com/embed.js";
+                            document.body.appendChild(script);
+                        }
+                    }
+                    // 3. Twitter/X
+                    if (bodyContainer.querySelector('.twitter-tweet') || (post.body && post.body.includes('twitter-tweet'))) {
+                        if (window.twttr && window.twttr.widgets) {
+                            window.twttr.widgets.load(bodyContainer);
+                        } else if (!document.getElementById('twitter-embed-script')) {
+                            const script = document.createElement('script');
+                            script.id = 'twitter-embed-script';
+                            script.async = true;
+                            script.src = "https://platform.twitter.com/widgets.js";
+                            document.body.appendChild(script);
+                        }
+                    }
                 })
                 .catch(err => {
                     console.error("Error loading article", err);
