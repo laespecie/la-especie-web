@@ -635,14 +635,39 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         try {
-            // 1. Get Geolocation by IP (freeipapi.com supports HTTPS, no token/keys needed)
-            const geoRes = await fetch("https://freeipapi.com/api/json");
-            if (!geoRes.ok) throw new Error("Geo API error");
-            const geoData = await geoRes.json();
+            let lat, lon, city;
             
-            const lat = geoData.latitude;
-            const lon = geoData.longitude;
-            const city = geoData.cityName || "Concepción";
+            // 1. Get Geolocation by IP (with backup fallback if primary is blocked by adblockers)
+            try {
+                const geoRes = await fetch("https://freeipapi.com/api/json");
+                if (!geoRes.ok) throw new Error("Primary Geo API failed");
+                const geoData = await geoRes.json();
+                lat = geoData.latitude;
+                lon = geoData.longitude;
+                city = geoData.cityName;
+            } catch (e) {
+                console.warn("Primary Geolocation API blocked or failed, trying backup...", e);
+                try {
+                    const backupRes = await fetch("https://ipapi.co/json/");
+                    if (!backupRes.ok) throw new Error("Backup Geo API failed");
+                    const backupData = await backupRes.json();
+                    lat = backupData.latitude;
+                    lon = backupData.longitude;
+                    city = backupData.city;
+                } catch (e2) {
+                    console.error("All Geolocation APIs failed:", e2);
+                    throw new Error("Geolocation unavailable");
+                }
+            }
+
+            // Standardize city name and fallback coordinates
+            if (!city || city === "-" || city === "unknown") {
+                city = "Concepción";
+                lat = -36.82699;
+                lon = -73.04977;
+            }
+
+            console.log("La Especie - Ubicación detectada:", city, "Lat:", lat, "Lon:", lon);
 
             // 2. Get Weather from Open-Meteo (completely free, no keys needed)
             const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code`);
