@@ -11,6 +11,9 @@ document.addEventListener("DOMContentLoaded", () => {
         dateSpan.innerHTML = `<i class="fa-regular fa-calendar"></i> ${dateString}`;
     }
 
+    // 1.1 DYNAMIC WEATHER WIDGET
+    loadDynamicWeather();
+
     // 2. THEME TOGGLE (LIGHT / DARK MODE)
     const themeToggleBtn = document.getElementById("theme-toggle");
     const savedTheme = localStorage.getItem("theme");
@@ -613,4 +616,68 @@ document.addEventListener("DOMContentLoaded", () => {
         
         renderPage(cat);
     });
+
+    // 15. DYNAMIC WEATHER FROM IP GEOLOCATION (With Session Caching)
+    async function loadDynamicWeather() {
+        const weatherWidgets = document.querySelectorAll(".weather-widget");
+        if (weatherWidgets.length === 0) return;
+
+        // Check if we already have weather in sessionStorage to avoid spamming the APIs
+        const cachedWeather = sessionStorage.getItem("dynamic_weather");
+        const cachedCity = sessionStorage.getItem("dynamic_weather_city");
+        const cachedIcon = sessionStorage.getItem("dynamic_weather_icon");
+        
+        if (cachedWeather && cachedCity && cachedIcon) {
+            weatherWidgets.forEach(widget => {
+                widget.innerHTML = `<i class="${cachedIcon}"></i> ${cachedCity}: ${cachedWeather}°C`;
+            });
+            return;
+        }
+
+        try {
+            // 1. Get Geolocation by IP (freeipapi.com supports HTTPS, no token/keys needed)
+            const geoRes = await fetch("https://freeipapi.com/api/json");
+            if (!geoRes.ok) throw new Error("Geo API error");
+            const geoData = await geoRes.json();
+            
+            const lat = geoData.latitude;
+            const lon = geoData.longitude;
+            const city = geoData.cityName || "Concepción";
+
+            // 2. Get Weather from Open-Meteo (completely free, no keys needed)
+            const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code`);
+            if (!weatherRes.ok) throw new Error("Weather API error");
+            const weatherData = await weatherRes.json();
+
+            const temp = Math.round(weatherData.current.temperature_2m);
+            const code = weatherData.current.weather_code;
+
+            // Map weather code to FontAwesome icon
+            let iconClass = "fa-solid fa-cloud-sun";
+            if (code === 0) {
+                iconClass = "fa-solid fa-sun";
+            } else if (code >= 1 && code <= 3) {
+                iconClass = "fa-solid fa-cloud-sun";
+            } else if (code === 45 || code === 48) {
+                iconClass = "fa-solid fa-smog";
+            } else if ((code >= 51 && code <= 67) || (code >= 80 && code <= 82)) {
+                iconClass = "fa-solid fa-cloud-showers-heavy";
+            } else if ((code >= 71 && code <= 77) || (code >= 85 && code <= 86)) {
+                iconClass = "fa-solid fa-snowflake";
+            } else if (code >= 95 && code <= 99) {
+                iconClass = "fa-solid fa-cloud-bolt";
+            }
+
+            // Cache in sessionStorage
+            sessionStorage.setItem("dynamic_weather", temp);
+            sessionStorage.setItem("dynamic_weather_city", city);
+            sessionStorage.setItem("dynamic_weather_icon", iconClass);
+
+            weatherWidgets.forEach(widget => {
+                widget.innerHTML = `<i class="${iconClass}"></i> ${city}: ${temp}°C`;
+            });
+        } catch (err) {
+            console.warn("Could not load dynamic weather, using default:", err);
+        }
+    }
 });
