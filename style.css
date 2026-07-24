@@ -1722,3 +1722,23 @@ a:hover {
     }
 }
 
+/* --- RESPONSIVE EMBEDS & PREVENT MOBILE OVERFLOW --- */
+html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+/* Force social media embeds and iframes to scale responsively */
+iframe, 
+blockquote.instagram-media, 
+blockquote.twitter-tweet, 
+blockquote.tiktok-embed,
+.instagram-media,
+.twitter-tweet,
+.tiktok-embed {
+    max-width: 100% !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
