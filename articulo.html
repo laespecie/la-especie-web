@@ -341,29 +341,44 @@
                     // Render Markdown body
                     const bodyContainer = document.getElementById("article-body");
                     const renderer = {
-                        image(href, title, text) {
-                            return `
-                                <figure class="article-body-figure">
-                                    <img src="${href}" alt="${text || ''}" title="${title || ''}" class="article-body-img">
-                                    ${text ? `<figcaption class="article-body-figcaption">${text}</figcaption>` : ''}
-                                </figure>
-                            `;
-                        },
-                        link(href, title, text) {
-                            if (href && (href.endsWith(".mp3") || href.endsWith(".wav") || href.endsWith(".ogg") || href.includes("/uploads/audio") || href.includes("audio"))) {
-                                return `
-                                    <div class="article-body-audio-wrapper">
-                                        <p class="audio-label"><i class="fa-solid fa-volume-high"></i> ${text || 'Reproducir Audio'}</p>
-                                        <audio controls src="${href}" class="article-body-audio"></audio>
-                                    </div>
-                                `;
-                            }
-                            // Default link rendering
-                            return `<a href="${href}" title="${title || ''}" target="_blank" rel="noopener">${text}</a>`;
-                        }
-                    };
-                    marked.use({ renderer });
-                    bodyContainer.innerHTML = marked.parse(post.body || "");
+                         image(arg1, arg2, arg3) {
+                             let href = arg1;
+                             let title = arg2;
+                             let text = arg3;
+                             if (typeof arg1 === 'object' && arg1 !== null) {
+                                 href = arg1.href;
+                                 title = arg1.title;
+                                 text = arg1.text;
+                             }
+                             return `
+                                 <figure class="article-body-figure">
+                                     <img src="${href || ''}" alt="${text || ''}" title="${title || ''}" class="article-body-img">
+                                     ${text ? `<figcaption class="article-body-figcaption">${text}</figcaption>` : ''}
+                                 </figure>
+                             `;
+                         },
+                         link(arg1, arg2, arg3) {
+                             let href = arg1;
+                             let title = arg2;
+                             let text = arg3;
+                             if (typeof arg1 === 'object' && arg1 !== null) {
+                                 href = arg1.href;
+                                 title = arg1.title;
+                                 text = arg1.text;
+                             }
+                             if (href && (href.endsWith(".mp3") || href.endsWith(".wav") || href.endsWith(".ogg") || href.includes("/uploads/audio") || href.includes("audio"))) {
+                                 return `
+                                     <div class="article-body-audio-wrapper">
+                                         <p class="audio-label"><i class="fa-solid fa-volume-high"></i> ${text || 'Reproducir Audio'}</p>
+                                         <audio controls src="${href}" class="article-body-audio"></audio>
+                                     </div>
+                                 `;
+                             }
+                             return `<a href="${href || ''}" title="${title || ''}" target="_blank" rel="noopener">${text || ''}</a>`;
+                         }
+                     };
+                     marked.use({ renderer });
+                     bodyContainer.innerHTML = marked.parse(post.body || "");
 
                     // Hydrate external embeds (Instagram, TikTok, Twitter/X) since scripts inside innerHTML are not executed by default
                     // 1. Instagram
