@@ -106,6 +106,18 @@
                 <div id="article-body" class="article-body-content">
                     <!-- Text goes here -->
                 </div>
+
+                <!-- Share Widget -->
+                <div class="article-share-widget">
+                    <span class="share-title"><i class="fa-solid fa-share-nodes"></i> COMPARTIR:</span>
+                    <div class="share-buttons">
+                        <a href="#" id="share-whatsapp" class="share-btn whatsapp" title="Compartir en WhatsApp" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="#" id="share-facebook" class="share-btn facebook" title="Compartir en Facebook" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" id="share-twitter" class="share-btn twitter" title="Compartir en X (Twitter)" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" id="share-threads" class="share-btn threads" title="Compartir en Threads" target="_blank"><i class="fa-brands fa-threads"></i></a>
+                        <a href="#" id="share-copy" class="share-btn copy-link" title="Copiar enlace"><i class="fa-solid fa-link"></i></a>
+                    </div>
+                </div>
             </article>
 
             <div id="article-error" class="text-center" style="display: none; padding: 80px 0;">
@@ -245,7 +257,7 @@
                             item.className = "latest-news-item";
                             item.innerHTML = `
                                 <span class="time">${timeStr}</span>
-                                <h4 class="title"><a href="/articulo.html?id=${post.id}">${post.title}</a></h4>
+                                <h4 class="title"><a href="/${post.id}">${post.title}</a></h4>
                             `;
                             latestNewsContainer.appendChild(item);
                         });
@@ -255,7 +267,13 @@
 
             // LOAD ARTICLE DETAIL
             const urlParams = new URLSearchParams(window.location.search);
-            const postId = urlParams.get('id');
+            let postId = urlParams.get('id');
+            if (!postId) {
+                // Read from pathname fallback for clean URLs (e.g. /slug -> slug)
+                const cleanPath = window.location.pathname.replace(/\/$/, "");
+                const pathParts = cleanPath.split("/");
+                postId = pathParts[pathParts.length - 1];
+            }
 
             const loader = document.getElementById("article-loader");
             const content = document.getElementById("article-content");
@@ -415,6 +433,38 @@
                             document.body.appendChild(script);
                         }
                     }
+
+                    // Set up sharing links dynamically
+                    const rawUrl = window.location.href;
+                    let shareUrl = rawUrl;
+                    if (rawUrl.includes("articulo.html?id=")) {
+                        // Standardize query-string links into beautiful clean links when sharing!
+                        shareUrl = rawUrl.replace(/articulo\.html\?id=/, "");
+                    }
+                    const pageUrl = encodeURIComponent(shareUrl);
+                    const pageTitle = encodeURIComponent(post.title);
+
+                    document.getElementById("share-whatsapp").href = `https://api.whatsapp.com/send?text=${pageTitle}%20${pageUrl}`;
+                    document.getElementById("share-facebook").href = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+                    document.getElementById("share-twitter").href = `https://twitter.com/intent/tweet?text=${pageTitle}&url=${pageUrl}`;
+                    document.getElementById("share-threads").href = `https://www.threads.net/intent/post?text=${pageTitle}%20${pageUrl}`;
+                    
+                    // Copy Link handler
+                    const copyBtn = document.getElementById("share-copy");
+                    copyBtn.addEventListener("click", (e) => {
+                        e.preventDefault();
+                        navigator.clipboard.writeText(shareUrl)
+                            .then(() => {
+                                const originalHtml = copyBtn.innerHTML;
+                                copyBtn.innerHTML = `<i class="fa-solid fa-check" style="color: #22c55e;"></i>`;
+                                setTimeout(() => {
+                                    copyBtn.innerHTML = originalHtml;
+                                }, 2000);
+                            })
+                            .catch(err => {
+                                console.error("Error copying link:", err);
+                            });
+                    });
                 })
                 .catch(err => {
                     console.error("Error loading article", err);

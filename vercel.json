@@ -1,3 +1,14 @@
 {
-  "outputDirectory": "."
+  "outputDirectory": ".",
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/admin",
+      "destination": "/admin/index.html"
+    },
+    {
+      "source": "/((?!admin|images|content|api|style\\.css|app\\.js|logo\\.png|evocamail-logo\\.png|favicon\\.ico|posts-index\\.json|obituarios-index\\.json|quienes-somos|equipo-editorial|contacto|tarifas-publicitarias|auspiciar-boletin|alianzas-donaciones|articulo).*)",
+      "destination": "/articulo.html?id=$1"
+    }
+  ]
 }

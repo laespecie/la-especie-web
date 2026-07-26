@@ -8,12 +8,17 @@ backend:
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
+slug:
+  encoding: "ascii"
+  clean_accents: true
+  sanitize_replacement: "-"
+
 collections:
   - name: "posts"
     label: "Artículos"
     folder: "content/posts"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{slug}}"
     format: "json"
     fields:
       - label: "Título"

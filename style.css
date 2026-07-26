@@ -1530,6 +1530,18 @@ a:hover {
     color: var(--text-color);
 }
 
+.article-body-content a {
+    color: var(--accent-color);
+    text-decoration: underline;
+    font-weight: 600;
+    transition: opacity 0.2s, color 0.2s;
+}
+
+.article-body-content a:hover {
+    color: var(--color-legislation);
+    opacity: 0.85;
+}
+
 .article-body-content p {
     margin-bottom: 25px; /* Spacing between paragraphs */
 }
@@ -1765,4 +1777,60 @@ blockquote.tiktok-embed,
     width: 100% !important;
     box-sizing: border-box !important;
 }
+
+/* --- ARTICLE SHARE WIDGET --- */
+.article-share-widget {
+    margin-top: 40px;
+    padding-top: 25px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.article-share-widget .share-title {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    color: var(--text-color);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.article-share-widget .share-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.share-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    color: #ffffff !important;
+    font-size: 1.15rem;
+    transition: transform 0.2s, filter 0.2s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+}
+
+.share-btn:hover {
+    transform: scale(1.12);
+    filter: brightness(0.95);
+}
+
+.share-btn.whatsapp { background-color: #25d366; }
+.share-btn.facebook { background-color: #1877f2; }
+.share-btn.twitter { background-color: #000000; }
+.share-btn.threads { background-color: #000000; }
+.share-btn.copy-link { 
+    background-color: #64748b; 
+    cursor: pointer;
+}
+
 
