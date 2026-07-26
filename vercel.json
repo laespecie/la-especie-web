@@ -7,7 +7,7 @@
       "destination": "/admin/index.html"
     },
     {
-      "source": "/:id",
+      "source": "/:id((?!admin|quienes-somos|equipo-editorial|contacto|tarifas-publicitarias|auspiciar-boletin|alianzas-donaciones|articulo|api|content|images|.*\\.).*)",
       "destination": "/articulo.html?id=:id"
     }
   ]
