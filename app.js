@@ -282,7 +282,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div style="margin-bottom: 10px;">
                     <span class="section-badge" style="background-color: ${categoryColor}; font-size: 0.65rem;">${categoryText}</span>
                 </div>
-                <h1 class="hero-title"><a href="/${post.id}">${post.title}</a></h1>
+                <h1 class="hero-title"><a href="/articulo.html?id=${post.id}">${post.title}</a></h1>
                 <p class="hero-excerpt">${post.excerpt || ''}</p>
                 <div class="article-meta">
                     <span class="author">Por <strong>${post.author || 'La Especie'}</strong></span>
@@ -310,7 +310,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <span class="card-category ${categoryColorClass}">${categoryText}</span>
             </div>
             <div class="card-body">
-                <h2 class="card-title"><a href="/${post.id}">${post.title}</a></h2>
+                <h2 class="card-title"><a href="/articulo.html?id=${post.id}">${post.title}</a></h2>
                 <p class="card-excerpt">${post.excerpt || ''}</p>
                 <div class="article-meta">
                     <span class="author">Por <strong>${post.author || 'La Especie'}</strong></span>
@@ -349,7 +349,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 item.className = "latest-news-item";
                 item.innerHTML = `
                     <span class="time">${timeStr}</span>
-                    <h4 class="title"><a href="/${post.id}">${post.title}</a></h4>
+                    <h4 class="title"><a href="/articulo.html?id=${post.id}">${post.title}</a></h4>
                 `;
                 latestNewsContainer.appendChild(item);
             });
@@ -370,7 +370,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 item.className = "most-read-item";
                 item.innerHTML = `
                     <span class="rank">${index + 1}</span>
-                    <h4 class="title"><a href="/${post.id}">${post.title}</a></h4>
+                    <h4 class="title"><a href="/articulo.html?id=${post.id}">${post.title}</a></h4>
                 `;
                 mostReadContainer.appendChild(item);
             });
