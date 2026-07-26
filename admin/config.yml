@@ -24,6 +24,7 @@ collections:
       - label: "Título"
         name: "title"
         widget: "string"
+        max: 120
       - label: "Fecha de Publicación"
         name: "date"
         widget: "datetime"
