@@ -240,6 +240,14 @@
                 }
             });
 
+            function getPostUrl(post) {
+                if (!post.date) return `/articulo.html?id=${post.id}`;
+                // Only articles published on or after July 25, 2026 get clean URLs
+                const postDate = new Date(post.date);
+                const changeDate = new Date("2026-07-25");
+                return postDate >= changeDate ? `/${post.id}` : `/articulo.html?id=${post.id}`;
+            }
+
             // FETCH LO ÚLTIMO IN SIDEBAR
             fetch('/posts-index.json')
                 .then(res => res.json())
@@ -257,7 +265,7 @@
                             item.className = "latest-news-item";
                             item.innerHTML = `
                                 <span class="time">${timeStr}</span>
-                                <h4 class="title"><a href="/${post.id}">${post.title}</a></h4>
+                                <h4 class="title"><a href="${getPostUrl(post)}">${post.title}</a></h4>
                             `;
                             latestNewsContainer.appendChild(item);
                         });

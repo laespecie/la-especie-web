@@ -282,7 +282,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div style="margin-bottom: 10px;">
                     <span class="section-badge" style="background-color: ${categoryColor}; font-size: 0.65rem;">${categoryText}</span>
                 </div>
-                <h1 class="hero-title"><a href="/${post.id}">${post.title}</a></h1>
+                <h1 class="hero-title"><a href="${getPostUrl(post)}">${post.title}</a></h1>
                 <p class="hero-excerpt">${post.excerpt || ''}</p>
                 <div class="article-meta">
                     <span class="author">Por <strong>${post.author || 'La Especie'}</strong></span>
@@ -310,7 +310,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <span class="card-category ${categoryColorClass}">${categoryText}</span>
             </div>
             <div class="card-body">
-                <h2 class="card-title"><a href="/${post.id}">${post.title}</a></h2>
+                <h2 class="card-title"><a href="${getPostUrl(post)}">${post.title}</a></h2>
                 <p class="card-excerpt">${post.excerpt || ''}</p>
                 <div class="article-meta">
                     <span class="author">Por <strong>${post.author || 'La Especie'}</strong></span>
@@ -326,6 +326,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const dateObj = new Date(dateString);
         const options = { month: 'short', day: 'numeric' };
         return dateObj.toLocaleDateString('es-ES', options);
+    }
+
+    function getPostUrl(post) {
+        if (!post.date) return `/articulo.html?id=${post.id}`;
+        // Only articles published on or after July 25, 2026 get clean URLs
+        const postDate = new Date(post.date);
+        const changeDate = new Date("2026-07-25");
+        return postDate >= changeDate ? `/${post.id}` : `/articulo.html?id=${post.id}`;
     }
 
     // 6. RENDER SIDEBAR WIDGETS
@@ -349,7 +357,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 item.className = "latest-news-item";
                 item.innerHTML = `
                     <span class="time">${timeStr}</span>
-                    <h4 class="title"><a href="/${post.id}">${post.title}</a></h4>
+                    <h4 class="title"><a href="${getPostUrl(post)}">${post.title}</a></h4>
                 `;
                 latestNewsContainer.appendChild(item);
             });
@@ -370,7 +378,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 item.className = "most-read-item";
                 item.innerHTML = `
                     <span class="rank">${index + 1}</span>
-                    <h4 class="title"><a href="/${post.id}">${post.title}</a></h4>
+                    <h4 class="title"><a href="${getPostUrl(post)}">${post.title}</a></h4>
                 `;
                 mostReadContainer.appendChild(item);
             });
