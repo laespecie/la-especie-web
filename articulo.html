@@ -242,9 +242,9 @@
 
             function getPostUrl(post) {
                 if (!post.date) return `/articulo.html?id=${post.id}`;
-                // Only articles published on or after July 25, 2026 get clean URLs
+                // Only articles published on or after July 27, 2026 get clean URLs
                 const postDate = new Date(post.date);
-                const changeDate = new Date("2026-07-25");
+                const changeDate = new Date("2026-07-27");
                 return postDate >= changeDate ? `/${post.id}` : `/articulo.html?id=${post.id}`;
             }
 
