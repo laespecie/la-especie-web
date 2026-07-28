@@ -1,0 +1,15 @@
+[
+  {
+    "pet_name": "Lucas",
+    "pet_type": "Perro",
+    "image": "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=400",
+    "description": "Lucas es un perrito mestizo rescatado muy cariñoso, obediente y juguetón. Le encanta correr en el parque y se lleva excelente con otros perros y niños.",
+    "age": "2 años",
+    "breed": "Mestizo",
+    "gender": "Macho",
+    "health": "Vacunado, desparasitado y castrado. Estado de salud excelente.",
+    "conditions": "Compromiso de patio cerrado, visitas de seguimiento y mucho amor.",
+    "contact": "WhatsApp +56 9 1234 5678",
+    "id": "2026-07-27-lucas"
+  }
+]

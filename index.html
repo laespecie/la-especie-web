@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -110,15 +110,13 @@
             <ul class="nav-links" id="nav-links">
                 <li><a href="#" class="active" data-category="all">Inicio</a></li>
                 <li><a href="#" data-category="Nacional">Nacional</a></li>
-                <li><a href="#" data-category="Regional">Regional</a></li>
-                <li><a href="#" data-category="Reportajes">Reportajes</a></li>
-                <li><a href="#" data-category="Legislación">Legislación</a></li>
-                <li><a href="#" data-category="Conservación">Conservación</a></li>
-                <li><a href="#" data-category="Mascotas">Mascotas</a></li>
                 <li><a href="#" data-category="Tenencia">Tenencia</a></li>
                 <li><a href="#" data-category="Ciencia">Ciencia</a></li>
                 <li><a href="#" data-category="Internacional">Internacional</a></li>
+                <li><a href="#" data-category="Ciudadanía">Ciudadanía</a></li>
+                <li><a href="#" data-category="Rescatistas">Rescatistas</a></li>
                 <li><a href="#" data-category="Opinión">Opinión</a></li>
+                <li><a href="#" data-category="Medioambiente">Medioambiente</a></li>
             </ul>
         </div>
     </nav>
@@ -216,6 +214,17 @@
                 <p class="form-feedback" id="newsletter-feedback"></p>
             </div>
         </div>
+    <!-- BUSCAN UN HOGAR SECTION -->
+    <section class="container adoptions-section" id="section-adopciones" style="margin-top: 40px; margin-bottom: 40px;">
+        <div class="section-title-bar">
+            <span class="section-badge badge-adopciones" style="background-color: var(--color-tenencia);"><i class="fa-solid fa-paw"></i> BUSCAN UN HOGAR</span>
+            <span class="section-trend">Animales en adopción</span>
+        </div>
+        <div class="adoptions-grid" id="adoptions-container">
+            <p class="text-muted" style="grid-column: 1 / -1; text-align: center; padding: 20px;">Cargando animales en adopción...</p>
+        </div>
+    </section>
+
     <!-- EN MEMORIA SECTION -->
     <section class="container obituaries-section" id="section-obituarios" style="margin-top: 40px; margin-bottom: 40px;">
         <div class="section-title-bar">
@@ -241,14 +250,14 @@
                 <div class="footer-col">
                     <h4>Secciones</h4>
                     <ul>
-                        <li><a href="#" data-category="Reportajes">Reportajes</a></li>
-                        <li><a href="#" data-category="Legislación">Legislación</a></li>
-                        <li><a href="#" data-category="Conservación">Conservación</a></li>
-                        <li><a href="#" data-category="Mascotas">Mascotas</a></li>
+                        <li><a href="#" data-category="Nacional">Nacional</a></li>
                         <li><a href="#" data-category="Tenencia">Tenencia</a></li>
                         <li><a href="#" data-category="Ciencia">Ciencia</a></li>
                         <li><a href="#" data-category="Internacional">Internacional</a></li>
+                        <li><a href="#" data-category="Ciudadanía">Ciudadanía</a></li>
+                        <li><a href="#" data-category="Rescatistas">Rescatistas</a></li>
                         <li><a href="#" data-category="Opinión">Opinión</a></li>
+                        <li><a href="#" data-category="Medioambiente">Medioambiente</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -319,6 +328,75 @@
                 </ul>
             </div>
             <a href="mailto:contacto@laespecie.cl?subject=%5BOBITUARIO%5D%20El%20Cielo%20de%20las%20Mascotas&body=Hola%20Equipo%20de%20La%20Especie%2C%0A%0AQuiero%20publicar%20un%20memorial%20en%20El%20Cielo%20de%20las%20Mascotas%3A%0A-%20Nombre%20de%20mi%20mascota%3A%0A-%20A%C3%B1os%20de%20vida%3A%0A-%20Familia%20que%20lo%20despide%3A%0A-%20Epitafio%20o%20mensaje%20de%20despedida%3A%0A%0A(No%20olvides%20adjuntar%20la%20fotograf%C3%ADa%20de%20tu%20mascota%20a%20este%20correo)%0A%0ASaludos!" class="submit-btn-modal" style="display: block; text-align: center; text-decoration: none; font-weight: 700; background-color: #7c3aed;">Enviar Memorial por Correo <i class="fa-solid fa-envelope"></i></a>
+        </div>
+    </div>
+
+    <!-- MODAL: DETALLES DE ADOPCIÓN -->
+    <div id="modal-adopcion-details" class="modal-overlay" style="display: none;">
+        <div class="modal-content modal-content-large">
+            <button class="modal-close" id="close-adopcion-details">&times;</button>
+            <div class="adoption-details-layout">
+                <div class="adoption-details-img">
+                    <img id="detail-adopt-img" src="" alt="">
+                </div>
+                <div class="adoption-details-info">
+                    <h2 id="detail-adopt-name"></h2>
+                    <span id="detail-adopt-type" class="adoption-type-badge-large"></span>
+                    
+                    <div class="detail-specs-grid">
+                        <div class="detail-spec-item"><strong>Edad</strong><span id="detail-adopt-age"></span></div>
+                        <div class="detail-spec-item"><strong>Sexo</strong><span id="detail-adopt-gender"></span></div>
+                        <div class="detail-spec-item"><strong>Raza</strong><span id="detail-adopt-breed"></span></div>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4>Descripción</h4>
+                        <p id="detail-adopt-desc"></p>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4>Estado de Salud</h4>
+                        <p id="detail-adopt-health"></p>
+                    </div>
+                    
+                    <div class="detail-section">
+                        <h4>Condiciones de Adopción</h4>
+                        <p id="detail-adopt-conditions"></p>
+                    </div>
+                    
+                    <div class="detail-section contact-section-box">
+                        <h4>Contacto para Adoptar</h4>
+                        <p id="detail-adopt-contact" class="contact-highlight"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: PUBLICAR ADOPCIÓN -->
+    <div id="modal-adopcion-submit" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <button class="modal-close" id="close-adopcion-submit">&times;</button>
+            <div class="modal-header" style="margin-bottom: 0;">
+                <h2><i class="fa-solid fa-paw" style="color: var(--color-tenencia);"></i> Publicar Mascota</h2>
+                <p>Envíanos los datos de tu rescatado buscando hogar responsable.</p>
+            </div>
+            <div class="modal-instructions" style="background-color: var(--ad-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; margin: 15px 0; font-size: 0.95rem; line-height: 1.5;">
+                <p style="font-weight: 700; margin-bottom: 10px; color: var(--text-color);">Escríbenos a <span style="color: var(--color-tenencia); text-decoration: underline;">contacto@laespecie.cl</span> adjuntando:</p>
+                <ul style="padding-left: 20px; color: var(--text-muted); display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem;">
+                    <li><strong>Fotografía de buena calidad</strong> adjunta al correo.</li>
+                    <li><strong>Nombre de la mascota</strong> (ej: Lucas).</li>
+                    <li><strong>Tipo de mascota</strong> (ej: Perro o Gato).</li>
+                    <li><strong>Edad aproximada</strong> (ej: 6 meses).</li>
+                    <li><strong>Raza</strong> (ej: Mestizo).</li>
+                    <li><strong>Sexo</strong> (ej: Macho o Hembra).</li>
+                    <li><strong>Estado de Salud</strong> (ej: Vacunado, desparasitado, etc.).</li>
+                    <li><strong>Condiciones de adopción</strong> (ej: Compromiso de esterilización).</li>
+                    <li><strong>Contacto</strong> (ej: WhatsApp +569XXXXXXXX).</li>
+                    <li><strong>Descripción breve</strong> (personalidad, historia).</li>
+                </ul>
+            </div>
+            <a href="mailto:contacto@laespecie.cl?subject=%5BADOPCION%5D%20Nueva%20Mascota%20para%20Adopcion&body=Hola%20Equipo%20de%20La%20Especie%2C%0A%0AQuiero%20publicar%20una%20mascota%20en%20adopci%C3%B3n%3A%0A-%20Nombre%3A%0A-%20Tipo%20(Perro%2FGato)%3A%0A-%20Edad%3A%0A-%20Raza%3A%0A-%20Sexo%3A%0A-%20Estado%20de%20salud%3A%0A-%20Condiciones%20de%20adopci%C3%B3n%3A%0A-%20Contacto%3A%0A-%20Breve%20descripci%C3%B3n%3A%0A%0A(No%20olvides%20adjuntar%20la%20fotograf%C3%ADa%20de%20la%20mascota%20a%20este%20correo)%0A%0ASaludos!" class="submit-btn-modal" style="display: block; text-align: center; text-decoration: none; font-weight: 700; background-color: var(--color-tenencia);">Enviar Datos por Correo <i class="fa-solid fa-paper-plane"></i></a>
         </div>
     </div>
 

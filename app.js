@@ -243,22 +243,28 @@ document.addEventListener("DOMContentLoaded", () => {
     // Helper: Get category background color
     function getCategoryColor(category) {
         const mainCat = Array.isArray(category) ? category[0] : category;
-        if (mainCat === "Conservación") return "var(--color-conservation)";
-        if (mainCat === "Mascotas") return "var(--color-pets)";
+        if (mainCat === "Nacional") return "var(--color-nacional)";
         if (mainCat === "Tenencia") return "var(--color-tenencia)";
-        if (mainCat === "Ciencia") return "var(--color-science)";
-        if (mainCat === "Legislación") return "var(--color-legislation)";
+        if (mainCat === "Ciencia") return "var(--color-ciencia)";
+        if (mainCat === "Internacional") return "var(--color-internacional)";
+        if (mainCat === "Ciudadanía") return "var(--color-ciudadania)";
+        if (mainCat === "Rescatistas") return "var(--color-rescatistas)";
+        if (mainCat === "Opinión") return "var(--color-opinion)";
+        if (mainCat === "Medioambiente") return "var(--color-medioambiente)";
         return "var(--accent-color)";
     }
 
     // Helper: Get category CSS class
     function getCategoryClass(category) {
         const mainCat = Array.isArray(category) ? category[0] : category;
-        if (mainCat === "Conservación") return "category-conservation";
-        if (mainCat === "Mascotas") return "category-pets";
+        if (mainCat === "Nacional") return "category-nacional";
         if (mainCat === "Tenencia") return "category-tenencia";
-        if (mainCat === "Ciencia") return "category-science";
-        if (mainCat === "Legislación") return "category-legislation";
+        if (mainCat === "Ciencia") return "category-ciencia";
+        if (mainCat === "Internacional") return "category-internacional";
+        if (mainCat === "Ciudadanía") return "category-ciudadania";
+        if (mainCat === "Rescatistas") return "category-rescatistas";
+        if (mainCat === "Opinión") return "category-opinion";
+        if (mainCat === "Medioambiente") return "category-medioambiente";
         return "category-default";
     }
 
@@ -581,6 +587,135 @@ document.addEventListener("DOMContentLoaded", () => {
             e.stopPropagation(); // Avoid triggering card click
             openObituario();
         });
+    }
+
+    // 12.5 DYNAMIC ADOPCIONES LOADING
+    const adoptionsContainer = document.getElementById("adoptions-container");
+    if (adoptionsContainer) {
+        fetch('/adopciones-index.json')
+            .then(res => res.json())
+            .then(adopts => {
+                renderAdopciones(adopts);
+            })
+            .catch(err => {
+                console.error("Error loading adoptions index", err);
+                adoptionsContainer.innerHTML = `<p class="text-muted" style="grid-column: 1 / -1; text-align: center; padding: 20px;">No se pudieron cargar las adopciones.</p>`;
+            });
+    }
+
+    function renderAdopciones(adopts) {
+        if (!adoptionsContainer) return;
+
+        const createCardHtml = `
+            <div class="adoption-card create-adoption-card" id="trigger-adopcion-card" style="cursor: pointer;">
+                <div class="create-adoption-content">
+                    <i class="fa-solid fa-plus-circle fa-2x" style="color: var(--color-tenencia); margin-bottom: 10px;"></i>
+                    <h4>Publicar Mascota</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin: 8px 0 15px; padding: 0 10px;">¿Tienes un perrito o gatito rescatado buscando hogar? Publícalo aquí.</p>
+                    <button class="create-adoption-btn" id="card-adopcion-btn" style="background-color: var(--color-tenencia);">Enviar Datos <i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </div>
+        `;
+
+        let cardsHtml = '';
+        adopts.forEach(adopt => {
+            cardsHtml += `
+                <div class="adoption-card" data-id="${adopt.id}">
+                    <div class="adoption-img-container">
+                        <img src="${adopt.image}" alt="${adopt.pet_name}" class="adoption-img">
+                        <span class="adoption-type-badge">${adopt.pet_type}</span>
+                    </div>
+                    <div class="adoption-body">
+                        <h3>${adopt.pet_name}</h3>
+                        <div class="adoption-specs">
+                            <span><strong>Edad:</strong> ${adopt.age}</span>
+                            <span><strong>Sexo:</strong> ${adopt.gender}</span>
+                            <span><strong>Raza:</strong> ${adopt.breed}</span>
+                        </div>
+                        <p class="adoption-excerpt">${(adopt.description || '').substring(0, 80)}${(adopt.description || '').length > 80 ? '...' : ''}</p>
+                        <button class="view-adoption-btn">Ver Ficha <i class="fa-solid fa-circle-info"></i></button>
+                    </div>
+                </div>
+            `;
+        });
+
+        adoptionsContainer.innerHTML = cardsHtml + createCardHtml;
+
+        // Attach details modal listener to cards
+        document.querySelectorAll(".adoption-card[data-id]").forEach(card => {
+            card.addEventListener("click", () => {
+                const adoptId = card.getAttribute("data-id");
+                const adopt = optsFindAdopt(adopts, adoptId);
+                if (adopt) {
+                    openAdoptionDetails(adopt);
+                }
+            });
+        });
+
+        // Attach submission modal listeners
+        const triggerAdopcionCard = document.getElementById("trigger-adopcion-card");
+        const btnAdopcionCard = document.getElementById("card-adopcion-btn");
+        const triggerAdopcionSubmitBtn = document.getElementById("trigger-adopcion-submit-btn");
+        const modalAdopcionSubmit = document.getElementById("modal-adopcion-submit");
+
+        const openAdopcionSubmit = () => {
+            if (modalAdopcionSubmit) modalAdopcionSubmit.style.display = "flex";
+        };
+
+        if (triggerAdopcionCard) triggerAdopcionCard.addEventListener("click", (e) => {
+            openAdopcionSubmit();
+        });
+        if (btnAdopcionCard) btnAdopcionCard.addEventListener("click", (e) => {
+            e.stopPropagation();
+            openAdopcionSubmit();
+        });
+        if (triggerAdopcionSubmitBtn) triggerAdopcionSubmitBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            openAdopcionSubmit();
+        });
+    }
+
+    function optsFindAdopt(adopts, id) {
+        return adopts.find(a => a.id === id);
+    }
+
+    const modalAdopcionDetails = document.getElementById("modal-adopcion-details");
+    const closeAdopcionDetails = document.getElementById("close-adopcion-details");
+    const closeAdopcionSubmit = document.getElementById("close-adopcion-submit");
+    const modalAdopcionSubmit = document.getElementById("modal-adopcion-submit");
+
+    if (closeAdopcionDetails && modalAdopcionDetails) {
+        closeAdopcionDetails.addEventListener("click", () => {
+            modalAdopcionDetails.style.display = "none";
+        });
+    }
+    if (closeAdopcionSubmit && modalAdopcionSubmit) {
+        closeAdopcionSubmit.addEventListener("click", () => {
+            modalAdopcionSubmit.style.display = "none";
+        });
+    }
+
+    window.addEventListener("click", (e) => {
+        if (e.target === modalAdopcionDetails) modalAdopcionDetails.style.display = "none";
+        if (e.target === modalAdopcionSubmit) modalAdopcionSubmit.style.display = "none";
+    });
+
+    function openAdoptionDetails(adopt) {
+        if (!modalAdopcionDetails) return;
+        
+        document.getElementById("detail-adopt-img").src = adopt.image;
+        document.getElementById("detail-adopt-img").alt = adopt.pet_name;
+        document.getElementById("detail-adopt-name").textContent = adopt.pet_name;
+        document.getElementById("detail-adopt-type").textContent = adopt.pet_type;
+        document.getElementById("detail-adopt-age").textContent = adopt.age;
+        document.getElementById("detail-adopt-gender").textContent = adopt.gender;
+        document.getElementById("detail-adopt-breed").textContent = adopt.breed;
+        document.getElementById("detail-adopt-desc").textContent = adopt.description;
+        document.getElementById("detail-adopt-health").textContent = adopt.health;
+        document.getElementById("detail-adopt-conditions").textContent = adopt.conditions;
+        document.getElementById("detail-adopt-contact").textContent = adopt.contact;
+
+        modalAdopcionDetails.style.display = "flex";
     }
 
     // 13. VISITS COUNTER API FETCH

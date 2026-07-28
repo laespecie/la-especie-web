@@ -13,11 +13,14 @@
     --ad-border: #e2e8f0;
     
     /* Category Colors */
-    --color-conservation: #15803d; /* Green */
-    --color-pets: #b45309; /* Amber/Orange */
-    --color-tenencia: #0d9488; /* Teal */
-    --color-science: #0369a1; /* Light Blue */
-    --color-legislation: #7c3aed; /* Purple */
+    --color-nacional: #b91c1c;
+    --color-tenencia: #0d9488;
+    --color-ciencia: #0369a1;
+    --color-internacional: #4f46e5;
+    --color-ciudadania: #7c3aed;
+    --color-rescatistas: #ea580c;
+    --color-opinion: #475569;
+    --color-medioambiente: #15803d;
     
     /* Font Families */
     --font-serif: "Lora", "Playfair Display", Georgia, serif;
@@ -40,6 +43,16 @@
     --card-bg: #1e293b;
     --ad-bg: #1e293b;
     --ad-border: #334155;
+
+    /* Category Colors for Dark Mode */
+    --color-nacional: #ef4444;
+    --color-tenencia: #2dd4bf;
+    --color-ciencia: #38bdf8;
+    --color-internacional: #818cf8;
+    --color-ciudadania: #a78bfa;
+    --color-rescatistas: #fb923c;
+    --color-opinion: #94a3b8;
+    --color-medioambiente: #4ade80;
 }
 
 /* Global Reset */
@@ -584,24 +597,36 @@ a:hover {
     border-radius: 2px;
 }
 
-.category-pets {
-    background-color: var(--color-pets);
-}
-
-.category-science {
-    background-color: var(--color-science);
-}
-
-.category-conservation {
-    background-color: var(--color-conservation);
-}
-
-.category-legislation {
-    background-color: var(--color-legislation);
+.category-nacional {
+    background-color: var(--color-nacional);
 }
 
 .category-tenencia {
     background-color: var(--color-tenencia);
+}
+
+.category-ciencia {
+    background-color: var(--color-ciencia);
+}
+
+.category-internacional {
+    background-color: var(--color-internacional);
+}
+
+.category-ciudadania {
+    background-color: var(--color-ciudadania);
+}
+
+.category-rescatistas {
+    background-color: var(--color-rescatistas);
+}
+
+.category-opinion {
+    background-color: var(--color-opinion);
+}
+
+.category-medioambiente {
+    background-color: var(--color-medioambiente);
 }
 
 .category-default {
@@ -1831,6 +1856,237 @@ blockquote.tiktok-embed,
 .share-btn.copy-link { 
     background-color: #64748b; 
     cursor: pointer;
+}
+
+/* --- ADOPCIONES SECTION --- */
+.adoptions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+.adoption-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+.adoption-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.1);
+}
+.adoption-img-container {
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+}
+.adoption-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-speed);
+}
+.adoption-card:hover .adoption-img {
+    transform: scale(1.05);
+}
+.adoption-type-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--color-tenencia);
+    color: #ffffff;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+.adoption-body {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.adoption-body h3 {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-top: 0;
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+.adoption-specs {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    background-color: var(--ad-bg);
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+.adoption-specs strong {
+    color: var(--text-color);
+}
+.adoption-excerpt {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+    margin-bottom: 15px;
+    flex-grow: 1;
+}
+.view-adoption-btn {
+    background-color: var(--accent-color);
+    color: #ffffff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity var(--transition-speed);
+    text-align: center;
+    width: 100%;
+}
+.view-adoption-btn:hover {
+    opacity: 0.9;
+}
+.create-adoption-card {
+    border: 2px dashed var(--color-tenencia);
+    justify-content: center;
+    text-align: center;
+    background-color: rgba(13, 148, 136, 0.05);
+    padding: 20px 10px;
+}
+.create-adoption-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.create-adoption-btn {
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity var(--transition-speed);
+}
+.create-adoption-btn:hover {
+    opacity: 0.9;
+}
+
+/* --- MODAL DETALLES ADOPCIÓN --- */
+.modal-content-large {
+    max-width: 800px;
+    width: 90%;
+    padding: 0;
+    overflow: hidden;
+}
+.adoption-details-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+@media (min-width: 768px) {
+    .adoption-details-layout {
+        grid-template-columns: 320px 1fr;
+    }
+}
+.adoption-details-img {
+    height: 250px;
+    overflow: hidden;
+}
+@media (min-width: 768px) {
+    .adoption-details-img {
+        height: 100%;
+        min-height: 500px;
+    }
+}
+.adoption-details-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.adoption-details-info {
+    padding: 25px;
+    max-height: 85vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.adoption-details-info h2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.1;
+    color: var(--text-color);
+}
+.adoption-type-badge-large {
+    display: inline-block;
+    align-self: flex-start;
+    background-color: var(--color-tenencia);
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+.detail-specs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    background-color: var(--ad-bg);
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+}
+.detail-spec-item {
+    display: flex;
+    flex-direction: column;
+}
+.detail-spec-item strong {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+}
+.detail-section h4 {
+    font-size: 0.9rem;
+    font-weight: 800;
+    margin-top: 0;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 4px;
+    color: var(--text-color);
+}
+.detail-section p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin: 0;
+}
+.contact-section-box {
+    background-color: rgba(13, 148, 136, 0.05);
+    border: 1px dashed var(--color-tenencia);
+    padding: 15px;
+    border-radius: 8px;
+}
+.contact-highlight {
+    font-size: 1.05rem !important;
+    font-weight: 700;
+    color: var(--color-tenencia) !important;
+    margin: 0;
 }
 
 

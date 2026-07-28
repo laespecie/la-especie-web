@@ -66,6 +66,38 @@ try {
   fs.writeFileSync(obituariosOutputFile, JSON.stringify(obituarios, null, 2), 'utf8');
   console.log(`Successfully built obituarios index with ${obituarios.length} items.`);
 
+  // --- BUILD ADOPCIONES INDEX ---
+  const adopcionesDir = path.join(__dirname, 'content', 'adopciones');
+  const adopcionesOutputFile = path.join(__dirname, 'adopciones-index.json');
+
+  // Ensure content/adopciones directory exists
+  if (!fs.existsSync(adopcionesDir)) {
+    fs.mkdirSync(adopcionesDir, { recursive: true });
+  }
+
+  const adopcionesFiles = fs.readdirSync(adopcionesDir);
+  const adopciones = [];
+
+  adopcionesFiles.forEach(file => {
+    if (file.endsWith('.json')) {
+      const filePath = path.join(adopcionesDir, file);
+      const content = fs.readFileSync(filePath, 'utf8');
+      try {
+        const data = JSON.parse(content);
+        data.id = path.basename(file, '.json');
+        adopciones.push(data);
+      } catch (err) {
+        console.error(`Error parsing JSON in adoption file: ${file}`, err);
+      }
+    }
+  });
+
+  // Sort by filename descending (latest date first)
+  adopciones.sort((a, b) => b.id.localeCompare(a.id));
+
+  fs.writeFileSync(adopcionesOutputFile, JSON.stringify(adopciones, null, 2), 'utf8');
+  console.log(`Successfully built adopciones index with ${adopciones.length} items.`);
+
 } catch (err) {
   console.error('Error building index:', err);
   process.exit(1);

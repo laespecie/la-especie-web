@@ -320,11 +320,14 @@
                     
                     badge.className = "section-badge";
                     const mainCategory = Array.isArray(categoryValue) ? categoryValue[0] : categoryValue;
-                    if (mainCategory === "Conservación") badge.style.backgroundColor = "var(--color-conservation)";
-                    else if (mainCategory === "Mascotas") badge.style.backgroundColor = "var(--color-pets)";
+                    if (mainCategory === "Nacional") badge.style.backgroundColor = "var(--color-nacional)";
                     else if (mainCategory === "Tenencia") badge.style.backgroundColor = "var(--color-tenencia)";
-                    else if (mainCategory === "Ciencia") badge.style.backgroundColor = "var(--color-science)";
-                    else if (mainCategory === "Legislación") badge.style.backgroundColor = "var(--color-legislation)";
+                    else if (mainCategory === "Ciencia") badge.style.backgroundColor = "var(--color-ciencia)";
+                    else if (mainCategory === "Internacional") badge.style.backgroundColor = "var(--color-internacional)";
+                    else if (mainCategory === "Ciudadanía") badge.style.backgroundColor = "var(--color-ciudadania)";
+                    else if (mainCategory === "Rescatistas") badge.style.backgroundColor = "var(--color-rescatistas)";
+                    else if (mainCategory === "Opinión") badge.style.backgroundColor = "var(--color-opinion)";
+                    else if (mainCategory === "Medioambiente") badge.style.backgroundColor = "var(--color-medioambiente)";
                     else badge.style.backgroundColor = "var(--accent-color)";
 
                     // Format date
