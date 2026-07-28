@@ -2042,7 +2042,7 @@ blockquote.tiktok-embed,
 }
 .detail-specs-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     background-color: var(--ad-bg);
     border: 1px solid var(--border-color);
@@ -2087,6 +2087,25 @@ blockquote.tiktok-embed,
     font-weight: 700;
     color: var(--color-tenencia) !important;
     margin: 0;
+}
+
+/* --- MORE NEWS SECTION --- */
+.more-news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+@media (min-width: 992px) {
+    .more-news-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+.small-news-card .card-img-container {
+    height: 140px;
+}
+.small-news-card .card-title {
+    font-size: 1.05rem;
+    line-height: 1.25;
 }
 
 

@@ -121,6 +121,10 @@ collections:
         name: "pet_type"
         widget: "select"
         options: ["Perro", "Gato", "Otro"]
+      - label: "Ciudad"
+        name: "city"
+        widget: "string"
+        default: "Concepción"
       - label: "Fotografía de la Mascota"
         name: "image"
         widget: "image"

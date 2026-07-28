@@ -195,11 +195,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 feedContainer.appendChild(divider);
 
                 const listGrid = document.createElement("div");
-                listGrid.className = "secondary-grid";
+                listGrid.className = "more-news-grid";
                 listGrid.style.marginTop = "20px";
 
-                otherPosts.slice(2).forEach(post => {
-                    const card = createCardHtml(post);
+                otherPosts.slice(2, 8).forEach(post => {
+                    const card = createSmallCardHtml(post);
                     listGrid.appendChild(card);
                 });
                 feedContainer.appendChild(listGrid);
@@ -318,6 +318,33 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="card-body">
                 <h2 class="card-title"><a href="${getPostUrl(post)}">${post.title}</a></h2>
                 <p class="card-excerpt">${post.excerpt || ''}</p>
+                <div class="article-meta">
+                    <span class="author">Por <strong>${post.author || 'La Especie'}</strong></span>
+                    <span class="date">${dateStr}</span>
+                </div>
+            </div>
+        `;
+        return card;
+    }
+
+    // Helper: Create Small Grid Card HTML (for Más Noticias section)
+    function createSmallCardHtml(post) {
+        const card = document.createElement("article");
+        card.className = "news-card small-news-card";
+
+        const categoryColorClass = getCategoryClass(post.category);
+        const categoryText = getCategoryText(post.category);
+
+        const imageSrc = post.image || 'https://images.unsplash.com/photo-1444212477490-ca407925329e?auto=format&fit=crop&q=80&w=400';
+        const dateStr = formatDate(post.date);
+
+        card.innerHTML = `
+            <div class="card-img-container">
+                <img src="${imageSrc}" alt="${post.title}" class="article-img">
+                <span class="card-category ${categoryColorClass}">${categoryText}</span>
+            </div>
+            <div class="card-body">
+                <h2 class="card-title"><a href="${getPostUrl(post)}">${post.title}</a></h2>
                 <div class="article-meta">
                     <span class="author">Por <strong>${post.author || 'La Especie'}</strong></span>
                     <span class="date">${dateStr}</span>
@@ -629,10 +656,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         <h3>${adopt.pet_name}</h3>
                         <div class="adoption-specs">
                             <span><strong>Edad:</strong> ${adopt.age}</span>
-                            <span><strong>Sexo:</strong> ${adopt.gender}</span>
-                            <span><strong>Raza:</strong> ${adopt.breed}</span>
+                            <span><strong>Ciudad:</strong> ${adopt.city || 'Concepción'}</span>
                         </div>
-                        <p class="adoption-excerpt">${(adopt.description || '').substring(0, 80)}${(adopt.description || '').length > 80 ? '...' : ''}</p>
                         <button class="view-adoption-btn">Ver Ficha <i class="fa-solid fa-circle-info"></i></button>
                     </div>
                 </div>
@@ -710,6 +735,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("detail-adopt-age").textContent = adopt.age;
         document.getElementById("detail-adopt-gender").textContent = adopt.gender;
         document.getElementById("detail-adopt-breed").textContent = adopt.breed;
+        document.getElementById("detail-adopt-city").textContent = adopt.city || "Concepción";
         document.getElementById("detail-adopt-desc").textContent = adopt.description;
         document.getElementById("detail-adopt-health").textContent = adopt.health;
         document.getElementById("detail-adopt-conditions").textContent = adopt.conditions;
