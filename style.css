@@ -2108,4 +2108,44 @@ blockquote.tiktok-embed,
     line-height: 1.25;
 }
 
+.playstore-download-btn {
+    display: flex;
+    align-items: center;
+    background-color: #000000;
+    color: #ffffff;
+    border: 1px solid #334155;
+    border-radius: 6px;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-family: 'Outfit', sans-serif;
+    transition: background-color 0.2s, border-color 0.2s;
+    margin-top: 15px;
+    justify-content: center;
+    gap: 12px;
+}
+.playstore-download-btn:hover {
+    background-color: #1e293b;
+    border-color: #64748b;
+}
+.playstore-download-btn i {
+    font-size: 1.8rem;
+    color: #38bdf8; /* EvocaMail blue highlight */
+}
+.playstore-download-btn .btn-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.1;
+}
+.playstore-download-btn .btn-text span {
+    font-size: 0.6rem;
+    font-weight: 500;
+    color: #94a3b8;
+    letter-spacing: 0.5px;
+}
+.playstore-download-btn .btn-text strong {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
 

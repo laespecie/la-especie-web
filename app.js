@@ -405,8 +405,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
             
-            // Take up to 3 posts to display as most read
-            allPosts.slice(0, 3).forEach((post, index) => {
+            // Take up to 5 posts to display as most read
+            allPosts.slice(0, 5).forEach((post, index) => {
                 const item = document.createElement("div");
                 item.className = "most-read-item";
                 item.innerHTML = `
