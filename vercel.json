@@ -7,8 +7,8 @@
       "destination": "/admin/index.html"
     },
     {
-      "source": "/:id(20.+)",
-      "destination": "/articulo.html?id=:id"
+      "source": "/20:id",
+      "destination": "/articulo?id=20:id"
     }
   ]
 }
