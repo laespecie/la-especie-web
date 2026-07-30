@@ -40,7 +40,7 @@ collections:
           - "Ciudadanía"
           - "Rescatistas"
           - "Opinión"
-          - "Medioambiente"
+          - "Medio ambiente"
       - label: "Autor"
         name: "author"
         widget: "string"

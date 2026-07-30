@@ -14,6 +14,34 @@
       // Load style.css for article body formatting (markdown images, links, quotes, etc.)
       CMS.registerPreviewStyle("/style.css");
 
+      // Custom editor component for inline related news (Lee de otra Especie)
+      CMS.registerEditorComponent({
+        id: "relacionado",
+        label: "Lee de otra Especie",
+        fields: [
+          { name: "id", label: "ID/Link del artículo (ej: 2026-07-26-el-papel-clave...)", widget: "string" },
+          { name: "texto", label: "Texto a mostrar (título de la nota)", widget: "string" }
+        ],
+        pattern: /^\[relacionado\]\((.*?)\)\s*\"(.*?)\"$/,
+        fromBlock: function(match) {
+          return {
+            id: match[1],
+            texto: match[2]
+          };
+        },
+        toBlock: function(obj) {
+          return `[relacionado](${obj.id}) "${obj.texto}"`;
+        },
+        toPreview: function(obj) {
+          return `
+            <div style="margin: 20px 0; padding: 15px 20px; border-left: 5px solid #dc2626; background-color: #f8fafc; border-radius: 4px; border: 1px solid #e2e8f0; border-left-width: 5px; font-family: sans-serif;">
+              <span style="display: block; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; color: #dc2626; letter-spacing: 1px; margin-bottom: 5px;">Lee de otra Especie...</span>
+              <a href="/${obj.id}" style="font-size: 1.1rem; font-weight: bold; color: #1e293b; text-decoration: none;">${obj.texto}</a>
+            </div>
+          `;
+        }
+      });
+
       // Custom preview template for articles to prevent React Error #130 crashes
       CMS.registerPreviewTemplate("posts", ({ entry, widgetFor }) => {
         const title = entry.getIn(['data', 'title']) || 'Sin Título';

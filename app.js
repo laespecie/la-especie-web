@@ -250,7 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (mainCat === "Ciudadanía") return "var(--color-ciudadania)";
         if (mainCat === "Rescatistas") return "var(--color-rescatistas)";
         if (mainCat === "Opinión") return "var(--color-opinion)";
-        if (mainCat === "Medioambiente") return "var(--color-medioambiente)";
+        if (mainCat === "Medio ambiente" || mainCat === "Medioambiente") return "var(--color-medioambiente)";
         return "var(--accent-color)";
     }
 
@@ -264,7 +264,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (mainCat === "Ciudadanía") return "category-ciudadania";
         if (mainCat === "Rescatistas") return "category-rescatistas";
         if (mainCat === "Opinión") return "category-opinion";
-        if (mainCat === "Medioambiente") return "category-medioambiente";
+        if (mainCat === "Medio ambiente" || mainCat === "Medioambiente") return "category-medioambiente";
         return "category-default";
     }
 
