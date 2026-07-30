@@ -427,12 +427,13 @@
                      let bodyHtml = post.body || "";
                      const relatedRegex = /\[relacionado\]\((.*?)\)\s*\"(.*?)\"/g;
                      bodyHtml = bodyHtml.replace(relatedRegex, (match, slug, title) => {
-                         return `
-                         <div class="inline-related-article" style="margin: 30px 0; padding: 18px 24px; border-left: 5px solid var(--accent-color, #dc2626); background-color: var(--ad-bg, #f8fafc); border-radius: 4px; border-top: 1px solid var(--border-color, #e2e8f0); border-right: 1px solid var(--border-color, #e2e8f0); border-bottom: 1px solid var(--border-color, #e2e8f0); box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
-                             <span style="display: block; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--accent-color, #dc2626); letter-spacing: 1px; margin-bottom: 6px;">Lee de otra Especie...</span>
-                             <a href="/${slug}" style="font-size: 1.15rem; font-weight: 700; color: var(--text-color, #1e293b); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--accent-color, #dc2626)'" onmouseout="this.style.color='var(--text-color, #1e293b)'">${title}</a>
-                         </div>
-                         `;
+                         let cleanSlug = slug.trim();
+                         if (cleanSlug.includes("id=")) {
+                             cleanSlug = cleanSlug.split("id=")[1];
+                         }
+                         cleanSlug = cleanSlug.replace(/^https?:\/\/[^\/]+/, "");
+                         cleanSlug = cleanSlug.replace(/^\/+|\/+$/g, "");
+                         return `<div class="inline-related-article" style="margin: 30px 0; padding: 18px 24px; border-left: 5px solid var(--accent-color, #dc2626); background-color: var(--ad-bg, #f8fafc); border-radius: 4px; border-top: 1px solid var(--border-color, #e2e8f0); border-right: 1px solid var(--border-color, #e2e8f0); border-bottom: 1px solid var(--border-color, #e2e8f0); box-shadow: 0 2px 8px rgba(0,0,0,0.03);"><span style="display: block; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--accent-color, #dc2626); letter-spacing: 1px; margin-bottom: 6px;">Lee de otra Especie...</span><a href="/${cleanSlug}" style="font-size: 1.15rem; font-weight: 700; color: var(--text-color, #1e293b); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--accent-color, #dc2626)'" onmouseout="this.style.color='var(--text-color, #1e293b)'">${title}</a></div>`;
                      });
                      bodyContainer.innerHTML = marked.parse(bodyHtml);
 
