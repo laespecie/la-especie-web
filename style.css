@@ -2148,4 +2148,9 @@ blockquote.tiktok-embed,
     font-weight: 700;
 }
 
+/* Force dark colors and disable brightness filter for EvocaMail mobile app ad logo */
+.mobile-app-ad .ad-sidebar-logo-img {
+    filter: none !important;
+}
+
 

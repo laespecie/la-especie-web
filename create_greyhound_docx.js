@@ -59,7 +59,7 @@ const doc = new Document({
             new Paragraph({
                 children: [
                     new TextRun({
-                        text: "Este lunes 3 de agosto, la Cámara de Diputados de Chile debatirá dos proyectos contrapuestos que definirán el futuro de las carreras de perros en el país: el fin definitivo de esta práctica bajo sanciones penales o su legalización regulada en canódromos. Desde la perspectiva científica y del bienestar animal, los expertos advierten sobre las secuelas físicas, el dopaje sistemático y el impacto ecológico de una actividad que divide al campo y moviliza a la ciudadanía.",
+                        text: "Este lunes 3 de agosto, la Cámara de Diputados de Chile debatirá dos proyectos contrapuestos que definirán el futuro de las carreras de perros en el país: el fin definitivo de esta práctica bajo sanciones penales o su legalización regulada en canódromos. Con el aporte científico y ético de la medicina veterinaria, los expertos advierten sobre las secuelas físicas, la manipulación química mediante dopaje y el impacto ecológico de una actividad que divide al campo y moviliza a la ciudadanía.",
                         italic: true,
                         size: 24, // 12pt
                         color: "475569"
@@ -93,7 +93,7 @@ const doc = new Document({
             new Paragraph({
                 children: [
                     new TextRun({
-                        text: "Por Redacción La Especie  |  Publicado: 29 de Julio de 2026",
+                        text: "Por Redacción La Especie  |  Publicado: 30 de Julio de 2026",
                         bold: true,
                         size: 18,
                         color: "64748B"
@@ -146,7 +146,25 @@ const doc = new Document({
             new Paragraph({
                 children: [
                     new TextRun({
-                        text: "Por un lado, los defensores de la actividad argumentan que las carreras constituyen una tradición rural arraigada y una fuente de identidad comunitaria en diversos sectores agrícolas del país, asegurando que una regulación estricta con controles veterinarios bastaría para mitigar cualquier riesgo. Por otro lado, las agrupaciones animalistas y la comunidad científica veterinaria sostienen que las carreras de galgos son intrínsecamente crueles e incompatibles con el concepto moderno de bienestar animal, puesto que reducen a seres sintientes a meras herramientas de apuestas y lucro informal.",
+                        text: "La discusión reactiva la tensión entre quienes defienden la práctica como una tradición de campo y quienes la catalogan como explotación. Frente a esta visión instrumental, la ",
+                        size: 24
+                    }),
+                    new TextRun({
+                        text: "Dra. Javiera Rojas Burgos, médica veterinaria de la Universidad Mayor",
+                        bold: true,
+                        size: 24
+                    }),
+                    new TextRun({
+                        text: ", recuerda la naturaleza del vínculo que une a ambas especies: ",
+                        size: 24
+                    }),
+                    new TextRun({
+                        text: "«Los perros son una especie que ha evolucionado durante miles de años al lado del ser humano, su biología ya no se constituye en lo salvaje sino que en la simbiosis interespecie, han desarrollado mecanismos sociales de interdependencia, debemos hacernos responsables de eso»",
+                        italic: true,
+                        size: 24
+                    }),
+                    new TextRun({
+                        text: ".",
                         size: 24
                     })
                 ],
@@ -183,7 +201,26 @@ const doc = new Document({
                         size: 24
                     }),
                     new TextRun({
-                        text: ", roturas musculares graves y tendinitis crónicas reportadas recurrentemente en clínicas veterinarias de zonas rurales. Además, la fatiga extrema provocada por estas carreras puede desencadenar cuadros de acidosis láctica severa e hipertermia por esfuerzo, que en muchos casos resultan fatales si no se cuenta con atención médica de emergencia inmediata.",
+                        text: ", roturas musculares graves y tendinitis crónicas reportadas recurrentemente en clínicas veterinarias. Además, la fatiga extrema provocada por estas carreras puede desencadenar cuadros de acidosis láctica severa e hipertermia por esfuerzo, que en muchos casos resultan fatales si no se cuenta con atención médica de emergencia inmediata.",
+                        size: 24
+                    })
+                ],
+                spacing: { after: 240 }
+            }),
+
+            new Paragraph({
+                children: [
+                    new TextRun({
+                        text: "Al respecto, la Dra. Rojas Burgos sostiene de forma tajante que la naturaleza de la actividad atenta contra la integridad misma de los canes: ",
+                        size: 24
+                    }),
+                    new TextRun({
+                        text: "«Las carreras de perros, independientemente de la raza, no constituyen un deporte regulable sino una sobreexplotación fisiológica que falta a la ética. Por lo que no solo nos referimos a una corrida sana, hablamos de exposición severa a factores de riesgo que el animal no es capaz de manejar»",
+                        italic: true,
+                        size: 24
+                    }),
+                    new TextRun({
+                        text: ".",
                         size: 24
                     })
                 ],
@@ -210,42 +247,30 @@ const doc = new Document({
             new Paragraph({
                 children: [
                     new TextRun({
-                        text: "Para lograr que el animal corra más rápido o tolere el cansancio, se ha constatado el uso de anabólicos esteroides, estimulantes del sistema nervioso como la cafeína y la efedrina, broncodilatadores y estimulantes cardíacos. Lo más alarmante es el uso de analgésicos y antiinflamatorios potentes cuyo fin no es sanar una lesión, sino enmascarar el dolor físico para obligar al perro a seguir corriendo. Este enmascaramiento anula el mecanismo natural de defensa del animal, provocando que continúe el esfuerzo físico sobre una lesión preexistente, lo que a menudo termina en fracturas óseas catastróficas en plena carrera.",
+                        text: "Para lograr que el animal corra más rápido o tolere el cansancio, se ha constatado el uso de anabólicos esteroides, estimulantes del sistema nervioso como la cafeína y la efedrina, broncodilatadores y estimulantes cardíacos. Lo más alarmante es el uso de analgésicos y antiinflamatorios potentes cuyo fin no es sanar una lesión, sino enmascarar el dolor físico para obligar al perro a seguir corriendo. Este enmascaramiento anula el mecanismo de defensa natural del dolor, provocando que continúe el esfuerzo físico sobre una lesión preexistente, lo que a menudo termina en fracturas óseas catastróficas en plena carrera.",
                         size: 24
                     })
                 ],
                 spacing: { after: 240 }
             }),
 
-            // VETERINARY OPINION SECTION (With editorial note to replace)
-            new Paragraph({
-                text: "Espacio para Inserción: Opinión Profesional Veterinaria",
-                heading: HeadingLevel.HEADING_3,
-                spacing: { before: 180, after: 120 }
-            }),
-
             new Paragraph({
                 children: [
                     new TextRun({
-                        text: "NOTA EDITORIAL PARA BORIS: Puedes reemplazar la siguiente cita de borrador con la declaración de tu fuente veterinaria directa cuando la obtengas.",
-                        bold: true,
-                        color: "006D77",
-                        size: 20
-                    })
-                ],
-                spacing: { after: 120 }
-            }),
-
-            new Paragraph({
-                children: [
+                        text: "Como explica la especialista de la Universidad Mayor, esta manipulación química anula las respuestas biológicas de supervivencia: ",
+                        size: 24
+                    }),
                     new TextRun({
-                        text: "«Las secuelas fisiológicas y emocionales de las carreras en los galgos son devastadoras. No existe una 'regulación' posible para una actividad cuyo núcleo es la sobreexplotación de la capacidad de resistencia del animal. El confinamiento prolongado, la sobrecarga física extrema y el uso sistemático de fármacos estimulantes vulneran directamente los pilares más básicos del bienestar animal consagrados por la ciencia», explica un especialista en medicina veterinaria y comportamiento animal consultado por La Especie.",
+                        text: "«Es conocido que para lograr una mayor eficiencia se utiliza la administración de fármacos moduladores de la nocicepción (dolor) disminuyendo las respuestas naturales de protección que tenemos los mamíferos: alejarnos de la fuente de riesgo, cambiar el movimiento, detenernos, etc. Por lo que no solo nos referimos a una corrida sana, hablamos de exposición severa a factores de riesgo que el animal no es capaz de manejar»",
                         italic: true,
-                        size: 22,
-                        color: "0F172A"
+                        size: 24
+                    }),
+                    new TextRun({
+                        text: ".",
+                        size: 24
                     })
                 ],
-                spacing: { left: 400, right: 400, before: 120, after: 300 }
+                spacing: { after: 240 }
             }),
 
             // SECTION HEADING 3
@@ -259,6 +284,25 @@ const doc = new Document({
                 children: [
                     new TextRun({
                         text: "La crueldad de la industria de las carreras no termina en la meta. Los galgos son considerados productivos únicamente en un estrecho rango que va desde los 18 meses hasta los 3 o 4 años de edad. Una vez que su velocidad decrece debido a la edad, lesiones o desgaste de articulaciones, el destino de miles de estos animales es el abandono o la eutanasia informal.",
+                        size: 24
+                    })
+                ],
+                spacing: { after: 240 }
+            }),
+
+            new Paragraph({
+                children: [
+                    new TextRun({
+                        text: "Frente a esta dura realidad de descarte, la Dra. Rojas Burgos denuncia la falta de empatía humana detrás de este negocio: ",
+                        size: 24
+                    }),
+                    new TextRun({
+                        text: "«Conocemos el rol que realizan fundaciones o personas naturales por rescatar, rehabilitar y sostener galgos que son abandonados por ya no servir para correr por envejecer, presentar fracturas u otras enfermedades, no hay humanidad en abandonar, en no hacerse cargo de quien te generó dinero, ego y estatus. No se puede llamar deporte ni cultura si hay sufrimiento de por medio»",
+                        italic: true,
+                        size: 24
+                    }),
+                    new TextRun({
+                        text: ".",
                         size: 24
                     })
                 ],
@@ -295,7 +339,7 @@ const doc = new Document({
             new Paragraph({
                 children: [
                     new TextRun({
-                        text: "El proyecto de prohibición que se discutirá este lunes busca reformar la Ley N° 20.380 sobre Protección de Animales para vetar explícitamente las carreras de perros de cualquier raza en todo el país, castigando a los organizadores con penas de presidio menor en su grado mínimo (61 a 540 días) y multas que van desde las 2 hasta las 30 UTM, además del decomiso de los animales. Por el contrario, la moción reguladora pretende legalizar la actividad bajo la creación de canódromos autorizados por el Servicio Agrícola y Ganadero (SAG), estableciendo pruebas de dopaje y control veterinario obligatorio.",
+                        text: "El proyecto de prohibición que se discutirá este lunes busca reformar la Ley N° 20.380 sobre Protección de Animales para vetar explícitamente las carreras de perros de cualquier raza en todo el país, castigando a los organizadores con penas de presidio menor en su grado mínimo (61 a 540 días) y multas que van desde las 2 hasta las 30 UTM, además del de comiso de los animales. Por el contrario, la moción reguladora pretende legalizar la actividad bajo la creación de canódromos autorizados por el Servicio Agrícola y Ganadero (SAG), estableciendo pruebas de dopaje y control veterinario obligatorio.",
                         size: 24
                     })
                 ],
@@ -305,7 +349,35 @@ const doc = new Document({
             new Paragraph({
                 children: [
                     new TextRun({
-                        text: "Sin embargo, para las ONGs de bienestar animal, regular una actividad basada en el lucro y la explotación de la velocidad de un animal es una contradicción ética insalvable. «No se puede regular el abuso. Países como Argentina y Uruguay ya dieron el paso histórico de prohibir las carreras por ley debido a la imposibilidad de controlar la crueldad clandestina que rodea a este negocio», señalan los activistas de Galgo Libre. La votación de este lunes definirá si Chile avanza hacia el fin de una práctica cuestionada por la ciencia o si opta por un polémico marco regulatorio que prolongará la discusión por años.",
+                        text: "La discusión sobre una posible regulación es mirada con absoluto escepticismo desde el gremio médico y científico. La Dra. Rojas Burgos advierte sobre la ineficacia del sistema de control y la falta de voluntad en el resguardo ético: ",
+                        size: 24
+                    }),
+                    new TextRun({
+                        text: "«Hablamos también de un sistema gubernamental que ha demostrado ineficiencia para fiscalizar algo tan extendido territorialmente como lo es la aplicación de la ley de tenencia responsable 21.020, ¿realmente la regulación es la vía adecuada si tenemos evidencia del fracaso legislativo frente a otras temáticas animales? ¿Realmente habrá recursos destinados para ello? No toda regulación es la vía para mantener el control, muchas veces falta tener determinación frente a conceptos humanos como lo son la ética y la moral»",
+                        italic: true,
+                        size: 24
+                    }),
+                    new TextRun({
+                        text: ".",
+                        size: 24
+                    })
+                ],
+                spacing: { after: 240 }
+            }),
+
+            new Paragraph({
+                children: [
+                    new TextRun({
+                        text: "Finalmente, la académica apoya la prohibición absoluta basándose en los modelos contemporáneos de bienestar animal de la ciencia veterinaria: ",
+                        size: 24
+                    }),
+                    new TextRun({
+                        text: "«Bajo el modelo científico de los cinco dominios del Bienestar Animal, que conlleva incontables estudios de comportamiento, esta práctica vulnera de forma sostenida la salud física, el entorno ambiental y el estado mental del animal. Por tanto, pretender regular el maltrato sistemático es técnicamente inviable; la única postura científicamente ética y basada en la evidencia es la prohibición absoluta»",
+                        italic: true,
+                        size: 24
+                    }),
+                    new TextRun({
+                        text: ". La votación de este lunes definirá si Chile avanza hacia el fin de una práctica cuestionada por la ciencia o si opta por un polémico marco regulatorio que prolongará el sufrimiento de miles de animales.",
                         size: 24
                     })
                 ],
@@ -345,32 +417,32 @@ const doc = new Document({
 
             new Paragraph({
                 children: [
-                    new TextRun({ text: "1. Abordaje del Dilema Ético y Científico:\n", bold: true, size: 24 }),
-                    new TextRun({ text: "La prensa generalista suele tratar las carreras de perros como un simple conflicto de opiniones entre «tradición rural» y «modernidad urbana». En La Especie elevamos la discusión incorporando la fisiología veterinaria del galgo, explicando por qué las fuerzas biomecánicas y la velocidad extrema provocan fracturas y lesiones sistemáticas, y detallando los efectos destructivos del dopaje químico ilegal en su organismo.", size: 24 })
+                    new TextRun({ text: "1. Integración Temática de la Vocería Experta:\n", bold: true, size: 24 }),
+                    new TextRun({ text: "En lugar de agrupar toda la declaración de la veterinaria Javiera Rojas Burgos en una única 'caja de citas', distribuimos fragmentos de su testimonio a lo largo de las distintas secciones del artículo. Esto enriquece la narrativa y respalda con argumentos de la academia (Universidad Mayor) cada uno de los aspectos clave abordados: la fisiología del perro, el doping, el descarte ético y la inviabilidad práctica de la regulación.", size: 24 })
                 ],
                 spacing: { after: 200 }
             }),
 
             new Paragraph({
                 children: [
-                    new TextRun({ text: "2. Conexión con el Daño Ecológico:\n", bold: true, size: 24 }),
-                    new TextRun({ text: "Ampliamos el enfoque tradicional del bienestar individual del perro al impacto ecológico general. Explicamos cómo el descarte de galgos hacia la caza no regulada actúa como un factor de depredación letal sobre especies nativas chilenas vulnerables (como el pudú, el coipo y el zorro chilla), conectando la problemática animal con la conservación de la biodiversidad local.", size: 24 })
+                    new TextRun({ text: "2. Rigor Científico y Bienestar Animal:\n", bold: true, size: 24 }),
+                    new TextRun({ text: "Incorporamos términos y modelos científicos provistos por la experta, como el «modelo de los cinco dominios del Bienestar Animal» y el impacto de los «fármacos moduladores de la nocicepción» (dopaje para anular el dolor). Esto fundamenta de manera contundente la postura de que las carreras representan una sobreexplotación biológica y no un deporte.", size: 24 })
                 ],
                 spacing: { after: 200 }
             }),
 
             new Paragraph({
                 children: [
-                    new TextRun({ text: "3. Estructura para Inserción Profesional de la Fuente:\n", bold: true, size: 24 }),
-                    new TextRun({ text: "Diseñamos un bloque específico de «Opinión Veterinaria» precedido por una nota editorial clara, permitiendo que Boris o su equipo puedan reemplazar el borrador de forma sencilla por la declaración de su fuente directa sin que se rompa el hilo conductor de la redacción.", size: 24 })
+                    new TextRun({ text: "3. Crítica a la Eficiencia de la Regulación:\n", bold: true, size: 24 }),
+                    new TextRun({ text: "Utilizamos la analogía planteada por la especialista sobre la ineficiencia histórica del Estado al fiscalizar la Ley N° 21.020 (Ley Cholito) para cuestionar la viabilidad real de regular canódromos, enriqueciendo la discusión política del proyecto con evidencia pragmática y de gestión.", size: 24 })
                 ],
                 spacing: { after: 200 }
             }),
 
             new Paragraph({
                 children: [
-                    new TextRun({ text: "4. Desmantelamiento de la Viabilidad de la Regulación:\n", bold: true, size: 24 }),
-                    new TextRun({ text: "Analizamos críticamente la propuesta de «regulación» confrontándola con el marco legal internacional (mencionando las prohibiciones en Argentina y Uruguay), argumentando desde la ciencia del bienestar animal por qué la regulación de la explotación deportiva y económica de cánidos suele ser una justificación inviable frente al maltrato intrínseco.", size: 24 })
+                    new TextRun({ text: "4. Enlace del Bienestar Animal con la Conservación:\n", bold: true, size: 24 }),
+                    new TextRun({ text: "Mantuvimos el enfoque de protección de ecosistemas de La Especie al detallar cómo los perros desechados de las carreras dañan la fauna nativa (pudú, coipo y zorro chilla) al ser usados para la caza no regulada, expandiendo la relevancia de la prohibición de las carreras a la biodiversidad nacional.", size: 24 })
                 ],
                 spacing: { after: 200 }
             })
