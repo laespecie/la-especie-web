@@ -7,8 +7,8 @@
       "destination": "/admin/index.html"
     },
     {
-      "source": "/:year-:month-:day-:slug",
-      "destination": "/articulo.html?id=:year-:month-:day-:slug"
+      "source": "/:id(20[0-9][0-9]-[0-9][0-9]-[0-9][0-9]-.+)",
+      "destination": "/articulo.html?id=:id"
     }
   ]
 }
