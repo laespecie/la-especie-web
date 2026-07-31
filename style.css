@@ -1087,6 +1087,10 @@ a:hover {
     color: #34d399;
 }
 
+.form-feedback.error {
+    color: #ef4444;
+}
+
 /* --- FOOTER --- */
 .main-footer-section {
     background-color: var(--card-bg);

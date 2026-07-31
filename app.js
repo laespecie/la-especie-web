@@ -495,7 +495,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // 10. NEWSLETTER SIMULATOR
+    // 10. NEWSLETTER FORM SUBMISSION (FormSubmit API)
     const newsletterForm = document.getElementById("newsletter-form");
     const feedbackMsg = document.getElementById("newsletter-feedback");
 
@@ -509,11 +509,32 @@ document.addEventListener("DOMContentLoaded", () => {
                 feedbackMsg.textContent = "Guardando suscripción...";
                 feedbackMsg.className = "form-feedback";
 
-                setTimeout(() => {
-                    feedbackMsg.textContent = `¡Te has suscrito con éxito! Recibirás los boletines en: ${email}`;
-                    feedbackMsg.className = "form-feedback success";
-                    emailInput.value = "";
-                }, 1200);
+                fetch("https://formsubmit.co/ajax/contacto@laespecie.cl", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        _subject: "Nuevo Suscriptor - La Especie 🐾",
+                        _honey: ""
+                    })
+                })
+                .then(res => {
+                    if (res.ok) {
+                        feedbackMsg.textContent = `¡Te has suscrito con éxito! Recibirás los boletines en: ${email}`;
+                        feedbackMsg.className = "form-feedback success";
+                        emailInput.value = "";
+                    } else {
+                        throw new Error("FormSubmit response not ok");
+                    }
+                })
+                .catch(err => {
+                    console.error("Error submitting newsletter form", err);
+                    feedbackMsg.textContent = "Hubo un problema al procesar tu suscripción. Por favor, inténtalo de nuevo.";
+                    feedbackMsg.className = "form-feedback error";
+                });
             }
         });
     }
