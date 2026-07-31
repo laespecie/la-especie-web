@@ -264,7 +264,9 @@
             fetch('/posts-index.json')
                 .then(res => res.json())
                 .then(posts => {
-                    window.allPosts = posts;
+                    const now = new Date();
+                    const visiblePosts = posts.filter(p => !p.date || new Date(p.date) <= now);
+                    window.allPosts = visiblePosts;
                     // Hydrate related article thumbnails
                     document.querySelectorAll(".related-img").forEach(img => {
                         const slug = img.getAttribute("data-slug");
@@ -320,6 +322,10 @@
                     return res.json();
                 })
                 .then(post => {
+                    const now = new Date();
+                    if (post.date && new Date(post.date) > now) {
+                        throw new Error("Post is scheduled for a future date");
+                    }
                     loader.style.display = "none";
                     content.style.display = "block";
 

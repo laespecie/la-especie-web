@@ -86,7 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch('/posts-index.json')
         .then(res => res.json())
         .then(posts => {
-            allPosts = posts;
+            const now = new Date();
+            allPosts = posts.filter(p => !p.date || new Date(p.date) <= now);
             
             // Check hash for initial filtering
             let initialCat = "all";
