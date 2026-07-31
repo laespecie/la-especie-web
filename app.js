@@ -495,6 +495,39 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Helper function for newsletter form submissions via FormSubmit
+    function submitNewsletter(email, feedbackElement, inputElement) {
+        feedbackElement.textContent = "Guardando suscripción...";
+        feedbackElement.className = "form-feedback";
+
+        fetch("https://formsubmit.co/ajax/contacto@laespecie.cl", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                email: email,
+                _subject: "Nuevo Suscriptor - La Especie 🐾",
+                _honey: ""
+            })
+        })
+        .then(res => {
+            if (res.ok) {
+                feedbackElement.textContent = `¡Te has suscrito con éxito! Recibirás los boletines en: ${email}`;
+                feedbackElement.className = "form-feedback success";
+                inputElement.value = "";
+            } else {
+                throw new Error("FormSubmit response not ok");
+            }
+        })
+        .catch(err => {
+            console.error("Error submitting newsletter form", err);
+            feedbackElement.textContent = "Hubo un problema al procesar tu suscripción. Por favor, inténtalo de nuevo.";
+            feedbackElement.className = "form-feedback error";
+        });
+    }
+
     // 10. NEWSLETTER FORM SUBMISSION (FormSubmit API)
     const newsletterForm = document.getElementById("newsletter-form");
     const feedbackMsg = document.getElementById("newsletter-feedback");
@@ -504,53 +537,43 @@ document.addEventListener("DOMContentLoaded", () => {
             e.preventDefault();
             const emailInput = document.getElementById("subscriber-email");
             const email = emailInput.value.trim();
-
             if (email) {
-                feedbackMsg.textContent = "Guardando suscripción...";
-                feedbackMsg.className = "form-feedback";
-
-                fetch("https://formsubmit.co/ajax/contacto@laespecie.cl", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json"
-                    },
-                    body: JSON.stringify({
-                        email: email,
-                        _subject: "Nuevo Suscriptor - La Especie 🐾",
-                        _honey: ""
-                    })
-                })
-                .then(res => {
-                    if (res.ok) {
-                        feedbackMsg.textContent = `¡Te has suscrito con éxito! Recibirás los boletines en: ${email}`;
-                        feedbackMsg.className = "form-feedback success";
-                        emailInput.value = "";
-                    } else {
-                        throw new Error("FormSubmit response not ok");
-                    }
-                })
-                .catch(err => {
-                    console.error("Error submitting newsletter form", err);
-                    feedbackMsg.textContent = "Hubo un problema al procesar tu suscripción. Por favor, inténtalo de nuevo.";
-                    feedbackMsg.className = "form-feedback error";
-                });
+                submitNewsletter(email, feedbackMsg, emailInput);
             }
         });
     }
 
-    // 11. MODAL LOGIC (Reporteros & Obituarios)
+    // Modal Newsletter Form
+    const modalNewsletterForm = document.getElementById("modal-newsletter-form");
+    const modalFeedbackMsg = document.getElementById("modal-newsletter-feedback");
+
+    if (modalNewsletterForm && modalFeedbackMsg) {
+        modalNewsletterForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const emailInput = document.getElementById("modal-subscriber-email");
+            const email = emailInput.value.trim();
+            if (email) {
+                submitNewsletter(email, modalFeedbackMsg, emailInput);
+            }
+        });
+    }
+
+    // 11. MODAL LOGIC (Reporteros, Obituarios & Suscripción)
     const modalReporteros = document.getElementById("modal-reporteros");
     const modalObituario = document.getElementById("modal-obituario");
+    const modalSuscripcion = document.getElementById("modal-suscripcion");
     
     const btnReporteros = document.getElementById("trigger-reporteros-btn");
     const btnObituario = document.getElementById("trigger-obituario-btn");
+    const btnSuscripcion = document.getElementById("trigger-subscribe-btn");
 
     const closeReporteros = document.getElementById("close-reporteros");
     const closeObituario = document.getElementById("close-obituario");
+    const closeSuscripcion = document.getElementById("close-suscripcion");
 
     if (btnReporteros && modalReporteros) {
-        btnReporteros.addEventListener("click", () => {
+        btnReporteros.addEventListener("click", (e) => {
+            e.preventDefault();
             modalReporteros.style.display = "flex";
         });
     }
@@ -561,7 +584,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    const openObituario = () => {
+    const openObituario = (e) => {
+        if (e) e.preventDefault();
         if (modalObituario) modalObituario.style.display = "flex";
     };
 
@@ -573,10 +597,24 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    if (btnSuscripcion && modalSuscripcion) {
+        btnSuscripcion.addEventListener("click", (e) => {
+            e.preventDefault();
+            modalSuscripcion.style.display = "flex";
+        });
+    }
+
+    if (closeSuscripcion && modalSuscripcion) {
+        closeSuscripcion.addEventListener("click", () => {
+            modalSuscripcion.style.display = "none";
+        });
+    }
+
     // Close modals when clicking outside modal content
     window.addEventListener("click", (e) => {
         if (e.target === modalReporteros) modalReporteros.style.display = "none";
         if (e.target === modalObituario) modalObituario.style.display = "none";
+        if (e.target === modalSuscripcion) modalSuscripcion.style.display = "none";
     });
 
     // 12. DYNAMIC OBITUARIOS LOADING

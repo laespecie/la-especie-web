@@ -74,7 +74,7 @@
                 </a>
             </div>
             <div class="header-placeholder-right">
-                <a href="#" class="header-btn btn-subscribe">SUSCRÍBETE</a>
+                <a href="#" id="trigger-subscribe-btn" class="header-btn btn-subscribe">SUSCRÍBETE</a>
                 <a href="/admin/" class="login-link-top"><i class="fa-regular fa-user"></i> Acceso Redactores</a>
             </div>
         </div>
@@ -418,6 +418,22 @@
                 </ul>
             </div>
             <a href="mailto:contacto@laespecie.cl?subject=%5BADOPCION%5D%20Nueva%20Mascota%20para%20Adopcion&body=Hola%20Equipo%20de%20La%20Especie%2C%0A%0AQuiero%20publicar%20una%20mascota%20en%20adopci%C3%B3n%3A%0A-%20Nombre%3A%0A-%20Tipo%20(Perro%2FGato)%3A%0A-%20Ciudad%3A%0A-%20Edad%3A%0A-%20Raza%3A%0A-%20Sexo%3A%0A-%20Estado%20de%20salud%3A%0A-%20Condiciones%20de%20adopci%C3%B3n%3A%0A-%20Contacto%3A%0A-%20Breve%20descripci%C3%B3n%3A%0A%0A(No%20olvides%20adjuntar%20la%20fotograf%C3%ADa%20de%20la%20mascota%20a%20este%20correo)%0A%0ASaludos!" class="submit-btn-modal" style="display: block; text-align: center; text-decoration: none; font-weight: 700; background-color: var(--color-tenencia);">Enviar Datos por Correo <i class="fa-solid fa-paper-plane"></i></a>
+        </div>
+    </div>
+
+    <!-- MODAL: SUSCRIPCIÓN NEWSLETTER -->
+    <div id="modal-suscripcion" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <button class="modal-close" id="close-suscripcion">&times;</button>
+            <div class="modal-header" style="margin-bottom: 15px;">
+                <h2>Únete a la Manada 🐾</h2>
+                <p>Recibe todos los viernes nuestro boletín con las noticias más importantes sobre conservación, consejos veterinarios y la defensa de los derechos de los animales.</p>
+            </div>
+            <form id="modal-newsletter-form" class="newsletter-form" style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
+                <input type="email" id="modal-subscriber-email" placeholder="Tu correo electrónico" required aria-label="Correo electrónico" style="padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.95rem; width: 100%; box-sizing: border-box; background-color: var(--bg-color); color: var(--text-color);">
+                <button type="submit" class="submit-newsletter-btn" style="width: 100%; padding: 12px; background-color: var(--yellow-accent); color: #000000; font-weight: 700; border: none; border-radius: 6px; cursor: pointer; font-size: 0.95rem; transition: background-color var(--transition-speed);">Suscribirse</button>
+            </form>
+            <p class="form-feedback" id="modal-newsletter-feedback"></p>
         </div>
     </div>
 
