@@ -42,6 +42,52 @@
         }
       });
 
+      // Custom editor component for image gallery (Galeria de Imagenes)
+      CMS.registerEditorComponent({
+        id: "gallery",
+        label: "Galería de Imágenes",
+        fields: [
+          {
+            label: "Imágenes de la Galería",
+            name: "images",
+            widget: "list",
+            field: { label: "Imagen", name: "image", widget: "image" }
+          },
+          {
+            label: "Título de la Galería (Opcional)",
+            name: "title",
+            widget: "string",
+            required: false
+          }
+        ],
+        pattern: /^\[gallery(?: title="(.*?)")?\]\((.*?)\)$/,
+        fromBlock: function(match) {
+          return {
+            title: match[1] || "",
+            images: match[2] ? match[2].split(",").map(img => img.trim()).filter(Boolean) : []
+          };
+        },
+        toBlock: function(obj) {
+          const titleAttr = obj.title ? ` title="${obj.title}"` : "";
+          const imgList = Array.isArray(obj.images) ? obj.images.join(", ") : (obj.images || "");
+          return `[gallery${titleAttr}](${imgList})`;
+        },
+        toPreview: function(obj) {
+          const titleHtml = obj.title ? `<h3 style="margin-bottom: 8px; font-family: sans-serif; font-size: 1.1rem; color: #1e293b;">${obj.title}</h3>` : "";
+          const imgs = Array.isArray(obj.images) ? obj.images : (obj.images ? obj.images.split(",").map(img => img.trim()).filter(Boolean) : []);
+          const imgsHtml = imgs.map(img => `<img src="${img}" style="width: 80px; height: 60px; object-fit: cover; border-radius: 4px; border: 1px solid #cbd5e1;" />`).join(" ");
+          return `
+            <div style="margin: 20px 0; padding: 15px; border: 1px dashed #64748b; background-color: #f8fafc; border-radius: 6px;">
+              <span style="display: block; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; color: #64748b; letter-spacing: 0.5px; margin-bottom: 8px;">Galería de Imágenes</span>
+              ${titleHtml}
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                ${imgsHtml || '<span style="font-size: 0.85rem; color: #94a3b8; font-style: italic;">Sin imágenes seleccionadas</span>'}
+              </div>
+            </div>
+          `;
+        }
+      });
+
       // Custom preview template for articles to prevent React Error #130 crashes
       CMS.registerPreviewTemplate("posts", ({ entry, widgetFor }) => {
         const title = entry.getIn(['data', 'title']) || 'Sin Título';
