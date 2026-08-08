@@ -466,20 +466,9 @@
                           // Escape single quotes for HTML attribute safely
                           const safeImgList = imgString.replace(/'/g, "\\'");
                           
-                          let imagesHtml = images.map((img, idx) => `
-                              <div class="gallery-item" onclick="openLightbox(${idx}, '${img}', '${safeImgList}')">
-                                  <img src="${img}" alt="Imagen ${idx + 1}" loading="lazy">
-                              </div>
-                          `).join("");
+                          let imagesHtml = images.map((img, idx) => `<div class="gallery-item" onclick="openLightbox(${idx}, '${img}', '${safeImgList}')"><img src="${img}" alt="Imagen ${idx + 1}" loading="lazy"></div>`).join("");
                           
-                          return `
-                              <div class="article-gallery-container">
-                                  ${galleryTitleHtml}
-                                  <div class="article-gallery">
-                                      ${imagesHtml}
-                                  </div>
-                              </div>
-                          `;
+                          return `<div class="article-gallery-container">${galleryTitleHtml}<div class="article-gallery">${imagesHtml}</div></div>`;
                       });
 
                       bodyContainer.innerHTML = marked.parse(bodyHtml);

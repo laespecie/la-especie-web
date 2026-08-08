@@ -1,16 +1,18 @@
 export default async function handler(req, res) {
   const namespace = 'laespecie';
   
-  // Get date in Chile timezone to reset the counter daily based on local time
-  const chDate = new Date().toLocaleDateString('es-CL', {
+  // Get date components in Chile timezone to reset the counter daily based on local time
+  const formatter = new Intl.DateTimeFormat('es-CL', {
     timeZone: 'America/Santiago',
     year: 'numeric',
     month: '2-digit',
     day: '2-digit'
   });
-  
-  // Create a clean key for today's visits (e.g. visits_05_08_2026)
-  const dateKey = chDate.replace(/\//g, '_').replace(/-/g, '_');
+  const parts = formatter.formatToParts(new Date());
+  const day = parts.find(p => p.type === 'day').value;
+  const month = parts.find(p => p.type === 'month').value;
+  const year = parts.find(p => p.type === 'year').value;
+  const dateKey = `${day}_${month}_${year}`;
   const key = `visits_${dateKey}`;
   const cookieName = `visited_${dateKey}`;
   
