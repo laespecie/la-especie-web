@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   const month = parts.find(p => p.type === 'month').value;
   const year = parts.find(p => p.type === 'year').value;
   const dateKey = `${day}_${month}_${year}`;
-  const key = `visits_${dateKey}`;
+  const key = `laespecie_visits_${dateKey}`;
   const cookieName = `visited_${dateKey}`;
   
   // Check if the user has already been counted today
@@ -24,17 +24,17 @@ export default async function handler(req, res) {
   try {
     if (!hasVisitedToday) {
       // Increment the daily counter
-      const response = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/up`);
+      const response = await fetch(`https://countapi.mileshilliard.com/api/v1/hit/${key}`);
       const data = await response.json();
-      count = data.count;
+      count = data.value || 0;
       
       // Set cookie for 24 hours to prevent recount
       res.setHeader('Set-Cookie', `${cookieName}=1; Path=/; Max-Age=86400; SameSite=Lax; Secure`);
     } else {
       // Just read the current daily counter value
-      const response = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}`);
+      const response = await fetch(`https://countapi.mileshilliard.com/api/v1/get/${key}`);
       const data = await response.json();
-      count = data.count;
+      count = data.value || 0;
     }
   } catch (err) {
     console.error("Counter API error:", err);
