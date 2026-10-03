@@ -269,6 +269,15 @@ document.addEventListener("DOMContentLoaded", () => {
         return "category-default";
     }
 
+    // Helper: Get author HTML with profile link if available
+    function getAuthorHtml(author) {
+        const name = author || 'La Especie';
+        if (name.includes('Boris E. Figueroa') || name.includes('Boris')) {
+            return `<a href="/borisefigueroa" style="color: inherit; text-decoration: none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">${name}</a>`;
+        }
+        return name;
+    }
+
     // Helper: Create Hero HTML Card
     function createHeroHtml(post) {
         const div = document.createElement("article");
@@ -292,7 +301,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <h1 class="hero-title"><a href="${getPostUrl(post)}">${post.title}</a></h1>
                 <p class="hero-excerpt">${post.excerpt || ''}</p>
                 <div class="article-meta">
-                    <span class="author">Por <strong>${post.author || 'La Especie'}</strong></span>
+                    <span class="author">Por <strong>${getAuthorHtml(post.author)}</strong></span>
                     <span class="date"><i class="fa-regular fa-clock"></i> ${dateStr}</span>
                 </div>
             </div>
@@ -320,7 +329,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <h2 class="card-title"><a href="${getPostUrl(post)}">${post.title}</a></h2>
                 <p class="card-excerpt">${post.excerpt || ''}</p>
                 <div class="article-meta">
-                    <span class="author">Por <strong>${post.author || 'La Especie'}</strong></span>
+                    <span class="author">Por <strong>${getAuthorHtml(post.author)}</strong></span>
                     <span class="date">${dateStr}</span>
                 </div>
             </div>
@@ -347,7 +356,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="card-body">
                 <h2 class="card-title"><a href="${getPostUrl(post)}">${post.title}</a></h2>
                 <div class="article-meta">
-                    <span class="author">Por <strong>${post.author || 'La Especie'}</strong></span>
+                    <span class="author">Por <strong>${getAuthorHtml(post.author)}</strong></span>
                     <span class="date">${dateStr}</span>
                 </div>
             </div>

@@ -7,6 +7,10 @@
       "destination": "/admin/index.html"
     },
     {
+      "source": "/borisefigueroa",
+      "destination": "/borisefigueroa.html"
+    },
+    {
       "source": "/20:id",
       "destination": "/articulo?id=20:id"
     }

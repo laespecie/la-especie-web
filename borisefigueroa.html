@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boris E. Figueroa | La Especie</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css?v=2">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="profile">
+    <meta property="og:url" content="https://laespecie.cl/borisefigueroa">
+    <meta property="og:title" content="Boris E. Figueroa | La Especie">
+    <meta property="og:description" content="Artículos, reportajes y divulgación periodística por Boris E. Figueroa en La Especie, El Medio de los Animales.">
+    <meta property="og:image" content="https://laespecie.cl/logo-share.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://laespecie.cl/borisefigueroa">
+    <meta property="twitter:title" content="Boris E. Figueroa | La Especie">
+    <meta property="twitter:description" content="Artículos, reportajes y divulgación periodística por Boris E. Figueroa en La Especie, El Medio de los Animales.">
+    <meta property="twitter:image" content="https://laespecie.cl/logo-share.png">
+
+    <style>
+        .author-hero-card {
+            background-color: var(--ad-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 25px 0 35px 0;
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+        }
+        .author-avatar-badge {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background-color: var(--bg-color);
+            border: 3px solid var(--color-tenencia);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .author-details-wrapper {
+            flex: 1;
+        }
+        .author-meta-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .filter-pill-btn {
+            background-color: var(--ad-bg);
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+        }
+        .filter-pill-btn:hover, .filter-pill-btn.active {
+            background-color: var(--accent-color);
+            color: #ffffff;
+            border-color: var(--accent-color);
+        }
+        .author-search-box {
+            padding: 10px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-size: 0.85rem;
+            width: 100%;
+            max-width: 280px;
+            outline: none;
+            transition: border-color var(--transition-speed);
+        }
+        .author-search-box:focus {
+            border-color: var(--accent-color);
+        }
+        .load-more-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+        .load-more-btn {
+            background-color: var(--yellow-accent);
+            color: #000000;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 28px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: transform var(--transition-speed), background-color var(--transition-speed);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .load-more-btn:hover {
+            transform: translateY(-2px);
+            background-color: #eab308;
+        }
+        @media (max-width: 768px) {
+            .author-hero-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 25px 20px;
+            }
+            .author-meta-container {
+                justify-content: center;
+            }
+            .filter-bar-wrapper {
+                flex-direction: column;
+                align-items: stretch !important;
+            }
+            .author-search-box {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP UTILITY BAR -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="top-bar-left">
+                <span id="current-date"><i class="fa-regular fa-calendar"></i> Cargando fecha...</span>
+                <span class="weather-widget"><i class="fa-solid fa-cloud-sun"></i> Concepción: 12°C</span>
+            </div>
+            <div class="top-bar-right">
+                <a href="https://www.instagram.com/laespeciecl" target="_blank" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+                <span class="divider">|</span>
+                <button id="theme-toggle" class="theme-btn" aria-label="Cambiar tema">
+                    <i class="fa-solid fa-moon"></i> Modo Oscuro
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN BRAND HEADER -->
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="header-placeholder-left">
+                <a href="#" id="trigger-obituario-btn" class="header-btn btn-memorial"><i class="fa-solid fa-rainbow"></i> En Memoria</a>
+                <a href="#" id="trigger-reporteros-btn" class="header-btn btn-reporter"><i class="fa-solid fa-bullhorn"></i> Denuncia</a>
+            </div>
+            <div class="logo-wrapper">
+                <a href="/">
+                    <img src="logo.png" alt="La Especie - El Medio de los Animales" class="brand-logo">
+                </a>
+            </div>
+            <div class="header-placeholder-right">
+                <a href="#" class="header-btn btn-subscribe">SUSCRÍBETE</a>
+                <a href="/admin/" class="login-link-top"><i class="fa-regular fa-user"></i> Acceso Redactores</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- STICKY NAVBAR -->
+    <nav class="main-nav" id="sticky-navbar">
+        <div class="container nav-container">
+            <a href="/" class="menu-toggle-btn" style="display: block; font-weight: 700; text-transform: uppercase;">
+                <i class="fa-solid fa-arrow-left"></i> Volver a Portada
+            </a>
+            <ul class="nav-links">
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/#Nacional">Nacional</a></li>
+                <li><a href="/#Tenencia">Tenencia</a></li>
+                <li><a href="/#Ciencia">Ciencia</a></li>
+                <li><a href="/#Internacional">Internacional</a></li>
+                <li><a href="/#Ciudadanía">Ciudadanía</a></li>
+                <li><a href="/#Rescatistas">Rescatistas</a></li>
+                <li><a href="/#Opinión">Opinión</a></li>
+                <li><a href="/#Medioambiente">Medio Ambiente</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="container">
+        
+        <!-- BREADCRUMB -->
+        <div style="margin: 20px 0 10px 0; font-size: 0.85rem; color: var(--text-muted);">
+            <a href="/" style="color: var(--text-muted); text-decoration: none;">Inicio</a> &gt; 
+            <a href="/equipo-editorial" style="color: var(--text-muted); text-decoration: none;">Equipo Editorial</a> &gt; 
+            <span style="color: var(--accent-color); font-weight: 700;">Boris E. Figueroa</span>
+        </div>
+
+        <!-- AUTHOR PROFILE HERO -->
+        <div class="author-hero-card">
+            <div class="author-avatar-badge">
+                <i class="fa-solid fa-user-pen fa-3x" style="color: var(--color-tenencia);"></i>
+            </div>
+            <div class="author-details-wrapper">
+                <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 6px;">
+                    <h1 style="margin: 0; font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 800; color: var(--text-color);">Boris E. Figueroa</h1>
+                    <span class="section-badge" style="background-color: var(--color-tenencia); font-size: 0.7rem; padding: 4px 12px; border-radius: 20px;">Cofundador & Editor Técnico</span>
+                </div>
+                <p style="margin: 10px 0 16px 0; color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; max-width: 800px;">
+                    Especialista en desarrollo web, infraestructuras y medios digitales. Encargado del mantenimiento técnico de la plataforma, optimización de velocidad, hosting y administración del boletín informativo digital. Además, coordina las pautas de divulgación científica y tecnología de conservación en <strong>La Especie</strong>.
+                </p>
+                <div class="author-meta-container" style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                    <span class="author-meta-pill"><i class="fa-solid fa-newspaper" style="color: var(--accent-color);"></i> <span id="author-total-count">Cargando...</span> notas publicadas</span>
+                    <span class="author-meta-pill"><i class="fa-solid fa-location-dot" style="color: var(--color-tenencia);"></i> Concepción, Chile</span>
+                    <span class="author-meta-pill"><i class="fa-solid fa-paw" style="color: var(--yellow-accent);"></i> Periodismo Animal & Ciencia</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- LAYOUT GRID: ARTICLES (LEFT) + SIDEBAR (RIGHT) -->
+        <div class="main-layout-grid">
+            
+            <!-- FEED SECTION -->
+            <section class="news-feed-layout">
+                
+                <!-- SECTION TITLE & FILTER CONTROLS -->
+                <div class="filter-bar-wrapper" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid var(--border-color);">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span class="section-badge" style="background-color: var(--accent-color);">PUBLICACIONES</span>
+                        <h2 style="margin: 0; font-size: 1.4rem; font-family: 'Playfair Display', serif; color: var(--text-color);">Artículos de Boris E. Figueroa</h2>
+                    </div>
+                    <input type="text" id="author-search-input" class="author-search-box" placeholder="Buscar en estas notas...">
+                </div>
+
+                <!-- CATEGORY PILLS BAR -->
+                <div id="category-pills-bar" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 25px;">
+                    <button class="filter-pill-btn active" data-cat="all">Todas</button>
+                    <button class="filter-pill-btn" data-cat="Nacional">Nacional</button>
+                    <button class="filter-pill-btn" data-cat="Ciencia">Ciencia</button>
+                    <button class="filter-pill-btn" data-cat="Tenencia">Tenencia</button>
+                    <button class="filter-pill-btn" data-cat="Internacional">Internacional</button>
+                    <button class="filter-pill-btn" data-cat="Ciudadanía">Ciudadanía</button>
+                    <button class="filter-pill-btn" data-cat="Rescatistas">Rescatistas</button>
+                    <button class="filter-pill-btn" data-cat="Medioambiente">Medio Ambiente</button>
+                </div>
+
+                <!-- POSTS GRID -->
+                <div class="secondary-grid" id="author-posts-grid">
+                    <!-- Dynamic cards will be rendered here -->
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 50px 20px;">
+                        <i class="fa-solid fa-spinner fa-spin fa-2x" style="color: var(--accent-color);"></i>
+                        <p style="margin-top: 10px; color: var(--text-muted);">Cargando notas de Boris E. Figueroa...</p>
+                    </div>
+                </div>
+
+                <!-- LOAD MORE BUTTON -->
+                <div class="load-more-container" id="load-more-wrapper" style="display: none;">
+                    <button id="load-more-btn" class="load-more-btn">
+                        <i class="fa-solid fa-plus"></i> Cargar más artículos de Boris
+                    </button>
+                </div>
+
+            </section>
+
+            <!-- SIDEBAR -->
+            <aside class="sidebar-layout">
+                
+                <!-- SPONSOR BOX: COFRECITOS AD -->
+                <div class="sidebar-ad-box" style="padding: 0; border-radius: 8px; border: 1px solid var(--border-color); position: relative;">
+                    <span class="sidebar-ad-label" style="background-color: var(--bg-color); z-index: 10;">AUSPICIADOR</span>
+                    <a href="https://www.instagram.com/cofrecitosparaelcielo" target="_blank" style="display: block; width: 100%; height: 100%; overflow: hidden; border-radius: 8px;">
+                        <img src="cofrecitos-ad.jpg" alt="Cofrecitos para el Cielo" style="width: 100%; height: auto; display: block; transition: transform var(--transition-speed);" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    </a>
+                </div>
+
+                <!-- ABOUT THE AUTHOR WIDGET -->
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">SOBRE EL AUTOR</h3>
+                    <div style="background-color: var(--ad-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 18px; font-size: 0.9rem; line-height: 1.5; color: var(--text-muted);">
+                        <p style="margin-bottom: 12px;"><strong>Boris E. Figueroa</strong> forma parte del equipo fundacional de La Especie. Su trabajo editorial combina la rigurosidad científica con un lenguaje claro y cercano para visibilizar las problemáticas de la fauna silvestre, el bienestar animal y la ecología en Chile y el mundo.</p>
+                        <a href="/equipo-editorial" style="color: var(--accent-color); font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                            Conoce al equipo completo <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- LO ÚLTIMO (Dynamic List) -->
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">LO ÚLTIMO</h3>
+                    <div class="latest-news-list" id="latest-news-container">
+                        <p class="text-muted" style="font-size: 0.8rem;">Cargando novedades...</p>
+                    </div>
+                </div>
+
+                <!-- BANNER PUBLICITARIO EVOCAMAIL -->
+                <div class="sidebar-ad-box mobile-app-ad" style="position: relative; background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%); border: 1px solid #334155; border-radius: 12px; padding: 22px 18px; text-align: center; color: #ffffff; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
+                    <span class="sidebar-ad-label" style="background-color: #0f172a; color: #94a3b8; border: 1px solid #334155; border-radius: 4px; padding: 2px 6px;">AUSPICIADOR</span>
+                    <div style="margin: 10px 0 14px 0;">
+                        <img src="https://evocamail.com/logo-color.png" alt="EvocaMail" class="ad-sidebar-logo-img" style="height: 32px; width: auto; object-fit: contain; margin: 0 auto; display: block; filter: none !important;">
+                    </div>
+                    <h4 style="font-size: 1.05rem; font-weight: 700; color: #f8fafc; margin-bottom: 8px; line-height: 1.3;">Envía cartas y mensajes al futuro</h4>
+                    <p style="font-size: 0.85rem; color: #94a3b8; line-height: 1.4; margin-bottom: 18px;">
+                        Descarga la aplicación oficial de EvocaMail en Google Play y asegura tus recuerdos hoy mismo.
+                    </p>
+                    <a href="https://play.google.com/store/apps/details?id=com.evocamail.app" target="_blank" class="playstore-download-btn" style="display: flex; align-items: center; justify-content: center; gap: 10px; background-color: #000000; color: #ffffff; padding: 10px 18px; border-radius: 8px; border: 1px solid #475569; text-decoration: none; transition: transform var(--transition-speed), border-color var(--transition-speed); margin: 0 auto; max-width: 220px;" onmouseover="this.style.transform='scale(1.04)'; this.style.borderColor='#38bdf8';" onmouseout="this.style.transform='scale(1)'; this.style.borderColor='#475569';">
+                        <i class="fa-brands fa-google-play" style="font-size: 1.5rem; color: #38bdf8;"></i>
+                        <div class="btn-text" style="text-align: left; line-height: 1.1;">
+                            <span style="display: block; font-size: 0.65rem; color: #94a3b8; text-transform: uppercase;">Disponible en</span>
+                            <strong style="font-size: 0.95rem; color: #ffffff;">Google Play</strong>
+                        </div>
+                    </a>
+                </div>
+
+            </aside>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="main-footer-section">
+        <div class="container footer-content-wrapper">
+            <div class="footer-brand">
+                <img src="logo.png" alt="La Especie" class="footer-logo">
+                <p>El primer diario digital dedicado exclusivamente al periodismo animal, la ecología y el bienestar de todas las especies de nuestro entorno.</p>
+                <div class="footer-socials">
+                    <a href="https://www.instagram.com/laespeciecl" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a>
+                </div>
+            </div>
+            <div class="footer-links-grid">
+                <div class="footer-col">
+                    <h4>Secciones</h4>
+                    <ul>
+                        <li><a href="/#Nacional">Nacional</a></li>
+                        <li><a href="/#Tenencia">Tenencia</a></li>
+                        <li><a href="/#Ciencia">Ciencia</a></li>
+                        <li><a href="/#Internacional">Internacional</a></li>
+                        <li><a href="/#Ciudadanía">Ciudadanía</a></li>
+                        <li><a href="/#Rescatistas">Rescatistas</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Institucional</h4>
+                    <ul>
+                        <li><a href="/quienes-somos">Quiénes Somos</a></li>
+                        <li><a href="/equipo-editorial">Equipo Editorial</a></li>
+                        <li><a href="/contacto">Contacto</a></li>
+                        <li><a href="/alianzas-donaciones">Alianzas</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Comercial</h4>
+                    <ul>
+                        <li><a href="/tarifas-publicitarias">Tarifas Publicitarias</a></li>
+                        <li><a href="/auspiciar-boletin">Auspiciar Boletín</a></li>
+                        <li><a href="/admin/">Acceso Redacción</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom-bar">
+            <div class="container footer-bottom-content">
+                <p>&copy; 2026 La Especie. Todos los derechos reservados.</p>
+                <div class="footer-legal-links">
+                    <span>Periodismo Animal Independiente</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL: DENUNCIA (Corresponsales) -->
+    <div id="modal-reporteros" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <button class="modal-close" id="close-reporteros">&times;</button>
+            <div class="modal-header">
+                <h2>Buzón de Denuncia Ciudadana</h2>
+                <p>¿Fuiste testigo de maltrato animal, abandono o negligencia ambiental? Envíanos tus antecedentes para que nuestro equipo investigue.</p>
+            </div>
+            <a href="mailto:contacto@laespecie.cl?subject=%5BDENUNCIA%5D%20Denuncias%20de%20La%20Especie&body=Hola%20Equipo%20de%20La%20Especie%2C%0A%0AQuiero%20reportar%20una%20denuncia%3A%0A-%20Mi%20Nombre%3A%0A-%20Mi%20Tel%C3%A9fono%3A%0A-%20T%C3%ADtulo%20de%20la%20denuncia%3A%0A-%20Detalle%20de%20los%20hechos%3A%0A%0A(No%20olvides%20adjuntar%20las%20fotograf%C3%ADas%20o%20videos%20de%20respaldo%20a%20este%20correo)%0A%0ASaludos!" class="submit-btn-modal" style="display: block; text-align: center; text-decoration: none; font-weight: 700; background-color: #dc2626;">Enviar Correo de Denuncia <i class="fa-solid fa-envelope"></i></a>
+        </div>
+    </div>
+
+    <!-- MODAL: OBITUARIO DE MASCOTAS (EN MEMORIA) -->
+    <div id="modal-obituario" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <button class="modal-close" id="close-obituario">&times;</button>
+            <div class="modal-header" style="margin-bottom: 0;">
+                <h2><i class="fa-solid fa-rainbow" style="color: #7c3aed;"></i> El Cielo de las Mascotas</h2>
+                <p>Publica un memorial para recordar con amor a tu compañero que ya partió.</p>
+            </div>
+            <a href="mailto:contacto@laespecie.cl?subject=%5BOBITUARIO%5D%20El%20Cielo%20de%20las%20Mascotas&body=Hola%20Equipo%20de%20La%20Especie%2C%0A%0AQuiero%20publicar%20un%20memorial%20en%20El%20Cielo%20de%20las%20Mascotas%3A%0A-%20Nombre%20de%20mi%20mascota%3A%0A-%20A%C3%B1os%20de%20vida%3A%0A-%20Familia%20que%20lo%20despide%3A%0A-%20Epitafio%20o%20mensaje%20de%20despedida%3A%0A%0A(No%20olvides%20adjuntar%20la%20fotograf%C3%ADa%20de%20tu%20mascota%20a%20este%20correo)%0A%0ASaludos!" class="submit-btn-modal" style="display: block; text-align: center; text-decoration: none; font-weight: 700; background-color: #7c3aed;">Enviar Memorial por Correo <i class="fa-solid fa-envelope"></i></a>
+        </div>
+    </div>
+
+    <!-- MODAL: SUSCRIPCIÓN NEWSLETTER -->
+    <div id="modal-suscripcion" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <button class="modal-close" id="close-suscripcion">&times;</button>
+            <div class="modal-header" style="margin-bottom: 15px;">
+                <h2>Únete a la Manada 🐾</h2>
+                <p>Recibe todos los viernes nuestro boletín con las noticias más importantes sobre conservación, consejos veterinarios y la defensa de los derechos de los animales.</p>
+            </div>
+            <form id="modal-newsletter-form" class="newsletter-form" style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
+                <input type="email" id="modal-subscriber-email" placeholder="Tu correo electrónico" required aria-label="Correo electrónico" style="padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.95rem; width: 100%; box-sizing: border-box; background-color: var(--bg-color); color: var(--text-color);">
+                <button type="submit" class="submit-newsletter-btn" style="width: 100%; padding: 12px; background-color: var(--yellow-accent); color: #000000; font-weight: 700; border: none; border-radius: 6px; cursor: pointer; font-size: 0.95rem; transition: background-color var(--transition-speed);">Suscribirse</button>
+            </form>
+            <p class="form-feedback" id="modal-newsletter-feedback"></p>
+        </div>
+    </div>
+
+    <!-- GLOBAL SITE APP SCRIPT (Handles theme, top date, modals, footer) -->
+    <script src="app.js?v=4"></script>
+
+    <!-- AUTHOR PAGE LOGIC -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const authorGrid = document.getElementById("author-posts-grid");
+            const authorTotalCountEl = document.getElementById("author-total-count");
+            const searchInput = document.getElementById("author-search-input");
+            const pills = document.querySelectorAll(".filter-pill-btn");
+            const loadMoreWrapper = document.getElementById("load-more-wrapper");
+            const loadMoreBtn = document.getElementById("load-more-btn");
+
+            let borisPosts = [];
+            let currentFiltered = [];
+            let currentlyShown = 0;
+            const PAGE_SIZE = 12;
+
+            let activeCategory = "all";
+            let activeSearch = "";
+
+            // Helper: Category helpers
+            function getCategoryText(category) {
+                if (!category) return "";
+                if (Array.isArray(category)) return category.join(" / ").toUpperCase();
+                return String(category).toUpperCase();
+            }
+
+            function getCategoryClass(category) {
+                const mainCat = Array.isArray(category) ? category[0] : category;
+                if (mainCat === "Nacional") return "category-nacional";
+                if (mainCat === "Tenencia") return "category-tenencia";
+                if (mainCat === "Ciencia") return "category-ciencia";
+                if (mainCat === "Internacional") return "category-internacional";
+                if (mainCat === "Ciudadanía") return "category-ciudadania";
+                if (mainCat === "Rescatistas") return "category-rescatistas";
+                if (mainCat === "Opinión") return "category-opinion";
+                if (mainCat === "Medio ambiente" || mainCat === "Medioambiente") return "category-medioambiente";
+                return "category-default";
+            }
+
+            function formatDate(dateString) {
+                if (!dateString) return 'Reciente';
+                const dateObj = new Date(dateString);
+                if (isNaN(dateObj.getTime())) return 'Reciente';
+                return dateObj.toLocaleDateString('es-CL', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric'
+                });
+            }
+
+            function getPostUrl(post) {
+                if (!post.id) return '#';
+                return `/${post.id}`;
+            }
+
+            function createCard(post) {
+                const card = document.createElement("article");
+                card.className = "news-card";
+
+                const categoryClass = getCategoryClass(post.category);
+                const categoryText = getCategoryText(post.category);
+                const imageSrc = post.image || 'https://images.unsplash.com/photo-1444212477490-ca407925329e?auto=format&fit=crop&q=80&w=400';
+                const dateStr = formatDate(post.date);
+
+                card.innerHTML = `
+                    <div class="card-img-container">
+                        <img src="${imageSrc}" alt="${post.title}" class="article-img" loading="lazy">
+                        <span class="card-category ${categoryClass}">${categoryText}</span>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="card-title"><a href="${getPostUrl(post)}">${post.title}</a></h2>
+                        <p class="card-excerpt">${post.excerpt || ''}</p>
+                        <div class="article-meta">
+                            <span class="author">Por <strong>${post.author || 'Boris E. Figueroa'}</strong></span>
+                            <span class="date">${dateStr}</span>
+                        </div>
+                    </div>
+                `;
+                return card;
+            }
+
+            // Fetch posts
+            fetch('/posts-index.json')
+                .then(res => res.json())
+                .then(posts => {
+                    const now = new Date();
+                    // Filter exclusively posts by Boris and ignore future scheduled dates
+                    borisPosts = posts.filter(p => {
+                        const isFuture = p.date && new Date(p.date) > now;
+                        if (isFuture) return false;
+                        const author = p.author || '';
+                        return author.includes('Boris E. Figueroa') || author.includes('Boris');
+                    });
+
+                    // Sort newest first
+                    borisPosts.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+
+                    if (authorTotalCountEl) {
+                        authorTotalCountEl.textContent = borisPosts.length;
+                    }
+
+                    applyFilters();
+                })
+                .catch(err => {
+                    console.error("Error loading author posts:", err);
+                    if (authorGrid) {
+                        authorGrid.innerHTML = `
+                            <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px;">
+                                <p style="color: var(--accent-color);">No se pudieron cargar los artículos en este momento.</p>
+                            </div>
+                        `;
+                    }
+                });
+
+            function applyFilters() {
+                currentFiltered = borisPosts.filter(p => {
+                    // Category filter
+                    if (activeCategory !== "all") {
+                        if (!p.category) return false;
+                        if (Array.isArray(p.category)) {
+                            const match = p.category.some(c => c.toLowerCase() === activeCategory.toLowerCase());
+                            if (!match) return false;
+                        } else {
+                            if (p.category.toLowerCase() !== activeCategory.toLowerCase()) return false;
+                        }
+                    }
+
+                    // Search keyword filter
+                    if (activeSearch) {
+                        const q = activeSearch.toLowerCase();
+                        const titleMatch = (p.title || '').toLowerCase().includes(q);
+                        const excerptMatch = (p.excerpt || '').toLowerCase().includes(q);
+                        if (!titleMatch && !excerptMatch) return false;
+                    }
+
+                    return true;
+                });
+
+                // Reset pagination
+                currentlyShown = 0;
+                authorGrid.innerHTML = "";
+
+                if (currentFiltered.length === 0) {
+                    authorGrid.innerHTML = `
+                        <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; border: 1px dashed var(--border-color); border-radius: 8px;">
+                            <i class="fa-regular fa-folder-open fa-3x" style="color: var(--text-muted); margin-bottom: 15px;"></i>
+                            <h3>No se encontraron notas</h3>
+                            <p style="color: var(--text-muted); margin-top: 5px;">No hay publicaciones de Boris que coincidan con los filtros seleccionados.</p>
+                        </div>
+                    `;
+                    loadMoreWrapper.style.display = "none";
+                    return;
+                }
+
+                renderNextBatch();
+            }
+
+            function renderNextBatch() {
+                const nextBatch = currentFiltered.slice(currentlyShown, currentlyShown + PAGE_SIZE);
+                nextBatch.forEach(post => {
+                    const card = createCard(post);
+                    authorGrid.appendChild(card);
+                });
+                currentlyShown += nextBatch.length;
+
+                if (currentlyShown < currentFiltered.length) {
+                    loadMoreWrapper.style.display = "block";
+                    loadMoreBtn.innerHTML = `<i class="fa-solid fa-plus"></i> Cargar más artículos (${currentFiltered.length - currentlyShown} restantes)`;
+                } else {
+                    loadMoreWrapper.style.display = "none";
+                }
+            }
+
+            // Events
+            if (loadMoreBtn) {
+                loadMoreBtn.addEventListener("click", () => {
+                    renderNextBatch();
+                });
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener("input", (e) => {
+                    activeSearch = e.target.value.trim();
+                    applyFilters();
+                });
+            }
+
+            pills.forEach(pill => {
+                pill.addEventListener("click", () => {
+                    pills.forEach(p => p.classList.remove("active"));
+                    pill.classList.add("active");
+                    activeCategory = pill.getAttribute("data-cat");
+                    applyFilters();
+                });
+            });
+        });
+    </script>
+</body>
+</html>
