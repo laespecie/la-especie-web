@@ -334,13 +334,7 @@
                     document.title = `${post.title} | La Especie`;
                     document.getElementById("article-title").textContent = post.title;
                     document.getElementById("article-excerpt").textContent = post.excerpt || "";
-                    const authorEl = document.getElementById("article-author");
-                    const authorName = post.author || "La Especie";
-                    if (authorName.includes("Boris E. Figueroa") || authorName.includes("Boris")) {
-                        authorEl.innerHTML = `<a href="/borisefigueroa" style="color: inherit; text-decoration: underline; text-decoration-color: var(--accent-color); transition: color var(--transition-speed);" onmouseover="this.style.color='var(--accent-color)'" onmouseout="this.style.color='inherit'">${authorName}</a>`;
-                    } else {
-                        authorEl.textContent = authorName;
-                    }
+                    document.getElementById("article-author").textContent = post.author || "La Especie";
                     
                     // Set category color badge
                     const badge = document.getElementById("article-badge");
