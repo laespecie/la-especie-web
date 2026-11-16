@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sin Conexión | La Especie</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2E7D32">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        :root {
+            --accent-green: #2E7D32;
+            --accent-dark: #1B5E20;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0f172a;
+                --card-bg: #1e293b;
+                --text-color: #f8fafc;
+                --text-muted: #94a3b8;
+                --border-color: #334155;
+            }
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-align: center;
+        }
+        .offline-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px 24px;
+            max-width: 460px;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+        .brand-logo {
+            max-height: 55px;
+            width: auto;
+            margin-bottom: 25px;
+        }
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            background-color: rgba(46, 125, 50, 0.12);
+            color: var(--accent-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2.2rem;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7rem;
+            margin-bottom: 12px;
+            color: var(--text-color);
+        }
+        p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+        .btn-retry {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background-color: var(--accent-green);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 12px 24px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            width: 100%;
+            max-width: 260px;
+        }
+        .btn-retry:hover {
+            background-color: var(--accent-dark);
+            transform: translateY(-1px);
+        }
+        .btn-retry:active {
+            transform: translateY(0);
+        }
+        .footer-note {
+            margin-top: 25px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-card">
+        <a href="/">
+            <img src="/logo.png" alt="La Especie" class="brand-logo">
+        </a>
+        <div class="icon-circle">
+            <i class="fa-solid fa-wifi-slash"></i>
+        </div>
+        <h1>Sin conexión a Internet</h1>
+        <p>Parece que perdiste la señal de red. Las noticias que ya abriste siguen guardadas en tu dispositivo, pero necesitas reconectarte para cargar nuevo contenido.</p>
+        <button onclick="window.location.reload()" class="btn-retry">
+            <i class="fa-solid fa-rotate-right"></i> Reintentar Conexión
+        </button>
+        <div class="footer-note">
+            <a href="/" style="color: var(--accent-green); text-decoration: none; font-weight: 600;">
+                <i class="fa-solid fa-arrow-left"></i> Volver a Portada
+            </a>
+        </div>
+    </div>
+</body>
+</html>
