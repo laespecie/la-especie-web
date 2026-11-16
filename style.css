@@ -2278,4 +2278,153 @@ blockquote.tiktok-embed,
     }
 }
 
+/* ==============================================================
+   PUSH NOTIFICATIONS & PWA ALERTS
+   ============================================================== */
+.push-alert-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: rgba(46, 125, 50, 0.15);
+    color: #2E7D32;
+    border: 1px solid rgba(46, 125, 50, 0.3);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+}
+[data-theme="dark"] .push-alert-btn {
+    background-color: rgba(46, 125, 50, 0.25);
+    color: #4ade80;
+    border-color: rgba(74, 222, 128, 0.4);
+}
+.push-alert-btn:hover {
+    background-color: #2E7D32;
+    color: #ffffff;
+    border-color: #2E7D32;
+}
+.push-alert-btn.active {
+    background-color: #2E7D32;
+    color: #ffffff;
+    border-color: #2E7D32;
+}
+[data-theme="dark"] .push-alert-btn.active {
+    background-color: #15803d;
+    color: #ffffff;
+}
+
+/* Floating Notification Permission Banner/Prompt */
+.push-prompt-card {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    max-width: 380px;
+    width: calc(100% - 48px);
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22);
+    padding: 20px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes slideUpFade {
+    from { opacity: 0; transform: translateY(24px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.push-prompt-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.push-prompt-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #2E7D32, #15803d);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3);
+}
+.push-prompt-title {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 0.98rem;
+    color: var(--text-color);
+    line-height: 1.25;
+    margin: 0;
+}
+.push-prompt-body {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+    margin: 0;
+}
+.push-prompt-sound-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.73rem;
+    color: #2E7D32;
+    background: rgba(46, 125, 50, 0.1);
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-weight: 600;
+    margin-top: 4px;
+}
+[data-theme="dark"] .push-prompt-sound-badge {
+    color: #4ade80;
+    background: rgba(74, 222, 128, 0.15);
+}
+.push-prompt-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+}
+.btn-push-accept {
+    flex: 1;
+    background-color: #2E7D32;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: background-color 0.2s, transform 0.1s;
+}
+.btn-push-accept:hover {
+    background-color: #1b5e20;
+    transform: translateY(-1px);
+}
+.btn-push-dismiss {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-push-dismiss:hover {
+    background-color: var(--ad-bg);
+    color: var(--text-color);
+}
+
+
 

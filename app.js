@@ -936,17 +936,203 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// ==========================================
-// PWA: SERVICE WORKER REGISTRATION
-// ==========================================
+// ==============================================================
+// PWA & SISTEMA DE NOTIFICACIONES PUSH CON AUDIO PERSONALIZADO
+// ==============================================================
+let pwaServiceWorkerRegistration = null;
+
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js')
             .then(reg => {
+                pwaServiceWorkerRegistration = reg;
                 console.log('[PWA] Service Worker registrado con éxito:', reg.scope);
+                initPushNotificationSystem();
             })
             .catch(err => {
                 console.warn('[PWA] Error al registrar Service Worker:', err);
+                initPushNotificationSystem();
             });
     });
+} else {
+    document.addEventListener('DOMContentLoaded', () => {
+        initPushNotificationSystem();
+    });
+}
+
+function initPushNotificationSystem() {
+    setupTopBarAlertButton();
+    checkInitialNotificationPrompt();
+}
+
+// Reproducir el trino característico de La Especie
+function playBirdChirp() {
+    try {
+        const audio = new Audio('/sounds/la-especie-alert.ogg');
+        audio.volume = 0.9;
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(err => {
+                console.log('[Audio] Reproducción asistida por interacción de usuario:', err);
+            });
+        }
+    } catch (e) {
+        console.warn('Error al reproducir audio de alerta:', e);
+    }
+}
+
+// Configurar botón de campanita en la barra superior de todas las páginas
+function setupTopBarAlertButton() {
+    const topBarRights = document.querySelectorAll('.top-bar-right');
+    topBarRights.forEach(bar => {
+        if (bar.querySelector('#btn-push-notifications')) return;
+        
+        const btn = document.createElement('button');
+        btn.id = 'btn-push-notifications';
+        btn.className = 'theme-btn push-alert-btn';
+        btn.setAttribute('aria-label', 'Activar notificaciones de noticias');
+        
+        const isGranted = ('Notification' in window) && Notification.permission === 'granted';
+        btn.innerHTML = isGranted 
+            ? '<i class="fa-solid fa-bell"></i> <span id="push-btn-text">Alertas Activas ✓</span>'
+            : '<i class="fa-regular fa-bell"></i> <span id="push-btn-text">Alertas</span>';
+            
+        if (isGranted) btn.classList.add('active');
+
+        btn.addEventListener('click', () => {
+            requestPushPermission(true);
+        });
+
+        const themeBtn = bar.querySelector('#theme-toggle');
+        if (themeBtn) {
+            bar.insertBefore(btn, themeBtn);
+            const sep = document.createElement('span');
+            sep.className = 'divider';
+            sep.textContent = '|';
+            bar.insertBefore(sep, themeBtn);
+        } else {
+            bar.appendChild(btn);
+        }
+    });
+}
+
+// Invitar al lector tras 3.5 segundos de navegación
+function checkInitialNotificationPrompt() {
+    if (!('Notification' in window)) return;
+    if (Notification.permission === 'granted' || Notification.permission === 'denied') return;
+
+    const dismissedTime = localStorage.getItem('laespecie_push_dismissed');
+    if (dismissedTime && (Date.now() - parseInt(dismissedTime, 10)) < (5 * 24 * 60 * 60 * 1000)) {
+        return; // Respeta el descarte por 5 días
+    }
+
+    setTimeout(() => {
+        showPushPromptCard();
+    }, 3500);
+}
+
+function showPushPromptCard() {
+    if (document.getElementById('pushPromptCard')) return;
+
+    const card = document.createElement('div');
+    card.id = 'pushPromptCard';
+    card.className = 'push-prompt-card';
+    card.innerHTML = `
+        <div class="push-prompt-header">
+            <div class="push-prompt-icon">
+                <i class="fa-solid fa-dove"></i>
+            </div>
+            <div>
+                <h4 class="push-prompt-title">¿Recibir alertas de La Especie?</h4>
+                <span class="push-prompt-sound-badge"><i class="fa-solid fa-volume-high"></i> Con sonido de pajarito</span>
+            </div>
+        </div>
+        <p class="push-prompt-body">
+            Entérate al instante de rescates de fauna, urgencias veterinarias, denuncias y las notas más importantes de bienestar animal en Chile.
+        </p>
+        <div class="push-prompt-actions">
+            <button class="btn-push-accept" id="btnPushAccept">
+                <i class="fa-solid fa-bell"></i> Activar Alertas 🐾
+            </button>
+            <button class="btn-push-dismiss" id="btnPushDismiss">
+                Más tarde
+            </button>
+        </div>
+    `;
+
+    document.body.appendChild(card);
+
+    document.getElementById('btnPushAccept').addEventListener('click', () => {
+        requestPushPermission(false);
+    });
+
+    document.getElementById('btnPushDismiss').addEventListener('click', () => {
+        dismissPushPrompt();
+    });
+}
+
+function dismissPushPrompt() {
+    const card = document.getElementById('pushPromptCard');
+    if (card) {
+        card.style.animation = 'slideUpFade 0.3s cubic-bezier(0.16, 1, 0.3, 1) reverse forwards';
+        setTimeout(() => card.remove(), 300);
+    }
+    localStorage.setItem('laespecie_push_dismissed', Date.now().toString());
+}
+
+async function requestPushPermission(isManualClick = false) {
+    if (!('Notification' in window)) {
+        alert('Este navegador no es compatible con notificaciones web.');
+        return;
+    }
+
+    // Suena el pajarito como respuesta táctil y sonora al clic
+    playBirdChirp();
+
+    try {
+        const permission = await Notification.requestPermission();
+        dismissPushPrompt();
+
+        const btn = document.getElementById('btn-push-notifications');
+        const btnText = document.getElementById('push-btn-text');
+
+        if (permission === 'granted') {
+            if (btn) {
+                btn.classList.add('active');
+                btn.innerHTML = '<i class="fa-solid fa-bell"></i> <span id="push-btn-text">Alertas Activas ✓</span>';
+            }
+            localStorage.setItem('laespecie_push_status', 'granted');
+
+            // Disparar notificación oficial de bienvenida al celular
+            sendWelcomeNotification();
+        } else if (permission === 'denied') {
+            if (btn) {
+                btn.classList.remove('active');
+                if (btnText) btnText.textContent = 'Bloqueadas ✕';
+            }
+            if (isManualClick) {
+                alert('Las notificaciones están bloqueadas en tu navegador. Puedes habilitarlas en el candado junto a la dirección web laespecie.cl.');
+            }
+        }
+    } catch (err) {
+        console.error('Error al solicitar permiso de notificación:', err);
+    }
+}
+
+function sendWelcomeNotification() {
+    const title = '🐾 ¡Bienvenido a La Especie!';
+    const options = {
+        body: 'Alertas activadas con éxito. Te avisaremos cuando haya rescates urgentes o nuevos reportajes de investigación.',
+        icon: '/icon-192.png',
+        badge: '/icon-192.png',
+        vibrate: [200, 100, 200],
+        tag: 'laespecie-welcome',
+        data: { url: '/' }
+    };
+
+    if (pwaServiceWorkerRegistration && pwaServiceWorkerRegistration.showNotification) {
+        pwaServiceWorkerRegistration.showNotification(title, options);
+    } else {
+        new Notification(title, options);
+    }
 }
